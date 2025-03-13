@@ -13,15 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('group_permission', function (Blueprint $table) {
-            $table->increments('id'); // Using increments for an auto-incrementing primary key
-            $table->string('module_name', 255);
-            $table->string('form_name', 255);
-            $table->string('route', 255);
-            $table->string('permission_id', 16);
-            $table->string('permission_name', 32);
-            $table->decimal('sort_order', 11, 3)->default(0.000);        
-        });
+        // Schema::create('group_permission', function (Blueprint $table) {
+        //     $table->increments('id'); // Using increments for an auto-incrementing primary key
+        //     $table->string('module_name', 255);
+        //     $table->string('form_name', 255);
+        //     $table->string('route', 255);
+        //     $table->string('permission_id', 16);
+        //     $table->string('permission_name', 32);
+        //     $table->decimal('sort_order', 11, 3)->default(0.000);        
+        // });
     }
 
     /**
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('group_permission');
+        // Schema::dropIfExists('group_permission');
     }
 };

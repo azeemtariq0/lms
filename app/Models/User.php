@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Session;
 
 class User extends Authenticatable
 {
@@ -57,10 +58,10 @@ class User extends Authenticatable
     }
 
     // Check if the user has a specific permission
-    public function hasPermissionTo($action, $type = 'user_permission')
+    public function hasPermissionTo($type ,$action, )
     {
-        $permissions = $this->permissions()->where('name', 'admin')->first()->permission ?? [];
-
+        $permission_id = Session::get('permission_id');
+        $permissions = $this->permissions()->where('permission_id', $permission_id)->first()->permission ?? [];
         return isset($permissions[$type][$action]) && $permissions[$type][$action] == '1';
     }
 

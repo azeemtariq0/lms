@@ -148,6 +148,17 @@ if(!empty($data)){
         $(document).ajaxStop(function() {
           $("#overlay").fadeOut(300);　
         });
+
+        $(document).on('change','#change-permission',function (argument) {
+            $.ajax({
+                url:'<?php echo url('admin/change-permission') ?>',
+                type:'post',
+                data:{'permission_id':$(this).val(),"_token": "{{ csrf_token() }}"},
+                success:function(){
+                    location.reload();
+                }
+            });
+        });
         
 
     </script>

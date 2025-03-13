@@ -30,8 +30,8 @@ class AuthServiceProvider extends ServiceProvider
         foreach ($permissions as $permission) {
             // Define gates for each action in the permission JSON
             // dd($permission->permission );
-            $abilities = $permission->permission;
-
+            $abilities = json_decode($permission->permission,true);
+      
 
 
             foreach ($abilities as $category => $actions) {
@@ -41,8 +41,10 @@ class AuthServiceProvider extends ServiceProvider
                         // Define the gate dynamically for each action in the permission
                         Gate::define("{$category}.{$action}", function (User $user) use ($permission, $category, $action) {
 
+                            // d($category);
 
-                            return $user->hasPermission($category, $action);
+
+                            return $user->hasPermissionTo($category, $action);
                         });
                     }
                 }
@@ -50,3 +52,9 @@ class AuthServiceProvider extends ServiceProvider
         }
     }
 }
+
+
+
+
+
+

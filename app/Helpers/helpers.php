@@ -25,3 +25,19 @@ function htmDeleteBtn($url,$id){
             $btn.= '</form>';
             return  $btn;
     }
+
+
+
+if (!function_exists('hasPermission')) {
+    function hasPermission($permission)
+    {
+        // Get the current user's permissions from the permission table
+        $permissions = json_decode(auth()->user()->permissions->first()->permission, true);
+
+        // Split permission string (e.g., 'user.add')
+        $parts = explode('.', $permission);
+
+        // Check if the permission exists in the JSON and is set to 1 (granted)
+        return isset($permissions[$parts[0]][$parts[1]]) && $permissions[$parts[0]][$parts[1]] === 1;
+    }
+}

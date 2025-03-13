@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\LookupController;
 
 // Regular user routes
 
@@ -65,4 +66,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
      Route::resource('permissions', PermissionController::class);
      Route::resource('notifications', NotificationController::class);
      Route::resource('banners', BannerController::class);
+
+
+     Route::post('change-permission', [LookupController::class,'changePermission']);
 });

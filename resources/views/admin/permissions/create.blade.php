@@ -81,7 +81,7 @@
 
                 <div class="panel-body">
 
-                   <form class="validate" action="{{ route('admin.permissions.store')}}" method="post" data-success="Sent! Thank you!" data-toastr-position="top-right">
+                   <form  action="{{ route('admin.permissions.store')}}" method="post" >
                     @csrf
                     <fieldset>
                         <!-- required [php action request] -->

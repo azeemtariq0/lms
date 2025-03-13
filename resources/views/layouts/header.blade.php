@@ -17,6 +17,20 @@
     </span>
     </form>
 
+
+     <form method="get" action="page-search.html" class=" pull-left hidden-xs ml-2">
+    <span >
+        @php  $permission = json_decode(auth()->user()->permission_id,true);  @endphp
+        <select class="form-control" id="change-permission">
+            <option value=""></option>
+            @foreach($permission as $value)
+              <option value="{{$value}}"  >{{$value}}</option>
+            @endforeach
+        </select>
+    </span>
+    </form>
+    
+
     <nav>
 
         <!-- OPTIONS LIST -->

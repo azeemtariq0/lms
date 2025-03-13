@@ -136,7 +136,7 @@ class PermissionController extends Controller
                 'route' => $route,
                 'permission_id' => $permission_id,
                 'permission_name' => $permission_name,
-                'selected' => (isset($permission->permission->$route->$permission_id)? $permission->permission->$route->$permission_id : 0),
+                'selected' => (isset($permission->permission[$route][$permission_id])? $permission->permission[$route][$permission_id] : 0),
             ];
         }
 
@@ -167,7 +167,8 @@ class PermissionController extends Controller
 
         if(empty($permission)) return $this->jsonResponse([],404," Permission Not Found!");
 
-        $permission->permission = json_decode($permission->permission);
+        $permission->permission = json_decode($permission->permission,true);
+
 
         $arrPermissions = [];
          foreach($controls as $value) {
@@ -183,7 +184,7 @@ class PermissionController extends Controller
                 'route' => $route,
                 'permission_id' => $permission_id,
                 'permission_name' => $permission_name,
-                'selected' => (isset($permission->permission->$route->$permission_id)? $permission->permission->$route->$permission_id : 0),
+                'selected' => (isset($permission->permission[$route][$permission_id])? $permission->permission[$route][$permission_id] : 0),
             ];
         }
 

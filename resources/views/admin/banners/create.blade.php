@@ -38,9 +38,10 @@
 
                     
                             @if(!isset($banner->id))
-                             <form  action="{{ route('admin.banners.store')}}" method="post" id="users_form">
+                             <form   action="{{ route('admin.banners.store')}}" method="post" id="banners_form">
                             @else
-                               <form  action="{{ route('admin.banners.update', ['banner' => $banner->id]) }}" method="PATCH" id="banners_form">
+                               <form   action="{{ route('admin.banners.update', $banner->id) }}" method="POST" id="banners_form">
+                                @method('PATCH')
 
                             @endif
 

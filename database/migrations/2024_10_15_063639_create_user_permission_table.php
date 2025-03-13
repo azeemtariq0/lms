@@ -13,15 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('permissions', function (Blueprint $table) {
-            $table->char('id', 40)->primary();
-            $table->string('name', 64);
-            $table->text('permission');
-            $table->char('created_by', 40)->nullable();
-            $table->dateTime('created_at')->default(DB::raw('current_timestamp()'));
-            $table->char('updated_by', 40)->nullable();
-            $table->dateTime('updated_at')->nullable()->default(DB::raw('current_timestamp() ON UPDATE current_timestamp()'));
-        });
+        // Schema::create('permissions', function (Blueprint $table) {
+        //     $table->char('id', 40)->primary();
+        //     $table->string('name', 64);
+        //     $table->text('permission');
+        //     $table->char('created_by', 40)->nullable();
+        //     $table->dateTime('created_at')->default(DB::raw('current_timestamp()'));
+        //     $table->char('updated_by', 40)->nullable();
+        //     $table->dateTime('updated_at')->nullable()->default(DB::raw('current_timestamp() ON UPDATE current_timestamp()'));
+        // });
     }
 
     /**
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('permissions');
+        // Schema::dropIfExists('permissions');
     }
 };

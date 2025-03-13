@@ -36,16 +36,17 @@
                                         <a href="{{ route('admin.permissions.index') }}">Permissions</a>
                                     </li>
 
-                                    @can('list', 'user')
+                                    @can('user.add')
                                     <li class="{{ \Request::segment(1) == 'admin' && \Request::segment(2) == 'users' ? 'active' : '' }}">
                                         <a href="{{ route('admin.users.index') }}">Users</a>
                                     </li>
                                     @endcan
 
-
+                                     @can('banners.add')
                                     <li class="{{ \Request::segment(1) == 'admin' && \Request::segment(2) == 'banners' ? 'active' : '' }}">
                                         <a href="{{ route('admin.banners.index') }}">Banners</a>
                                     </li>
+                                    @endcan
                                  
                                     
 

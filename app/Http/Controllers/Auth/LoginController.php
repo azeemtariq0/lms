@@ -26,10 +26,12 @@ class LoginController extends Controller
         // Check credentials and if the user is an admin
         if (Auth::attempt($credentials) && Auth::user()->is_admin) {
 
-            $permissions = Permission::where('id',1)->first();
-              Session::put('user_permissions', $permissions);
-            // dd($permission->permission);
 
+            $ids = json_decode(auth()->user()->permission_id,true);
+            $permissions = Permission::whereIn('id',$ids)->first();
+              Session::put('user_permissions', $permissions);
+              Session::put('permission_id', $permissions->id);
+            
             return redirect()->route('admin.dashboard');
         }
 
