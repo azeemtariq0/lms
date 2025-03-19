@@ -1,20 +1,11 @@
 <footer class="bg-[#1B4D3E] text-white py-5">
-        <div class="container mx-auto grid md:grid-cols-3">
-            <div class="mb-6 md:mb-0">
-                <div class="flex gap-3 justify-center md:justify-start items-center"><img class="h-8 rounded-lg"
-                        src="{{asset('assets/images/navbar-logo.png')}}" />
-                    <h1 class="text-lg font-light text-[#FFDE79]">LMS Dawat-e-Islami</h1>
-                </div>
-
+    <div class="container py-5 mx-auto grid md:grid-cols-3">
+        <div class="mb-6 py-2 md:py-10 md:mb-0">
+            <div class="flex gap-3 justify-center md:justify-start items-center mb-3"><img class="h-14 rounded-lg"
+                    src="{{ asset('assets/images/navbar-logo.png') }}" />
             </div>
-            <div class="flex flex-col md:justify-center items-center md:flex-row space-y-4 md:space-y-0 md:space-x-8">
-                <a href="#" class="text-sm font-light text-white/80 hover:text-white">Home</a>
-                <a href="#" class="text-sm font-light text-white/80 hover:text-white">Courses</a>
-                <a href="#" class="text-sm font-light text-white/80 hover:text-white">About Us</a>
-                <a href="#" class="text-sm font-light text-white/80 hover:text-white">Contact Us</a>
-                <a href="#" class="text-sm font-light text-white/80 hover:text-white">Events</a>
-            </div>
-            <div class="w-full flex items-center justify-center space-x-4 mt-6 md:mt-0 ">
+            <p class="font-light text-center md:text-left">Educating Today for a Brighter Tomorrow with LMS</p>
+            <div class="w-full flex items-center justify-center md:justify-start space-x-4 pt-6 md:mt-0 ">
                 <a href="#" class=" text-sm font-light text-white/80 hover:text-white">
                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                         <path
@@ -35,43 +26,81 @@
                 </a>
             </div>
         </div>
-        <div class="container mx-auto mt-4 text-center ">
-            <p class="text-sm">&copy; 2023 Your Company. All rights reserved.</p>
+        <div
+            class="flex gap-4 md:gap-10 mx-auto flex-col md:flex-row border-y border-[#FFDE79]/50 md:border-0 py-10 my-5 md:my-0 text-center md:text-left">
+            <div class="flex flex-col gap-4">
+                <a href="#" class="text-sm font-light text-white/80 hover:text-white"><i
+                        class="fa-regular text-xs mr-1 text-[#FFDE79] fa-arrow-right"></i> Home</a>
+                <a href="#" class="text-sm font-light text-white/80 hover:text-white"><i
+                        class="fa-regular text-xs mr-1 text-[#FFDE79] fa-arrow-right"></i> Courses</a>
+                <a href="#" class="text-sm font-light text-white/80 hover:text-white"><i
+                        class="fa-regular text-xs mr-1 text-[#FFDE79] fa-arrow-right"></i> Gallery</a>
+                <a href="#" class="text-sm font-light text-white/80 hover:text-white"><i
+                        class="fa-regular text-xs mr-1 text-[#FFDE79] fa-arrow-right"></i> About Us</a>
+            </div>
+            <div class="flex flex-col gap-4">
+                <a href="#" class="text-sm font-light text-white/80 hover:text-white"><i
+                        class="fa-regular text-xs mr-1 text-[#FFDE79] fa-arrow-right"></i> Contact Us</a>
+                <a href="#" class="text-sm font-light text-white/80 hover:text-white"><i
+                        class="fa-regular text-xs mr-1 text-[#FFDE79] fa-arrow-right"></i> Events</a>
+            </div>
+
+
         </div>
-    </footer>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const countElements = document.querySelectorAll('.animate-count');
+        <div class="flex gap-10 mx-auto py-3 md:py-10">
+            <div class="flex flex-col gap-4 text-center md:text-left ">
+                <a href="#" class="text-sm font-light text-center sm:text-left text-white/80 hover:text-white"><i
+                        class="fa-regular text-xs mr-1 text-[#FFDE79] fa-location-dot"></i> Madina Town,
+                    Faisalabad,
+                    Punjab, Pakistan</a>
+                <a href="#" class="text-sm font-light text-white/80 hover:text-white"><i
+                        class="fa-regular text-xs mr-1 text-[#FFDE79] fa-phone"></i> +923108882057</a>
+                <a href="#" class="text-sm font-light text-white/80 hover:text-white"><i
+                        class="fa-regular text-xs mr-1 text-[#FFDE79] fa-envelope"></i> lms@dawateislami.net</a>
+            </div>
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const target = parseInt(entry.target.dataset.target);
-                        let count = 0;
-                        const increment = Math.ceil(target / 200); // Adjust speed here
+        </div>
+    </div>
+    <div class="container mx-auto mt-4 text-center ">
+        <p class="text-sm">Copyright © 2025 by I.T Department, Dawat-E-Islami</p>
+    </div>
+</footer>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const countElements = document.querySelectorAll('.animate-count');
 
-                        const updateCount = () => {
-                            if (count < target) {
-                                count += increment;
-                                entry.target.textContent = count + '+';
-                                requestAnimationFrame(updateCount);
-                            } else {
-                                entry.target.textContent = target + '+';
-                            }
-                        };
-                        updateCount();
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.5 }); // Trigger when 50% of the element is visible
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = parseInt(entry.target.dataset.target);
+                    let count = 0;
+                    const increment = Math.ceil(target / 200); // Adjust speed here
 
-            countElements.forEach(element => {
-                observer.observe(element);
+                    const updateCount = () => {
+                        if (count < target) {
+                            count += increment;
+                            entry.target.textContent = count + '+';
+                            requestAnimationFrame(updateCount);
+                        } else {
+                            entry.target.textContent = target + '+';
+                        }
+                    };
+                    updateCount();
+                    observer.unobserve(entry.target);
+                }
             });
+        }, {
+            threshold: 0.5
+        }); // Trigger when 50% of the element is visible
+
+        countElements.forEach(element => {
+            observer.observe(element);
         });
-    </script>
+    });
+</script>
 
 <script type="text/javascript" src="{{ asset('assets/web/dist/js/app.js') }}"></script>
 
 </body>
+
 </html>
