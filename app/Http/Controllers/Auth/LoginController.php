@@ -27,7 +27,7 @@ class LoginController extends Controller
         if (Auth::attempt($credentials) && Auth::user()->is_admin) {
 
 
-            $ids = json_decode(auth()->user()->permission_id,true);
+            $ids = auth()->user()->permission_id;
             $permissions = Permission::whereIn('id',$ids)->first();
               Session::put('user_permissions', $permissions);
               Session::put('permission_id', $permissions->id);

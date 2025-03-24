@@ -39,6 +39,7 @@ class PermissionController extends Controller
 
         $data['page_management'] = array(
             'page_title' => 'Permissions Management',
+            'title' => 'Permissions',
             'slug' => ''
         );
         return view('admin.permissions.index', compact('data'));
@@ -79,6 +80,7 @@ class PermissionController extends Controller
 
         $data['page_management'] = array(
             'page_title' => 'Create New Permissions',
+            'title' => 'Create Permission',
             'slug' => 'Create'
         );
         return view('admin.permissions.create', compact('permission','data'));
@@ -148,6 +150,7 @@ class PermissionController extends Controller
 
         $data['page_management'] = array(
             'page_title' => 'Show Permissions',
+            'title' => 'Show Permission',
             'slug' => 'Show'
         );
 
@@ -196,6 +199,7 @@ class PermissionController extends Controller
 
         $data['page_management'] = array(
             'page_title' => 'Edit Permissions',
+            'title' => 'Edit Permission',
             'slug' => 'Edit'
         );
         return view('admin.permissions.edit',compact('permission', 'data'));

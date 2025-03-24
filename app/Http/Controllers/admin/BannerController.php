@@ -44,6 +44,7 @@ class BannerController extends Controller
 
         $data['page_management'] = array(
             'page_title' => 'Banners',
+            'title' => 'Banners',
             'slug' => 'Admin'
         );
         return view('admin.banners.index', compact('data'));
@@ -70,7 +71,7 @@ class BannerController extends Controller
         $roles = Permission::pluck('name','id')->all();
         $data['page_management'] = array(
                 'page_title' => 'Add Banner',
-                'title'=>'Add Banner',
+                'title'=>'Create Banner',
                 'slug'=>'Add',
             );
         return view('admin.banners.create',compact('data'));
@@ -110,6 +111,7 @@ class BannerController extends Controller
         $banner = Banner::find($id);
         $data['page_management'] = array(
                 'page_title' => 'Show Banner',
+                'title'=>'Show Banner',
                 'slug'=>'View',
             );
 

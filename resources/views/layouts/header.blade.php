@@ -1,4 +1,4 @@
-@php  $permission = json_decode(auth()->user()->permission_id,true);  @endphp
+@php  $permission = auth()->user()->permission_id;  @endphp
 
 <nav
     class="fixed top-0 left-0 right-0 bg-white/60 backdrop-blur-md border-b border-gray-300 h-16 flex items-center justify-between px-4 z-20">

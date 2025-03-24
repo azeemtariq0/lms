@@ -2,89 +2,102 @@
 
 
 @section('content')
+    @include('layouts.additionalscripts.adddatatable')
 
 
-  
-  @include('layouts.additionalscripts.adddatatable')
+    <div id="content" class="padding-20">
 
+        <div class="flex items-center justify-end">
 
-  <div id="content" class="padding-20">
+            @can('user.add')
+                <a href="{{ route('admin.users.create') }}" class="btn-primary !font-normal">
+                    <i class="fa-solid fa-plus"></i> Create User
+                </a>
+            @endcan
 
-    @if ($message = Session::get('success'))
-    <div class="alert alert-success">
-      <p>{{ $message }}</p>
-    </div>
-    @endif
-    <div id="panel-1" class="panel panel-default">
-      <div class="panel-heading">
-        <span class="title elipsis">
-          <strong>Manage Users</strong> <!-- panel title -->
-        </span>
+        </div>
 
-        <!-- right options -->
-        <ul class="options pull-right list-inline">
-           @can('user-create')
-          <li>
-            <a href="{{ route('users.create')}}" class="btn btn-sm btn-success btn_create_new_user">
-              <!-- <i class="et-megaphone"></i> -->
-              <span>Create New User</span>
-            </a>
-          </li>
-          @endcan
-          <li><a href="#" class="opt panel_colapse" data-toggle="tooltip" title="Colapse" data-placement="bottom"></a></li>
-          <li><a href="#" class="opt panel_fullscreen hidden-xs" data-toggle="tooltip" title="Fullscreen" data-placement="bottom"><i class="fa fa-expand"></i></a></li>
-          <li><a href="#" class="opt panel_close" data-confirm-title="Confirm" data-confirm-message="Are you sure you want to remove this panel?" data-toggle="tooltip" title="Close" data-placement="bottom"><i class="fa fa-times"></i></a></li>
-        </ul>
-        <!-- /right options -->
+        <div class=" mt-2">
+            <table id="dataTable"
+                class="shadow-sm bg-white rounded-lg overflow-hidden  w-full border-collapse bg-gray-50 !border-gray-300 text-sm">
+                <thead>
+                    <tr>
+                        <th class=" w-1/4">
+                            <div class="form-label p-2 !m-0"> Full Name</div>
+                        </th>
+                        <th class="">
+                            <div class="form-label p-2 !m-0"> Email</div>
+                        </th>
+                        <th class="">
+                            <div class="form-label p-2 !m-0 text-center"> Action</div>
+                        </th>
 
-      </div>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
 
-      <!-- panel content -->
-      <div class="panel-body">
+            </table>
 
-
-        <table class="table table-striped table-bordered table-hover table-responsive data-table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th width="20%">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-          </tbody>
-        </table>
-
-      </div>
-      <!-- /panel content -->
+        </div>
+        <!-- /panel content -->
 
     </div>
-    <!-- /PANEL -->
-
-  </div>
-
 @endsection
 
 
 
 @section('pagelevelscript')
-<script type="text/javascript">
-  $(function () {
+    <script type="text/javascript">
+        $(function() {
 
-    var table = $('.data-table').DataTable({
-      processing: true,
-      serverSide: true,
-      ajax: "{{ route('admin.users.index') }}",
-      columns: [
-      {data: 'name', name: 'name'},
-      {data: 'email', name: 'email'},
-      {data: 'action', name: 'action', orderable: false, searchable: false},
-      ]
-    });
+            var table = $("#dataTable").DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('admin.users.index') }}",
+                columns: [{
+                        data: 'name',
+                        name: 'name'
+                    },
+                    {
+                        data: 'email',
+                        name: 'email'
+                    },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false
+                    },
+                ],
+                initComplete: function(settings, json) {
+                    $('.dataTables_filter')
+                        .addClass(' mb-2')
+                    $('.dataTables_length label')
+                        .addClass('flex items-center gap-2 text-sm');
+                    $('.dataTables_length label select')
+                        .addClass('form-input !w-16 text-sm');
+                    $('.dataTables_info')
+                        .addClass(' text-sm');
 
-   
+                    $('.dataTables_filter label').contents().filter(function() {
+                        return this.nodeType === 3;
+                    }).remove();
+                    $('.dataTables_filter input').addClass('form-input text-sm').attr('placeholder',
+                        'Search users...');
+                },
+                headerCallback: function(thead, data, start, end, display) {
+                    // Customize header cells (th elements)
+                    $(thead).find('th').addClass('!border-b !p-1 !border-gray-300 text-left')
+                },
 
 
-  });
-</script>
+
+            });
+
+
+
+
+        });
+    </script>
 @endsection

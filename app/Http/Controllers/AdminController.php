@@ -14,6 +14,7 @@ class AdminController extends Controller
     {
         $data['page_management'] = array(
             'page_title' => 'Dashboard',
+            'title' => 'Dashboard',
             'slug' => 'Home'
         );
         return view('admin.dashboard', compact('data'));
