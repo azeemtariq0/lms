@@ -1,85 +1,91 @@
+@php  $permission = json_decode(auth()->user()->permission_id,true);  @endphp
 
-<!-- HEADER -->
-<header id="header" style="position: fixed;width: 100%;">
+<nav
+    class="fixed top-0 left-0 right-0 bg-white/60 backdrop-blur-md border-b border-gray-300 h-16 flex items-center justify-between px-4 z-20">
+    <div class="flex items-center">
+        <button id="toggleSidebar" class="w-4 mr-4 cursor-pointer"><i
+                class="text-lg text-gray-600 fa-duotone fa-bars"></i></button>
+        <h1 class="text-md font-medium text-black">LMS / Management System</h1>
+    </div>
+    <div class="flex items-center space-x-4">
+        <button id="changePermission">
+            <div class="btn-default">Permissions ({{ session('permission_id') }})</div>
+        </button>
+        <button id="profileMenu"><i class="text-gray-600 text-lg fa-duotone fa-user-circle"></i></button>
+        <button id="notificationsMenu"><i class="text-gray-600 text-lg fa-duotone fa-bell"></i></button>
 
-    <!-- Mobile Button -->
-    <button id="mobileMenuBtn"></button>
+    </div>
+</nav>
 
-    <!-- Logo -->
-    <span class="logo pull-left">
-        <a href="{{ url('/') }}">
-            <!-- <img src="{{ asset('assets/images/logo_light.png') }}" alt="admin panel" height="30" /> -->
-        </a>
-    </span>
-    <form method="get" action="page-search.html" class="search pull-left hidden-xs">
-        <span >
-        <h3> &nbsp&nbsp LMS / <strong class="text-danger">Management System</strong></h3>
-    </span>
-    </form>
+<script>
+    $(document).ready(() => {
+
+        // Profile Menu Dropdown init
+        new Dropdown({
+            triggerElement: '#profileMenu',
+            items: [{
+                    title: " {{ Auth::user()->name }}",
+                }, {
+                    title: 'Profile',
+                    link: '#',
+                    icon: 'fa-duotone fa-user'
+                },
+                {
+                    title: 'Settings',
+                    link: '#',
+                    icon: 'fa-duotone fa-gear'
+                }, ,
+                {
+                    title: 'Logout',
+                    link: "{{ route('logout') }}",
+                    icon: 'fa-duotone fa-right-from-bracket'
+                },
+            ]
+        });
+        new Dropdown({
+            triggerElement: '#changePermission',
+            items: {!! json_encode(
+                array_map(function ($value) {
+                    return [
+                        'title' => $value,
+                        'link' => 'javascript:void(0)',
+            
+                        'onClick' => "changePermission('" . addslashes($value) . "')",
+                    ];
+                }, $permission),
+            ) !!}
+        });
+
+        // Notifications Menu Dropdown init
+        new Dropdown({
+            triggerElement: '#notificationsMenu',
+            items: [{
+                    title: 'New Message',
+                    link: '#',
+                    icon: 'fa-duotone fa-envelope'
+                },
+                {
+                    title: 'System Update',
+                    link: '#',
+                    icon: 'fa-duotone fa-gear'
+                }
+            ]
+        });
 
 
-     <form method="get" action="page-search.html" class=" pull-left hidden-xs ml-2">
-    <span >
-        @php  $permission = json_decode(auth()->user()->permission_id,true);  @endphp
-        <select class="form-control" id="change-permission">
-            <option value=""></option>
-            @foreach($permission as $value)
-              <option value="{{$value}}"  >{{$value}}</option>
-            @endforeach
-        </select>
-    </span>
-    </form>
-    
+    });
 
-    <nav>
-
-        <!-- OPTIONS LIST -->
-        <ul class="nav pull-right">
-
-            <!-- USER OPTIONS -->
-            <li class="dropdown pull-left">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                    <img class="user-avatar" alt="" src="{{ asset('assets/images/noavatar.jpg') }}" height="34" /> 
-                    <span class="user-name">
-                        <span class="hidden-xs">
-                            {{ Auth::user()->name }} <i class="fa fa-angle-down"></i>
-                        </span>
-                    </span>
-                </a>
-                <ul class="dropdown-menu hold-on-click">
-                    <li><!-- my calendar -->
-                        <a href="calendar.html"><i class="fa fa-calendar"></i> Calendar</a>
-                    </li>
-                    <li><!-- my inbox -->
-                        <a href="#"><i class="fa fa-envelope"></i> Inbox
-                            <span class="pull-right label label-default">0</span>
-                        </a>
-                    </li>
-                    <li><!-- settings -->
-                        <a href="page-user-profile.html"><i class="fa fa-cogs"></i> Settings</a>
-                    </li>
-
-                    <li class="divider"></li>
-
-                    <li><!-- lockscreen -->
-                        <a href="page-lock.html"><i class="fa fa-lock"></i> Lock Screen</a>
-                    </li>
-                    <li><!-- logout -->
-                        <a class="dropdown-item" href="{{ route('logout') }}"
-                        onclick="event.preventDefault();
-                        document.getElementById('logout-form').submit();"><i class="fa fa-power-off"></i>{{ __('Logout') }}</a>
-                    </li>
-                </ul>
-            </li>
-            <!-- /USER OPTIONS -->
-
-        </ul>
-        <!-- /OPTIONS LIST -->
-
-    </nav>
-
-</header>
-<!-- /HEADER -->
-<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-    @csrf
-</form>
+    function changePermission(permission) {
+        $.ajax({
+            url: "{{ url('admin/change-permission') }}",
+            type: 'post',
+            data: {
+                'permission_id': permission,
+                "_token": "{{ csrf_token() }}"
+            },
+            success: function() {
+                location.reload();
+            }
+        });
+    }
+</script>

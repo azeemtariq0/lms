@@ -1,8 +1,78 @@
+<div class="fixed left-0 top-16 bottom-0 z-20 text-white w-[256px] transition-[width] ease-in-out duration-300 "
+    id="sidebar">
+</div>
+
+<script>
+    $(document).ready(() => {
+        // Sidebar init
+        const currentPath = "{{ \Request::segment(2) }}";
+        const sidebarRoutes = [{
+                icon: 'fa-duotone fa-house',
+                title: 'Dashboard',
+                link: "{{ url('admin/dashboard') }}",
+                key: 'dashboard',
+                permission: true
+            },
+            {
+                icon: 'fa-duotone fa-circle-user',
+                title: 'Administration',
+                submenu: [{
+                        title: 'Users',
+                        link: "{{ route('admin.users.index') }}",
+                        key: 'users',
+                        permission: {{ auth()->user()->can('user.list') == 1 ? 1 : 0 }}
+                    },
+                    {
+                        title: 'Permissions',
+                        link: "{{ route('admin.permissions.index') }}",
+                        key: 'permissions',
+                        permission: {{ auth()->user()->can('user_permission.list') == 1 ? 1 : 0 }}
+                    },
+                    {
+                        title: 'Banners',
+                        link: "{{ route('admin.banners.index') }}",
+                        key: 'banners',
+                        permission: {{ auth()->user()->can('banners.list') == 1 ? 1 : 0 }}
+                    },
+                ]
+            },
+            {
+                icon: 'fa-duotone fa-screwdriver-wrench',
+                title: 'Settings',
+                link: '/settings',
+                permission: true
+            },
+            {
+                icon: 'fa-duotone fa-right-from-bracket',
+                title: 'Logout',
+                link: "{{ route('logout') }}",
+                key: 'logout',
+                permission: true
+            }
+        ];
+
+        new Sidebar({
+            bg: '#023c40',
+            routes: sidebarRoutes,
+            sidebarElement: '#sidebar',
+            sidebarMenuElement: '#sidebarMenu',
+            toggleElement: '#toggleSidebar',
+            mainContentElement: '#mainContent',
+            currentPath
+        });
 
 
+        // Breadcrumb init
+        new Breadcrumb({
+            breadcrumbElement: '#breadcrumbs',
+            routes: sidebarRoutes,
+            currentPath
+        });
+    });
+</script>
 
 
-<aside id="aside">
+{{-- <aside id="aside">
                 <!--
                     Always open:
                     <li class="active alays-open">
@@ -74,4 +144,4 @@
                     </nav>
 
                     <span id="asidebg"><!-- aside fixed background --></span>
-                </aside>
+                </aside> --}}
