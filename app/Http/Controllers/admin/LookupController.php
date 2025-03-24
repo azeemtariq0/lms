@@ -19,6 +19,8 @@ class LookupController extends Controller
     }
     public function changePermission(Request $request)
     {
+
+        // dd($request->permission_id);
         Session::put('permission_id', $request->permission_id);
         echo json_encode(true);
     }

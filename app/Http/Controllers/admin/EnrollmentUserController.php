@@ -10,8 +10,10 @@ use Hash;
 use DB;
 use DataTables, Form;
 
-class UserController extends Controller
+class EnrollmentUserController extends Controller
 {
+
+    public $_url="enrollment-users";
    function __construct()
    {
      
@@ -25,9 +27,9 @@ class UserController extends Controller
             ->addIndexColumn()
             ->addColumn('action', function($row){
                  $btn="";
-                    $btn .= htmlBtn('admin.users.show',$row->id,'warning','eye');
-                    $btn .=htmlBtn('admin.users.edit',$row->id);
-                    $btn .= htmDeleteBtn('admin.users.destroy',$row->id);
+                    $btn .= htmlBtn('admin.'.$this->_url.'.show',$row->id,'warning','eye');
+                    $btn .=htmlBtn('admin.'.$this->_url.'.edit',$row->id);
+                    $btn .= htmDeleteBtn('admin.'.$this->_url.'.destroy',$row->id);
 
                return $btn;
            })
@@ -36,10 +38,11 @@ class UserController extends Controller
         }
 
         $data['page_management'] = array(
-            'page_title' => 'Users',
-            'slug' => ''
+            'page_title' => 'Enrollment Users',
+            'slug' => '',
+            'url'=>$this->_url
         );
-        return view('admin.users.index', compact('data'));
+        return view('admin.'.$this->_url.'.index', compact('data'));
     }
 
 
@@ -52,11 +55,12 @@ class UserController extends Controller
                 'page_title' => 'Create User',
                 'title' => 'Create User',
                 'slug'=>'Show',
+                'url'=>$this->_url
             );
         $user =[];
 
         // dd($roles);
-        return view('admin.users.create',compact('user','roles' ,'data'));
+        return view('admin.'.$this->_url.'.create',compact('user','roles' ,'data'));
     }
     
 
@@ -68,6 +72,7 @@ class UserController extends Controller
         $data['page_management'] = array(
                 'page_title' => 'Show User',
                 'slug'=>'Show',
+                'url'=>$this->_url
             );
 
         // dd($roles);
@@ -112,6 +117,7 @@ class UserController extends Controller
             'slug' => 'Administration',
             'title' => 'Edit User',
             'add' => 'Edit Unit',
+            'url'=>$this->_url
         );
         
         return view('admin.users.create',compact('user','roles','data'));

@@ -61,7 +61,14 @@ class User extends Authenticatable
     public function hasPermissionTo($type ,$action, )
     {
         $permission_id = Session::get('permission_id');
-        $permissions = $this->permissions()->where('permission_id', $permission_id)->first()->permission ?? [];
+
+        if(@auth()->user()->id){
+            $permissions = $this->permissions()->where('permission_id', $permission_id)->first()->permission ?? [];
+            if(!empty($permissions))
+                $permissions = json_decode($permissions,true);
+            // dd($this->permissions()->where('permission_id', $permission_id)->first());
+        }
+
         return isset($permissions[$type][$action]) && $permissions[$type][$action] == '1';
     }
 

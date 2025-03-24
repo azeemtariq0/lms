@@ -167,7 +167,9 @@ class PermissionController extends Controller
 
         if(empty($permission)) return $this->jsonResponse([],404," Permission Not Found!");
 
-        $permission->permission = json_decode($permission->permission,true);
+        // dd($permission->permission);
+
+        $permission->permission = !empty($permission->permission) ? @json_decode($permission->permission,true) : null;
 
 
         $arrPermissions = [];

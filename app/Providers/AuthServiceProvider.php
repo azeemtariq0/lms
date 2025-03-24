@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Gate;
 use App\Models\User;
 use App\Models\Permission;
 // use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -24,32 +25,30 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
+         
+    if(Schema::hasTable('permissions')){
         // Retrieve all permissions from the database
         $permissions = Permission::all();
 
         foreach ($permissions as $permission) {
-            // Define gates for each action in the permission JSON
-            // dd($permission->permission );
+
             $abilities = json_decode($permission->permission,true);
-      
-
-
+    
+           if(!empty($abilities))
             foreach ($abilities as $category => $actions) {
                 foreach ($actions as $action => $value) {
                     if ($value == "1") {
                             // dd($action);
                         // Define the gate dynamically for each action in the permission
                         Gate::define("{$category}.{$action}", function (User $user) use ($permission, $category, $action) {
-
-                            // d($category);
-
-
                             return $user->hasPermissionTo($category, $action);
                         });
                     }
                 }
             }
         }
+    }
     }
 }
 

@@ -26,11 +26,19 @@ class BannerController extends Controller
                  $btn="";
                     $btn .= htmlBtn('admin.banners.show',$row->id,'warning','eye');
                     $btn .= htmlBtn('admin.banners.edit',$row->id);
-                    $btn .= htmDeleteBtn('admin.banners.destroy',$row->id);
+                    $btn .= htmDeleteBtn('admin/banners',$row->id);
 
                return $btn;
            })
-            ->rawColumns(['action'])
+            ->addColumn('status', function($row){
+                  $btn = '';
+        $statusLabel = $row->status == 1 ? 'Active' : 'Inactive';
+        $statusColor = $row->status == 1 ? 'success' : 'danger';
+        
+        $btn .= '<button class="btn btn-' . $statusColor . ' change-status" data-id="' . $row->id . '" data-status="' . $row->status . '"><i class="fa fa-pencil" ></i> ' . $statusLabel . '</button>';
+        return $btn;
+           })
+            ->rawColumns(['action','status'])
             ->make(true);
         }
 
@@ -40,6 +48,22 @@ class BannerController extends Controller
         );
         return view('admin.banners.index', compact('data'));
     }
+
+
+    public function changeStatus(Request $request)
+    {
+        $banner = Banner::find($request->id);
+
+        if ($banner) {
+            $banner->status = $request->status;
+            $banner->save();
+
+            return response()->json(['success' => true]);
+        }
+
+        return response()->json(['success' => false]);
+    }
+
     public function create()
     {
         
@@ -56,9 +80,26 @@ class BannerController extends Controller
     {
            $this->validate($request, [
             'name' => 'required',
+            'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
         
         $input = $request->all();
+
+         if ($request->hasFile('file')) {
+        // Get the file from the request
+        $image = $request->file('file');
+
+        // Generate a unique name for the image
+        $imageName = time() . '.' . $image->getClientOriginalExtension();
+
+        // Move the image to the 'public/uploads' directory
+        $image->move(public_path('uploads/banners'), $imageName);
+
+        // Add the image path to the input data
+        $input['image'] = 'uploads/banners/' . $imageName;
+    }
+
+        // dd($input);
         $user = Banner::create($input);
         
         return redirect()->route('admin.banners.index')
@@ -94,13 +135,37 @@ class BannerController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
+            'file' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
         
         $input = $request->all();
         
-        $user = Banner::find($id);
+        $banner = Banner::find($id);
         $input['name'] = trim($input['name']);
-        $user->update($input);
+
+
+         // Handle the file upload if a new file is provided
+        if ($request->hasFile('file')) {
+            // Get the uploaded file
+            $image = $request->file('file');
+
+            // Generate a unique name for the image
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+
+            // Move the image to the 'public/uploads' directory
+            $image->move(public_path('uploads/banners'), $imageName);
+
+            // Delete the old image if it exists (optional)
+            if ($banner->image && file_exists(public_path($banner->image))) {
+                unlink(public_path($banner->image));
+            }
+
+            // Add the new image path to the input data
+            $input['image'] = 'uploads/banners/' . $imageName;
+        }
+
+    
+        $banner->update($input);
 
         
         return redirect()->route('admin.banners.index')
@@ -108,6 +173,19 @@ class BannerController extends Controller
 
 
         
+    }
+
+     /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {  
+        DB::table("banners")->where('id',$id)->delete();
+        return redirect()->route('admin.banners.index')
+        ->with('success','Banners deleted successfully');
     }
 
 }
