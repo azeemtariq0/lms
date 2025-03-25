@@ -4,12 +4,20 @@
 @section('content')
 
 
-   <div class="swiper mySwiper">
+    <div class="swiper mySwiper">
         <div class="swiper-wrapper">
-            <div class="swiper-slide"><img src="{{ asset('assets/images/slide-01.png') }}" alt=""></div>
-            <div class="swiper-slide"><img src="{{ asset('assets/images/slide-02.jpg') }}" alt=""></div>
-            <div class="swiper-slide"><img src="{{ asset('assets/images/slide-03.jpg') }}" alt=""></div>
-            <div class="swiper-slide"><img src="{{ asset('assets/images/slide-04.jpg') }}" alt=""></div>
+            @if (count($banners) != 0)
+                @foreach ($banners as $banner)
+                    <div class="swiper-slide">
+                        <img src="{{ asset($banner->path) }}" alt="">
+                    </div>
+                @endforeach
+            @else
+                <div class="swiper-slide"><img src="{{ asset('assets/images/slide-01.png') }}" alt=""></div>
+                <div class="swiper-slide"><img src="{{ asset('assets/images/slide-02.jpg') }}" alt=""></div>
+                <div class="swiper-slide"><img src="{{ asset('assets/images/slide-03.jpg') }}" alt=""></div>
+                <div class="swiper-slide"><img src="{{ asset('assets/images/slide-04.jpg') }}" alt=""></div>
+            @endif
         </div>
         <div class="swiper-pagination"></div>
         <div class="swiper-button-prev"></div>
@@ -17,7 +25,7 @@
 
     </div>
 
- <section class="py-30">
+    <section class="py-30">
         <div class="container mx-auto px-4">
             <div class="lg:flex lg:items-center">
                 <div class="lg:w-1/2 mb-8 lg:mb-0">
@@ -133,7 +141,8 @@
 
                 <div
                     class="bg-white rounded-2xl shadow-md overflow-hidden card-transition hover:shadow-lg hover:shadow-[#d1dbe4] hover:transform hover:-translate-y-2">
-                    <img src="{{ asset('assets/images/post-03.jpg') }}" alt="Course Image" class="w-full h-48 object-cover">
+                    <img src="{{ asset('assets/images/post-03.jpg') }}" alt="Course Image"
+                        class="w-full h-48 object-cover">
                     <div class="p-6">
                         <h3 class="text-xl font-semibold text-gray-900 mb-2">Itikaf Course</h3>
                         <p class="text-gray-600 mb-4">Haji Muhammad Shahid Attari</p>
@@ -161,8 +170,8 @@
             <div class=" flex justify-center">
                 <div class="relative">
                     <h2 class="text-4xl font-bold mb-12 text-stone-900 ">Upcoming Events</h2>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 340 85" fill="none" svg="animated"
-                        class="testi-arrow absolute top-0 -right-20 w-[80%] -z-10">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 340 85" fill="none"
+                        svg="animated" class="testi-arrow absolute top-0 -right-20 w-[80%] -z-10">
                         <path
                             d="M124.828 4.59888C169.229 9.92943 213.631 16.4339 226.361 37.5468C244.064 66.8985 104.053 89.9727 42.2616 68.2072C-118.59 11.5502 261.312 -12.1056 249.479 47.5269C240.224 94.1576 -7.80185 73.4384 28.2422 27.3184C35.7437 17.725 76.6543 7.90018 121.293 4.82427C171.88 -1.7839 284.375 5.075 328.375 81.875L299.875 79.6244L330.68 82.7494L337.43 57.6243"
                             stroke="#d1dbe4" stroke-width="4" stroke-miterlimit="10" class="path-2"
