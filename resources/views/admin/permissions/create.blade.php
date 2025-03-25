@@ -1,188 +1,110 @@
 @extends('layouts.app')
 
-
 @section('content')
-
-@if (count($errors) > 0)
-<div id="content" class="padding-20">
-
-    <div class="alert alert-danger margin-bottom-30">
-        <strong>Whoops!</strong> There were some problems with your input.<br><br>
-        <ul>
-           @foreach ($errors->all() as $error)
-           <li>{{ $error }}</li>
-           @endforeach
-       </ul>
-   </div>
-   @endif
-
-<style>
-    
-
-.accordion {
-  overflow-anchor: none;
-}
-
-.accordion > .card {
-  overflow: hidden;
-  margin-left: 0px;
-}
-
-.accordion > .card:not(:last-of-type) {
-  border-bottom: 0;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-}
-.accordion button{
-     text-align: left;
-    font-weight: bold;
-}
-.accordion > .card:not(:first-of-type) {
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-
-}
-
-.accordion > .card > .card-header {
-  border-radius: 0;
-  margin-bottom: 0;
-}
-
-.accordion h2 {
-    margin: 0 0 1px 0;
-}
-.accordion .col-3{
-    float: left;
-    width: 300px;
-        padding-left: 16px;
-    background: #fff;
-    margin-left: 10px;
-}
-.accordion .card-body{
-    background: #fff;
-}
-.accordion .form-check{
-    border: 1px solid #ccc;
-    padding: 3px;
-    line-height: 1;
-}
-</style>
-   <div id="content" class="padding-20">
-
-    <div class="row">
-
-        <div class="col-md-12">
-
-            <!-- ------ -->
-            <div class="panel panel-default">
-                <div class="panel-heading panel-heading-transparent">
-                    <strong>Add Permission</strong>
+    <div id="content">
+        <form id="form"
+            action="{{ isset($permission->id) ? route('admin.permissions.update', ['permission' => $permission->id]) : route('admin.permissions.store') }}"
+            method="POST" class="space-y-6">
+            @if (isset($permission->id))
+                @method('PUT')
+            @endif
+            @csrf
+            <div class="grid grid-cols-1 gap-6">
+                <div>
+                    <label class="form-label required">Name</label>
+                    <div class="mt-1">
+                        <input type="text" name="name" id="name" class="form-input"
+                            value="{{ $permission->name ?? old('name') }}">
+                    </div>
                 </div>
 
-                <div class="panel-body">
-
-                   <form  action="{{ route('admin.permissions.store')}}" method="post" >
-                    @csrf
-                    <fieldset>
-                        <!-- required [php action request] -->
-                        <input type="hidden" name="action" value="contact_send" />
-
-                        <div class="row">
-                            <div class="form-group">
-                                <div class="col-md-10 col-sm-10">
-                                    <label>Permission Name *</label>
-                                    <input type="text" name="name" placeholder="Permission Name" class="form-control">
-                                  
-                                </div>
-
+                <div>
+                    <div class="bg-white/80 rounded-lg px-3 py-3 mb-2">
+                        <label class="form-label !mb-0 required">Permissions</label>
+                    </div>
+                    <div class="grid grid-cols-3 gap-4">
+                        @foreach ($permission->permission as $module_name => $forms)
+                            <div class="col-span-3">
+                                <strong class="block text-sm font-semibold text-gray-900">{{ $module_name }}</strong>
                             </div>
-                        </div>
-
-
-
-                           <div class="row">
-                                <div class="col-12">
-                                    <div class="accordion" id="accordionExample">
-                                        <?php foreach($permission->permission as $module_name => $forms): ?>
-                                        <div class="card">
-                                            <div class="card-header">
-                                                <h2 class="mb-0">
-                                                    <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#<?php echo str_replace(' ','_',$module_name); ?>">
-                                                        <?php echo $module_name; ?>
-                                                    </button>
-                                                </h2>
+                            @foreach ($forms as $form_name => $permissions)
+                                <div class="border border-gray-300 rounded-lg p-2">
+                                    <div class="mb-2 bg-white/80 p-3 py-2 rounded-lg">
+                                        <label class="items-center">
+                                            <input type="checkbox" class="chkAll form-checkbox scale-110"
+                                                data-route="{{ $permissions[0]['route'] }}" />
+                                            <span class="ml-2 text-sm font-medium text-gray-900">{{ $form_name }}</span>
+                                        </label>
+                                    </div>
+                                    <div class="max-h-32 overflow-y-auto p-1">
+                                        @foreach ($permissions as $permissionData)
+                                            <div class="flex items-center mb-1">
+                                                <input id="chk{{ $permissionData['control_access_id'] }}"
+                                                    data-route="{{ $permissionData['route'] }}" class="form-checkbox"
+                                                    type="checkbox"
+                                                    name="permission[{{ $permissionData['route'] }}][{{ $permissionData['permission_id'] }}]"
+                                                    value="1" <?php echo $permissionData['selected'] ? 'checked' : ''; ?> />
+                                                <label for="chk{{ $permissionData['control_access_id'] }}"
+                                                    class="ml-2 block text-sm text-gray-900">{{ $permissionData['permission_name'] }}</label>
                                             </div>
-
-                                            <div id="<?php echo str_replace(' ','_',$module_name); ?>" class="collapse" data-parent="#accordionExample">
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <?php foreach($forms as $form_name => $permissions): $route=$permissions[0]['route']; ?>
-                                                        <div class="col-3">
-                                                            <div class="card card-default">
-                                                                <div class="card-header">
-                                                                    <p class="card-title"><label><input type="checkbox" class="chkAll" data-route="<?php echo $route; ?>" />&nbsp;<?php echo $form_name; ?></label></p>
-                                                                </div>
-                                                                <div class="card-body" style="height: 136px; overflow-y: scroll;">
-                                                                    <div class="form-group m-0">
-                                                                        <?php foreach($permissions as $permission): ?>
-                                                                        <div class="form-check">
-                                                                            <input id="chk<?php echo $permission['control_access_id']; ?>" data-route="<?php echo $permission['route']; ?>" class="form-check-input" type="checkbox" name="permission[<?php echo $permission['route'];?>][<?php echo $permission['permission_id'];?>]" value="1" <?php echo $permission['selected']?'checked':''?> />
-                                                                            <label for="chk<?php echo $permission['control_access_id']; ?>" class="form-check-label"><?php echo $permission['permission_name']; ?></label>
-                                                                        </div>
-                                                                        <?php endforeach; ?>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <?php endforeach; ?>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <?php endforeach; ?>
+                                        @endforeach
                                     </div>
                                 </div>
-                            </div>
-                        
+                            @endforeach
+                        @endforeach
+                    </div>
+                </div>
 
+            </div>
 
-                        </fieldset>
-                        
-                        <div class="row">
-                            <div class="col-md-12">
-                                <button type="submit" class="btn btn-info margin-top-30 pull-right">
-                                   <i class="fa fa-check"></i> Save
-                               </button>
-                           </div>                       
-                         </div>
-                      </form>
-                   </div>
-               </div>
-               <!-- /----- -->
-           </div>
-       </div>
-   </div>
-</div>
-
-
-
-   <link rel="stylesheet" href="{{ asset('assets/admin/plugins/bootstrap-toggle/css/bootstrap-toggle.min.css') }}">
-        <script src="{{ asset('assets/admin/plugins/bootstrap-toggle/js/bootstrap-toggle.min.js') }}"></script>
-        <!-- bs-custom-file-input -->
-        <script src="{{ asset('assets/admin/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
+            <div class="flex gap-2 w-fit ml-auto sticky bottom-0 py-3">
+                <a href='{{ route('admin.permissions.index') }}' type="button" class="btn-default">
+                    <i class="fa-duotone fa-arrow-left mr-2"></i> Back
+                </a>
+                <button type="submit" class="btn-primary">
+                    Submit <i class="fa-duotone fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+        </form>
+    </div>
 
     <script type="text/javascript">
-        
-            $('.chkAll').on('change',(e)=> {
-                let obj = e.currentTarget;
-                let route = $(obj).data('route');
-                let isChecked = $(obj).is(':checked');
-                //let objects = $(obj).parents('.card:first').find('.card-body');
-                //console.log(objects);
-                let objects = $(obj).parents('.card:first').find('.card-body').find('input[type=checkbox]').prop('checked',isChecked);
-
-            });
-
+        $('.chkAll').on('change', (e) => {
+            let obj = e.currentTarget;
+            let route = $(obj).data('route');
+            let isChecked = $(obj).is(':checked');
+            $(obj).closest('.border').find('input[type=checkbox]').prop('checked', isChecked);
+        });
     </script>
 
+    <script>
+        $(document).ready(function() {
+
+            let rules = {
+                name: {
+                    required: true,
+                    minlength: 5,
+                    maxlength: 100
+                }
+            };
+            $("#form").validate({
+                rules: rules,
+                messages: {
+                    name: {
+                        required: "Permission Name is required",
+                    },
+                    "permission[]": {
+                        required: "Select at least one Permission",
+
+                    }
+                },
+                errorElement: "span",
+                errorClass: "text-red-500 text-xs",
+                errorPlacement: function(error, element) {
+                    error.insertAfter(element);
+                }
+
+            });
+        });
+    </script>
 @endsection

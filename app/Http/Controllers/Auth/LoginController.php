@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
@@ -12,7 +13,7 @@ use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
-  // Show Admin Login Form
+    // Show Admin Login Form
     public function showAdminLoginForm()
     {
         return view('auth.admin-login');
@@ -28,11 +29,13 @@ class LoginController extends Controller
 
 
             $ids = auth()->user()->permission_id;
-            $permissions = Permission::whereIn('id',$ids)->first();
-              Session::put('user_permissions', $permissions);
-              Session::put('permission_id', $permissions->id);
-              Session::put('permission_name', $permissions->name);
-            
+            $permissions = Permission::whereIn('id', $ids)->first();
+            $all_permissions = Permission::whereIn('id', $ids)->get();
+            Session::put('user_permissions', $permissions);
+            Session::put('permission_id', $permissions->id);
+            Session::put('permission_name', $permissions->name);
+            Session::put('all_permissions', $all_permissions);
+
             return redirect()->route('admin.dashboard');
         }
 
@@ -58,28 +61,27 @@ class LoginController extends Controller
         return redirect()->back()->withErrors(['email' => 'Invalid credentials']);
     }
 
- public function logout(Request $request)
-{
-    // Check if the user is logged in and is an admin
-    $isAdmin = Auth::check() && Auth::user()->is_admin;
+    public function logout(Request $request)
+    {
+        // Check if the user is logged in and is an admin
+        $isAdmin = Auth::check() && Auth::user()->is_admin;
 
-    // Log out the user
-    Auth::logout();
+        // Log out the user
+        Auth::logout();
 
-    // Invalidate the session
-    $request->session()->invalidate();
+        // Invalidate the session
+        $request->session()->invalidate();
 
-    // Regenerate the session ID to avoid session fixation attacks
-    $request->session()->regenerateToken();
+        // Regenerate the session ID to avoid session fixation attacks
+        $request->session()->regenerateToken();
 
-    // Redirect based on whether the user is an admin
-    if ($isAdmin) {
-        // Redirect to the admin login page or any other page for admins
-        return redirect('admin/login');
+        // Redirect based on whether the user is an admin
+        if ($isAdmin) {
+            // Redirect to the admin login page or any other page for admins
+            return redirect('admin/login');
+        }
+
+        // Redirect regular users to the home page or login page
+        return redirect('login');
     }
-
-    // Redirect regular users to the home page or login page
-    return redirect('login');
-}
-
 }

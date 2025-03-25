@@ -11,30 +11,34 @@ use DataTables, Form;
 
 class PermissionController extends Controller
 {
-   function __construct()
-   {
-     
- }
+    function __construct() {}
 
-  public function index(Request $request)
-  {
+    public function index(Request $request)
+    {
         if ($request->ajax()) {
             $data = Permission::select('*');
             return Datatables::of($data)
-            ->addIndexColumn()
-            ->addColumn('action', function($row){
-                 $btn="";
-                // // if (auth()->user()->haspermissionTo('permission-view') )
-                    $btn .= htmlBtn('admin.permissions.show',$row->id,'warning','eye');
-                //  // if (auth()->user()->haspermissionTo('permission-edit') )
-                    $btn .=htmlBtn('admin.permissions.edit',$row->id);
-                 // if (auth()->user()->haspermissionTo('admin.permission-delete') )
-                     $btn .= htmDeleteBtn('admin.permissions.destroy',$row->id);
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    $btn = "<div class='flex items-center justify-center gap-2'>";
 
-               return $btn;
-           })
-            ->rawColumns(['action'])
-            ->make(true);
+                    $btn .= "<div class='relative group'>
+                            <a href='" . route('admin.permissions.edit', $row->id) . "' class='edit action-info'><i
+                                class='fa-duotone text-gray-500 group-hover:text-blue-600 fa-pencil transition-all'></i></a>
+                            <span class='tooltip-top-center group-hover:!block'>Edit Row</span>
+                        </div>";
+
+                    $btn .= "<div class='relative group'>
+                            <a href='" . route('admin.permissions.destroy', $row->id) . "' class='delete action-danger'><i
+                            class='fa-duotone text-gray-500 group-hover:text-rose-600 fa-trash transition-all'></i></a>
+                            <span class='tooltip-top-center group-hover:!block'>Delete Row</span>
+                            </div>";
+                    $btn .= "</div>";
+
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
         }
 
         $data['page_management'] = array(
@@ -52,12 +56,12 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        
-        $controls = GroupPermission::orderBy('sort_order','asc')->get();
-   
+
+        $controls = GroupPermission::orderBy('sort_order', 'asc')->get();
+
 
         $arrPermissions = [];
-        foreach($controls as $value) {
+        foreach ($controls as $value) {
 
             $module_name = $value->module_name;
             $form_name = $value->form_name;
@@ -70,7 +74,7 @@ class PermissionController extends Controller
                 'route' => $route,
                 'permission_id' => $permission_id,
                 'permission_name' => $permission_name,
-                'selected' => (isset($permission->permission->$route->$permission_id)? $permission->permission->$route->$permission_id : 0),
+                'selected' => (isset($permission->permission->$route->$permission_id) ? $permission->permission->$route->$permission_id : 0),
             ];
         }
 
@@ -83,9 +87,9 @@ class PermissionController extends Controller
             'title' => 'Create Permission',
             'slug' => 'Create'
         );
-        return view('admin.permissions.create', compact('permission','data'));
+        return view('admin.permissions.create', compact('permission', 'data'));
     }
-    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -100,14 +104,13 @@ class PermissionController extends Controller
 
         $permission = Permission::create([
             'name' => trim($request->input('name')),
-            'permission'=> trim(json_encode($request->permission))
+            'permission' => trim(json_encode($request->permission))
         ]);
 
 
-        
-        return redirect()->route('admin.permissions.index')
-        ->with('success','Role Create successfully');
 
+        return redirect()->route('admin.permissions.index')
+            ->with('success', 'Permission Create successfully');
     }
     /**
      * Display the specified resource.
@@ -117,15 +120,15 @@ class PermissionController extends Controller
      */
     public function show($id)
     {
-        
-        $controls = GroupPermission::orderBy('sort_order','asc')->get();
+
+        $controls = GroupPermission::orderBy('sort_order', 'asc')->get();
         $permission = Permission::where('id', $id)->first();
-        if(empty($permission)) return $this->jsonResponse([],404," Permission Not Found!");
+        if (empty($permission)) return $this->jsonResponse([], 404, " Permission Not Found!");
 
         $permission->permission = json_decode($permission->permission);
 
         $arrPermissions = [];
-        foreach($controls as $value) {
+        foreach ($controls as $value) {
 
             $module_name = $value->module_name;
             $form_name = $value->form_name;
@@ -138,7 +141,7 @@ class PermissionController extends Controller
                 'route' => $route,
                 'permission_id' => $permission_id,
                 'permission_name' => $permission_name,
-                'selected' => (isset($permission->permission[$route][$permission_id])? $permission->permission[$route][$permission_id] : 0),
+                'selected' => (isset($permission->permission[$route][$permission_id]) ? $permission->permission[$route][$permission_id] : 0),
             ];
         }
 
@@ -146,7 +149,7 @@ class PermissionController extends Controller
 
 
 
-        
+
 
         $data['page_management'] = array(
             'page_title' => 'Show Permissions',
@@ -154,9 +157,9 @@ class PermissionController extends Controller
             'slug' => 'Show'
         );
 
-        return view('admin.permissions.show',compact('permission', 'data'));
+        return view('admin.permissions.show', compact('permission', 'data'));
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -165,18 +168,18 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
-       $controls = GroupPermission::orderBy('sort_order','asc')->get();
+        $controls = GroupPermission::orderBy('sort_order', 'asc')->get();
         $permission = Permission::where('id', $id)->first();
 
-        if(empty($permission)) return $this->jsonResponse([],404," Permission Not Found!");
+        if (empty($permission)) return $this->jsonResponse([], 404, " Permission Not Found!");
 
         // dd($permission->permission);
 
-        $permission->permission = !empty($permission->permission) ? @json_decode($permission->permission,true) : null;
+        $permission->permission = !empty($permission->permission) ? @json_decode($permission->permission, true) : null;
 
 
         $arrPermissions = [];
-         foreach($controls as $value) {
+        foreach ($controls as $value) {
 
             $module_name = $value->module_name;
             $form_name = $value->form_name;
@@ -189,7 +192,7 @@ class PermissionController extends Controller
                 'route' => $route,
                 'permission_id' => $permission_id,
                 'permission_name' => $permission_name,
-                'selected' => (isset($permission->permission[$route][$permission_id])? $permission->permission[$route][$permission_id] : 0),
+                'selected' => (isset($permission->permission[$route][$permission_id]) ? $permission->permission[$route][$permission_id] : 0),
             ];
         }
 
@@ -202,9 +205,9 @@ class PermissionController extends Controller
             'title' => 'Edit Permission',
             'slug' => 'Edit'
         );
-        return view('admin.permissions.edit',compact('permission', 'data'));
+        return view('admin.permissions.create', compact('permission', 'data'));
     }
-    
+
     /**
      * Update the specified resource in storage.
      *
@@ -223,9 +226,9 @@ class PermissionController extends Controller
         $permission->name = $request->name;
         $permission->updated_at = date('Y-m-d H:i:s');
         $permission->update();
-    
+
         return redirect()->route('admin.permissions.index')
-        ->with('success','Role updated successfully');
+            ->with('success', 'Permission updated successfully');
     }
     /**
      * Remove the specified resource from storage.
@@ -235,9 +238,7 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
-        DB::table("permissions")->where('id',$id)->delete();
-        return redirect()->route('permissions.index')
-        ->with('success','Permission deleted successfully');
+        Permission::where('id', $id)->delete();
+        return response()->json(['success' => true]);
     }
 }
-

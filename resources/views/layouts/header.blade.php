@@ -1,5 +1,9 @@
 @php  $permission = auth()->user()->permission_id;  @endphp
-{{-- @dd(session('permission_id')); --}}
+{{-- 
+@foreach (session('all_permissions') as $key => $value)
+    @php  echo $value;  @endphp
+@endforeach
+@php  echo exit;  @endphp --}}
 
 <nav
     class="fixed top-0 left-0 right-0 bg-white/60 backdrop-blur-md border-b border-gray-300 h-16 flex items-center justify-between px-4 z-20">
@@ -43,18 +47,17 @@
                 },
             ]
         });
+        const all_permissions = {!! json_encode(session('all_permissions')) !!};
+
         new Dropdown({
             triggerElement: '#changePermission',
-            items: {!! json_encode(
-                array_map(function ($value) {
-                    return [
-                        'title' => $value,
-                        'link' => 'javascript:void(0)',
-            
-                        'onClick' => "changePermission('" . addslashes($value) . "')",
-                    ];
-                }, $permission),
-            ) !!}
+            items: all_permissions.map(permission => {
+                return {
+                    title: permission.name,
+                    link: 'javascript:void(0)',
+                    onClick: `changePermission(${permission.id})`
+                };
+            })
         });
 
         // Notifications Menu Dropdown init
