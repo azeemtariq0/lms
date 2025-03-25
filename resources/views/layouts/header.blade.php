@@ -1,4 +1,5 @@
 @php  $permission = auth()->user()->permission_id;  @endphp
+{{-- @dd(session('permission_id')); --}}
 
 <nav
     class="fixed top-0 left-0 right-0 bg-white/60 backdrop-blur-md border-b border-gray-300 h-16 flex items-center justify-between px-4 z-20">
@@ -9,7 +10,7 @@
     </div>
     <div class="flex items-center space-x-4">
         <button id="changePermission">
-            <div class="btn-default">Permissions ({{ session('permission_id') }})</div>
+            <div class="btn-default">{{ session('permission_name') ?? 'Permissions' }}</div>
         </button>
         <button id="profileMenu"><i class="text-gray-600 text-lg fa-duotone fa-user-circle"></i></button>
         <button id="notificationsMenu"><i class="text-gray-600 text-lg fa-duotone fa-bell"></i></button>

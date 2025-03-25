@@ -2,9 +2,6 @@
 
 
 @section('content')
-
-
-
     {{-- <div id="content" class="padding-20">
 
         <div class="row">
@@ -119,7 +116,10 @@
     <div id="content">
         <form id="form"
             action="{{ isset($user->id) ? route('admin.users.update', ['user' => $user->id]) : route('admin.users.store') }}"
-            method="{{ isset($user->id) ? 'PUT' : 'POST' }}" class="space-y-6">
+            method="POST" class="space-y-6">
+            @if (isset($user->id))
+                @method('PUT')
+            @endif
             @csrf
             <div class="grid grid-cols-2 gap-6">
                 <div>
@@ -151,7 +151,7 @@
                                 <div class="flex items-center mb-1">
                                     <input id="role_{{ $id }}" type="checkbox" class="form-checkbox"
                                         name="permission_id[]" value="{{ $id }}"
-                                        {{ isset($user->permission_id)  && in_array($id, $user->permission_id) ? 'checked' : '' }}>
+                                        {{ isset($user->permission_id) && in_array($id, $user->permission_id) ? 'checked' : '' }}>
                                     <label for="role_{{ $id }}"
                                         class=" ml-1 text-sm text-gray-800">{{ $v }}</label>
                                 </div>
@@ -240,5 +240,4 @@
             });
         });
     </script>
-
 @endsection

@@ -31,6 +31,7 @@ class LoginController extends Controller
             $permissions = Permission::whereIn('id',$ids)->first();
               Session::put('user_permissions', $permissions);
               Session::put('permission_id', $permissions->id);
+              Session::put('permission_name', $permissions->name);
             
             return redirect()->route('admin.dashboard');
         }

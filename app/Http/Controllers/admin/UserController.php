@@ -22,22 +22,25 @@ class UserController extends Controller
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
                     $btn = "<div class='flex items-center justify-center gap-2'>";
+                    // $btn .= "<div class='relative group'>
+                    //             <a href='" . route('admin.users.show', $row->id) . "' class='view action-success'><i
+                    //                 class='fa-duotone text-gray-500 group-hover:text-emerald-600 fa-eye transition-all'></i></a>
+                    //             <span class='tooltip-top-center group-hover:!block'>View Row</span>
+                    //         </div>";
                     $btn .= "<div class='relative group'>
-                                <a href='" . route('admin.users.show', $row->id) . "' class='action-success'><i
-                                    class='fa-duotone text-gray-500 group-hover:text-emerald-600 fa-eye transition-all'></i></a>
-                                <span class='tooltip-right group-hover:!block'>View Row</span>
-                            </div>";
-                    $btn .= "<div class='relative group'>
-                                <a href='" . route('admin.users.edit', $row->id) . "' class='action-info'><i
+                                <a href='" . route('admin.users.edit', $row->id) . "' class='edit action-info'><i
                                     class='fa-duotone text-gray-500 group-hover:text-blue-600 fa-pencil transition-all'></i></a>
-                                <span class='tooltip-right group-hover:!block'>Edit Row</span>
+                                <span class='tooltip-top-center group-hover:!block'>Edit Row</span>
                             </div>";
-                    $btn .= "<div class='relative group'>
-                                <a href='" . route('admin.users.destroy', $row->id) . "' class='action-danger'><i
-                                    class='fa-duotone text-gray-500 group-hover:text-rose-600 fa-trash transition-all'></i></a>
-                                <span class='tooltip-right group-hover:!block'>Delete Row</span>
-                            </div>";
-                    $btn .= "</div>";
+
+                    if ($row->is_admin != 1) {
+                        $btn .= "<div class='relative group'>
+                                <a href='" . route('admin.users.destroy', $row->id) . "' class='delete action-danger'><i
+                                class='fa-duotone text-gray-500 group-hover:text-rose-600 fa-trash transition-all'></i></a>
+                                <span class='tooltip-top-center group-hover:!block'>Delete Row</span>
+                                </div>";
+                        $btn .= "</div>";
+                    }
 
                     // $btn .= htmlBtn('admin.users.show', $row->id, 'warning', 'eye');
                     // $btn .= htmlBtn('admin.users.edit', $row->id);
@@ -138,26 +141,36 @@ class UserController extends Controller
 
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
+        $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:users,email,' . $id,
-            'password' => 'same:confirm-password',
-            // 'roles' => 'required'
+            'permission_id' => 'array',
         ]);
+        // dd($request->all());
+        $user = User::find($id);
 
-        $input = $request->all();
-        if (!empty($input['password'])) {
-            $input['password'] = Hash::make($input['password']);
-        } else {
-            $input = Arr::except($input, array('password'));
+        if (!$user) {
+            // Handle the case where the user is not found
+            return redirect()->route('admin.users.index')->with('error', 'User not found');
         }
 
-        $user = User::find($id);
-        // $input['permission'] = Hash::make($input['password']);
-        $user->update($input);
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->permission_id = $request->input('permission_id');
 
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->input('password'));
+        }
+        $user->save();
 
-        return redirect()->route('admin.users.index')
-            ->with('success', 'User updated successfully');
+        return redirect()->route('admin.users.index')->with('success', 'User updated successfully');
+    }
+
+    public function destroy($id)
+    {
+        User::find($id)->delete();
+        // return redirect()->route('admin.users.index')
+        //     ->with('success', 'User deleted successfully');
+        return response()->json(['success' => true]);
     }
 }

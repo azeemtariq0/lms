@@ -54,6 +54,8 @@
       <link rel="stylesheet" href="{{ asset('assets/admin/css/components.css') }}" type="text/css" />
       <link rel="stylesheet" href="{{ asset('assets/admin/css/app.css') }}" type="text/css" />
 
+      <meta name="csrf-token" content="{{ csrf_token() }}">
+
       @yield('pagelevelstyle')
 
   </head>

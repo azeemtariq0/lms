@@ -50,6 +50,24 @@ body {
     pointer-events: none;
 }
 
+.tooltip-top-center {
+    display: none;
+    white-space: nowrap;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    top: -110%;
+    background: #202020;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    z-index: 1000;
+    font-size: 12px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-weight: 300;
+    pointer-events: none;
+}
+
 .sidebar-collapsed .menu-item:hover .tooltip {
     display: block;
 }

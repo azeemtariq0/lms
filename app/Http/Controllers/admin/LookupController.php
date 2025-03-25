@@ -13,16 +13,12 @@ use DataTables, Form;
 
 class LookupController extends Controller
 {
-    function __construct()
-    {
-     
-    }
+    function __construct() {}
     public function changePermission(Request $request)
     {
-
-        // dd($request->permission_id);
-        Session::put('permission_id', $request->permission_id);
+        $data = Permission::where('id', $request->permission_id)->first();
+        Session::put('permission_id', $data->id);
+        Session::put('permission_name', $data->name);
         echo json_encode(true);
     }
-
 }
