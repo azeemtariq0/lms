@@ -17,7 +17,7 @@ const dataTableParams = {
             return this.nodeType === 3;
         }).remove();
         $('.dataTables_filter input').addClass('form-input text-sm').attr('placeholder',
-            'Search users...');
+            'Search...');
     },
     headerCallback: function (thead, data, start, end, display) {
         // Customize header cells (th elements)

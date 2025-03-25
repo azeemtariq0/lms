@@ -1,8 +1,8 @@
-<nav id="navbar" class="h-fit md:h-[110px] bg-[#1B4D3E] p-4 ">
+<nav id="navbar" class="h-fit md:h-[110px] bg-[#1b4552] p-4 ">
     <div class="container  mx-auto flex justify-between items-center md:gap-[1rem] ">
         <div class="flex gap-3 items-center"><img class="h-10 rounded-xl"
                 src="{{ asset('assets/images/navbar-logo.png') }}" />
-            <h1 class="text-lg font-light text-[#FFDE79]">LMS Dawat-e-Islami</h1>
+            <h1 class="text-lg font-light text-white">LMS Dawat-e-Islami</h1>
         </div>
 
         <button id="menu-toggle"
@@ -43,7 +43,7 @@
                         <a href="{{ url('/login') }}"
                             class="border border-white/30 px-4 py-2 rounded-xl text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white">Login</a>
                         <a href="{{ url('/signup') }}"
-                            class="bg-[#FFDE79] px-4 py-2 rounded-xl text-sm font-medium text-stone-900">Register</a>
+                            class="bg-[#1b4552] px-4 py-2 rounded-xl text-sm font-medium text-stone-900">Register</a>
                     @endif
 
                     <!-- Language Dropdown -->

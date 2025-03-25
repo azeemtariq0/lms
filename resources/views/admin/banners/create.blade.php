@@ -2,108 +2,82 @@
 
 
 @section('content')
-
-@php $isView = ($data['page_management']['slug']=='View') ? "readonly" : "";    @endphp
-
-
-    @if (count($errors) > 0)
-    <div id="content" class="padding-20">
-
-        <div class="alert alert-danger margin-bottom-30">
-            <strong>Whoops!</strong> There were some problems with your input.<br><br>
-            <ul>
-               @foreach ($errors->all() as $error)
-               <li>{{ $error }}</li>
-               @endforeach
-           </ul>
-       </div>
-       @endif
-       <div class="colm-md-12 row" style="margin-top: 10px;">
-    <div class="col-md-11"></div>
-</div>
-
-       <div id="content" class="padding-20">
-
-        <div class="row">
-
-            <div class="col-md-6">
-
-                <!-- ------ -->
-                <div class="panel panel-default">
-                    <div class="panel-heading panel-heading-transparent">
-                        <strong>{{ $data['page_management']['title'] ?? "" }}</strong>
-                    </div>
-
-                    <div class="panel-body">
-
-                    
-                            @if(!isset($banner->id))
-                             <form   action="{{ route('admin.banners.store')}}" method="post" id="banners_form">
-                            @else
-                               <form   action="{{ route('admin.banners.update', $banner->id) }}" method="POST" id="banners_form">
-                                @method('PATCH')
-
-                            @endif
-
-                            @csrf
-                        <fieldset>
-                            <!-- required [php action request] -->
-                            <div class="row">
-                                <div class="form-group">
-                                    <div class="col-md-12 col-sm-12">
-                                        <label>Name *</label>
-                                        <input type="text" {{ $isView }} name="name" placeholder="Name" value="{{ @$banner->name }}" class="form-control required">
-                            
-                                    </div>
-
-                                </div>
-                            </div>
-
-                        
-        
-                        </fieldset>
-
-                        @if(!$isView)
-
-                        <div class="row">
-                            <div class="col-md-12">
-                                <button type="submit" class="btn btn-info margin-top-30 pull-right">
-                                   <i class="fa fa-check"></i>  <?= (!isset($banner->id)) ? "Save" : "Update" ?>
-                               </button>
-                           </div>
-                       </div>
-
-                       @endif
-
-                       </form>
-
-                    </div>
+    <div id="content">
+        <form id="form" enctype="multipart/form-data"
+            action="{{ isset($banner->id) ? route('admin.banners.update', ['banner' => $banner->id]) : route('admin.banners.store') }}"
+            method="POST" class="space-y-6">
+            @if (isset($banner->id))
+                @method('PUT')
+            @endif
+            @csrf
+            <div class="grid grid-cols-2 gap-6">
+                <div>
+                    <label for="name" class="form-label required">Name</label>
+                    <input type="text" name="name" id="name" placeholder="Enter Full Name" class="form-input"
+                        value="{{ @$banner->name }}">
+                </div>
+                <div>
+                    <label for="description" class="form-label">Description</label>
+                    <input type="description" name="description" id="description" placeholder="write description"
+                        class="form-input" value="{{ @$banner->description }}">
+                </div>
+                <div>
+                    <label for="file" class="form-label required">Image</label>
+                    <input type="file" name="file" id="file" class="form-file" accept="image/*">
 
                 </div>
-                <!-- /----- -->
+                <div class="bg-white p-2 px-3 rounded-lg ">
+                    <label class="form-label !ml-0">Saved Image</label>
+                    <img class="w-20 aspect-square" src="{{ isset($banner->path) ? asset($banner->path) : '' }}"
+                        alt="Image" />
 
+                </div>
             </div>
 
-
-
-        </div>
-
+            <div class="flex gap-2 w-fit ml-auto sticky bottom-0 py-3">
+                <a href='{{ route('admin.banners.index') }}' type="button" class="btn-default">
+                    <i class="fa-duotone fa-arrow-left mr-2"></i> Back
+                </a>
+                <button type="submit" class="btn-primary">
+                    Submit <i class="fa-duotone fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+        </form>
+    </div>
     </div>
 
+    <script>
+        $(document).ready(function() {
 
-</div>
+            let rules = {
+                name: {
+                    required: true,
+                    minlength: 5,
+                    maxlength: 100
+                },
+                description: {
+                    maxlength: 255
+                },
+            };
 
 
+            $("#form").validate({
+                rules: rules,
+                messages: {
+                    name: {
+                        required: "Banner Name is required",
+                    },
+                    description: {
+                        maxlength: "Description must be less than 255 characters",
+                    },
+                },
+                errorElement: "span",
+                errorClass: "text-red-500 text-xs",
+                errorPlacement: function(error, element) {
+                    error.insertAfter(element);
+                }
 
-
-
-<script type="text/javascript">
-    
-
-</script>
-
-
-
-
-
+            });
+        });
+    </script>
 @endsection

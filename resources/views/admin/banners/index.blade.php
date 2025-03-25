@@ -2,87 +2,65 @@
 
 
 @section('content')
-  @include('layouts.additionalscripts.adddatatable')
+    @include('layouts.additionalscripts.adddatatable')
 
-  <div id="content" class="padding-20">
+    <div id="content" class="padding-20">
 
-          <!-- 
-            PANEL CLASSES:
-              panel-default
-              panel-danger
-              panel-warning
-              panel-info
-              panel-success
+        <div class="flex items-center justify-end">
 
-            INFO:   panel collapse - stored on user localStorage (handled by app.js _panels() function).
-                All pannels should have an unique ID or the panel collapse status will not be stored!
-              -->
+            @can('banners.add')
+                <a href="{{ route('admin.banners.create') }}" class="btn-primary !font-normal">
+                    <i class="fa-solid fa-plus"></i> Create Banner
+                </a>
+            @endcan
 
-              @if ($message = Session::get('success'))
-              <div class="alert alert-success">
-                <p>{{ $message }}</p>
-              </div>
-              @endif
-              <div id="panel-1" class="panel panel-default">
-                <div class="panel-heading">
-                  <span class="title elipsis">
-                    <strong>MANAGE Banner</strong> <!-- panel title -->
-                  </span>
+        </div>
 
-                  <!-- right options -->
-                  <ul class="options pull-right list-inline">
-                     
-                    <li>
-                      <a href="{{ route('admin.banners.create')}}" class="btn btn-sm btn-success btn_create_new_user">
-                        <span>Create New Banner</span>
-                      </a>
-                    </li>
-                    
-                    <li><a href="#" class="opt panel_colapse" data-toggle="tooltip" title="Colapse" data-placement="bottom"></a></li>
-                    <li><a href="#" class="opt panel_fullscreen hidden-xs" data-toggle="tooltip" title="Fullscreen" data-placement="bottom"><i class="fa fa-expand"></i></a></li>
-                    <li><a href="#" class="opt panel_close" data-confirm-title="Confirm" data-confirm-message="Are you sure you want to remove this panel?" data-toggle="tooltip" title="Close" data-placement="bottom"><i class="fa fa-times"></i></a></li>
-                  </ul>
-                  <!-- /right options -->
+        <div class=" mt-2">
+            <table id="dataTable"
+                class="shadow-sm bg-white rounded-lg overflow-hidden  w-full border-collapse bg-gray-50 !border-gray-300 text-sm">
+                <thead>
+                    <tr>
+                        <th class=" w-1/3">
+                            <div class="form-label p-2 !m-0">Name</div>
+                        </th>
+                        <th class="!w-40">
+                            <div class="form-label p-2 !m-0 text-center"> Action</div>
+                        </th>
 
-                </div>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
 
-                <!-- panel content -->
-                <div class="panel-body">
+            </table>
 
-                  <table class="table table-striped table-bordered table-hover table-responsive data-table">
-                    <thead>
-                      <tr>
-                        <th>Name</th>
-                        <th width="20%">Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                  </table>
+        </div>
+        <!-- /panel content -->
 
-                </div>
-                <!-- /panel content -->
+    </div>
+@endsection
 
-              </div>
-              <!-- /PANEL -->
+@section('pagelevelscript')
+    <script type="text/javascript">
+        $(function() {
 
-            </div>
-          @endsection
-
-          @section('pagelevelscript')
-          <script type="text/javascript">
-            $(function () {
-
-              var table = $('.data-table').DataTable({
+            var table = $("#dataTable").DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: "{{ route('admin.banners.index') }}",
-                columns: [
-                {data: 'name', name: 'name'},
-                {data: 'action', name: 'action', orderable: false, searchable: false},
-                ]
-              });
+                columns: [{
+                    data: 'name',
+                    name: 'name'
+                }, {
+                    data: 'action',
+                    name: 'action',
+                    orderable: false,
+                    searchable: false
+                }, ],
+                ...dataTableParams
 
             });
-          </script>
-          @endsection
+        });
+    </script>
+@endsection

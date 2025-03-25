@@ -75,7 +75,7 @@
       }
 
       .form-file {
-          @apply w-full text-gray-700 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-[#023c40]/10 file:text-[#023c40] hover:file:bg-[#023c40]/20;
+          @apply w-full text-gray-700 file:mr-4 file:py-2 file:px-4 px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-[#023c40]/10 file:text-[#023c40] hover:file:bg-[#023c40]/20;
       }
 
       .btn-default {

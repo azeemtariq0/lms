@@ -25,10 +25,10 @@
                         class="rounded-lg shadow-lg w-full transition-transform transform hover:scale-105 duration-300">
                 </div>
                 <div class="lg:w-1/2 lg:pl-16">
-                    <p class="text-sm font-semibold text-[#1b4d3e]">Introduction</p>
+                    <p class="text-sm font-semibold text-[#1b4552]">Introduction</p>
                     <h2 class="text-4xl font-bold text-stone-900 mb-6 relative">
                         LMS Dawat-e-Islami
-                        <span class="absolute bottom-0 left-0 w-16 h-1 bg-[#1b4d3e] rounded-full"></span>
+                        <span class="absolute bottom-0 left-0 w-16 h-1 bg-[#1b4552] rounded-full"></span>
                     </h2>
                     <p class="text-gray-600 mb-2 leading-relaxed">
                         The Organizational Courses, an integral part of the Pakistan Mushawart Office Department, We are
@@ -39,45 +39,45 @@
                         preachers, personnel, and officials worldwide.
 
                     </p>
-                    <div class="text-[#1b4d3e] mb-8 font-medium">Launching Date : September 2, 2024</div>
+                    <div class="text-[#1b4552] mb-8 font-medium">Launching Date : September 2, 2024</div>
                     <div class="flex flex-wrap gap-4">
                         <a href="#"
-                            class="bg-[#FFDE79] border border-[#1b4d3e] text-stone-900 py-3 px-6 rounded-full flex items-center gap-2">
+                            class="bg-[#d1dbe4] border border-[#1b4552] text-stone-900 py-3 px-6 rounded-full flex items-center gap-2">
                             Learn More <i class="fa-solid fa-arrow-right"></i>
                         </a>
                         <a href="#"
-                            class="border border-[#1b4d3e] text-[#1b4d3e] font-medium py-3 px-6 rounded-full flex items-center gap-2">
+                            class="border border-[#1b4552] text-[#1b4552] font-medium py-3 px-6 rounded-full flex items-center gap-2">
                             Contact Us <i class="fa-solid fa-envelope"></i>
                         </a>
                     </div>
                 </div>
             </div>
 
-            <div class="mt-30 text-center relative bg-[#FFDE79] p-10 rounded-3xl border border-[#1b4d3e]">
+            <div class="mt-30 text-center relative bg-[#d1dbe4] p-10 rounded-3xl border border-[#1b4552]">
                 <h2 class="text-4xl  font-bold text-stone-900 mb-8 relative z-10">Our Impact at a Glance</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
-                    <div class="p-8 rounded-2xl bg-white border border-[#1b4d3e] relative overflow-hidden">
+                    <div class="p-8 rounded-2xl bg-white border border-[#1b4552] relative overflow-hidden">
                         <div class="absolute inset-0 rounded-2xl"></div>
-                        <i class="fa-regular fa-user-graduate text-5xl text-[#1B4D3E] mb-4 relative z-10"></i>
+                        <i class="fa-regular fa-user-graduate text-5xl text-[#1b4552] mb-4 relative z-10"></i>
                         <h4 class="text-3xl font-bold text-gray-900 mb-2 relative z-10 animate-count" data-target="413">
                             +</h4>
                         <p class="text-gray-700 relative z-10">Number of Enrollments</p>
                     </div>
-                    <div class="p-8 rounded-2xl bg-white border border-[#1b4d3e] relative overflow-hidden">
+                    <div class="p-8 rounded-2xl bg-white border border-[#1b4552] relative overflow-hidden">
                         <div class="absolute inset-0  rounded-2xl"></div>
                         <i class="fa-regular fa-check-circle text-5xl text-teal-600 mb-4 relative z-10"></i>
                         <h4 class="text-3xl font-bold text-gray-900 mb-2 relative z-10 animate-count" data-target="53">+
                         </h4>
                         <p class="text-gray-700 relative z-10">Number of Completed</p>
                     </div>
-                    <div class="p-8 rounded-2xl bg-white border border-[#1b4d3e] relative overflow-hidden">
+                    <div class="p-8 rounded-2xl bg-white border border-[#1b4552] relative overflow-hidden">
                         <div class="absolute inset-0  rounded-2xl"></div>
                         <i class="fa-regular fa-book-open text-5xl text-green-600 mb-4 relative z-10"></i>
                         <h4 class="text-3xl font-bold text-gray-900 mb-2 relative z-10 animate-count" data-target="5">+
                         </h4>
                         <p class="text-gray-700 relative z-10">Number of Courses</p>
                     </div>
-                    <div class="p-8 rounded-2xl bg-white border border-[#1b4d3e] relative overflow-hidden">
+                    <div class="p-8 rounded-2xl bg-white border border-[#1b4552] relative overflow-hidden">
                         <div class="absolute inset-0  rounded-2xl"></div>
                         <i class="fa-regular fa-chalkboard-teacher text-5xl text-yellow-600 mb-4 relative z-10"></i>
                         <h4 class="text-3xl font-bold text-gray-900 mb-2 relative z-10 animate-count" data-target="4">+
@@ -91,15 +91,15 @@
     </section>
     <section class="pb-30">
         <div class="container mx-auto px-4">
-            <p class="text-sm font-semibold text-[#1b4d3e]">LMS</p>
+            <p class="text-sm font-semibold text-[#1b4552]">LMS</p>
             <h2 class="text-4xl font-bold text-stone-900 mb-6 relative">
                 Our Featured Courses
-                <span class="absolute bottom-0 left-0 w-16 h-1 bg-[#1b4d3e] rounded-full"></span>
+                <span class="absolute bottom-0 left-0 w-16 h-1 bg-[#1b4552] rounded-full"></span>
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
                 <div
-                    class="bg-white rounded-2xl shadow-md overflow-hidden card-transition hover:shadow-lg hover:shadow-[#FFDE79] hover:transform hover:-translate-y-2">
+                    class="bg-white rounded-2xl shadow-md overflow-hidden card-transition hover:shadow-lg hover:shadow-[#d1dbe4] hover:transform hover:-translate-y-2">
                     <img src="{{ asset('assets/images/post-01.jpg') }}" alt="Course Image" class="w-full h-48 object-cover">
                     <div class="p-6">
                         <h3 class="text-xl font-semibold text-gray-900 mb-2">UC Nigran Course</h3>
@@ -107,7 +107,7 @@
                         <div class="flex items-center justify-between">
                             <span class="text-sm text-gray-500"><i class="fa-solid fa-clock mr-1"></i> 12 Weeks</span>
                             <a href="#"
-                                class="bg-[#FFDE79] border border-[#1b4d3e] text-stone-900 py-2 px-4 text-sm rounded-full flex items-center gap-2">
+                                class="bg-[#d1dbe4] border border-[#1b4552] text-stone-900 py-2 px-4 text-sm rounded-full flex items-center gap-2">
                                 Enroll now
                             </a>
                         </div>
@@ -115,7 +115,7 @@
                 </div>
 
                 <div
-                    class="bg-white rounded-2xl shadow-md overflow-hidden card-transition hover:shadow-lg hover:shadow-[#FFDE79] hover:transform hover:-translate-y-2">
+                    class="bg-white rounded-2xl shadow-md overflow-hidden card-transition hover:shadow-lg hover:shadow-[#d1dbe4] hover:transform hover:-translate-y-2">
                     <img src="{{ asset('assets/images/post-02.jpg') }}" alt="Course Image" class="w-full h-48 object-cover">
                     <div class="p-6">
                         <h3 class="text-xl font-semibold text-gray-900 mb-2">12 Deeni Kaam Islamic Brother</h3>
@@ -123,7 +123,7 @@
                         <div class="flex items-center justify-between">
                             <span class="text-sm text-gray-500"><i class="fa-solid fa-clock mr-1"></i> 8 Weeks</span>
                             <a href="#"
-                                class="bg-[#FFDE79] border border-[#1b4d3e] text-stone-900 py-2 px-4 text-sm rounded-full flex items-center gap-2">
+                                class="bg-[#d1dbe4] border border-[#1b4552] text-stone-900 py-2 px-4 text-sm rounded-full flex items-center gap-2">
                                 Enroll now
                             </a>
                         </div>
@@ -132,7 +132,7 @@
 
 
                 <div
-                    class="bg-white rounded-2xl shadow-md overflow-hidden card-transition hover:shadow-lg hover:shadow-[#FFDE79] hover:transform hover:-translate-y-2">
+                    class="bg-white rounded-2xl shadow-md overflow-hidden card-transition hover:shadow-lg hover:shadow-[#d1dbe4] hover:transform hover:-translate-y-2">
                     <img src="{{ asset('assets/images/post-03.jpg') }}" alt="Course Image" class="w-full h-48 object-cover">
                     <div class="p-6">
                         <h3 class="text-xl font-semibold text-gray-900 mb-2">Itikaf Course</h3>
@@ -140,7 +140,7 @@
                         <div class="flex items-center justify-between">
                             <span class="text-sm text-gray-500"><i class="fa-solid fa-clock mr-1"></i> 10 Weeks</span>
                             <a href="#"
-                                class="bg-[#FFDE79] border border-[#1b4d3e] text-stone-900 py-2 px-4 text-sm rounded-full flex items-center gap-2">
+                                class="bg-[#d1dbe4] border border-[#1b4552] text-stone-900 py-2 px-4 text-sm rounded-full flex items-center gap-2">
                                 Enroll now
                             </a>
                         </div>
@@ -150,7 +150,7 @@
             </div>
             <div class="flex justify-center pt-8 w-full">
                 <a href="#"
-                    class="bg-[#FFDE79] border border-[#1b4d3e] text-stone-900 py-3 px-6 rounded-full flex items-center gap-2">
+                    class="bg-[#d1dbe4] border border-[#1b4552] text-stone-900 py-3 px-6 rounded-full flex items-center gap-2">
                     Show All Courses <i class="fa-solid fa-arrow-right"></i>
                 </a>
             </div>
@@ -165,7 +165,7 @@
                         class="testi-arrow absolute top-0 -right-20 w-[80%] -z-10">
                         <path
                             d="M124.828 4.59888C169.229 9.92943 213.631 16.4339 226.361 37.5468C244.064 66.8985 104.053 89.9727 42.2616 68.2072C-118.59 11.5502 261.312 -12.1056 249.479 47.5269C240.224 94.1576 -7.80185 73.4384 28.2422 27.3184C35.7437 17.725 76.6543 7.90018 121.293 4.82427C171.88 -1.7839 284.375 5.075 328.375 81.875L299.875 79.6244L330.68 82.7494L337.43 57.6243"
-                            stroke="#FFDE79" stroke-width="4" stroke-miterlimit="10" class="path-2"
+                            stroke="#d1dbe4" stroke-width="4" stroke-miterlimit="10" class="path-2"
                             style="stroke-dashoffset: 0px; stroke-dasharray: 1300.05;"></path>
                     </svg>
                 </div>
@@ -174,7 +174,7 @@
 
                 <li class="event-item flex items-center justify-between">
                     <div class="flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#1B4D3E] mr-4" fill="none"
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#1b4552] mr-4" fill="none"
                             viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -186,7 +186,7 @@
                                 <p class="text-gray-500 text-sm">Learn the latest web development techniques and build
                                     your own projects.</p>
                                 <a href="#"
-                                    class="mt-2 inline-block bg-[#1B4D3E] text-white py-2 px-4 rounded-full text-sm">Register
+                                    class="mt-2 inline-block bg-[#1b4552] text-white py-2 px-4 rounded-full text-sm">Register
                                     Now</a>
                             </div>
                         </div>
