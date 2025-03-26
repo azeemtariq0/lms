@@ -4,13 +4,13 @@ $(document).ready(() => {
     const currentPath = '/permissions';
     const sidebarRoutes = [
         {
-            icon: 'fa-duotone fa-house',
+            icon: 'fa-solid fa-house',
             title: 'Dashboard',
             link: '/dashboard',
             permission: true
         },
         {
-            icon: 'fa-duotone fa-circle-user',
+            icon: 'fa-solid fa-circle-user',
             title: 'Administration',
             submenu: [
                 { title: 'Users', link: '/users', permission: true },
@@ -18,13 +18,13 @@ $(document).ready(() => {
             ]
         },
         {
-            icon: 'fa-duotone fa-screwdriver-wrench',
+            icon: 'fa-solid fa-screwdriver-wrench',
             title: 'Settings',
             link: '/settings',
             permission: true
         },
         {
-            icon: 'fa-duotone fa-right-from-bracket',
+            icon: 'fa-solid fa-right-from-bracket',
             title: 'Logout',
             link: '/logout',
             permission: true
@@ -54,9 +54,9 @@ $(document).ready(() => {
     new Dropdown({
         triggerElement: '#profileMenu',
         items: [
-            { title: 'Profile', link: '#', icon: 'fa-duotone fa-user' },
-            { title: 'Settings', link: '#', icon: 'fa-duotone fa-gear' }, ,
-            { title: 'Logout', link: '#', icon: 'fa-duotone fa-right-from-bracket' },
+            { title: 'Profile', link: '#', icon: 'fa-solid fa-user' },
+            { title: 'Settings', link: '#', icon: 'fa-solid fa-gear' }, ,
+            { title: 'Logout', link: '#', icon: 'fa-solid fa-right-from-bracket' },
         ]
     });
 
@@ -64,8 +64,8 @@ $(document).ready(() => {
     new Dropdown({
         triggerElement: '#notificationsMenu',
         items: [
-            { title: 'New Message', link: '#', icon: 'fa-duotone fa-envelope' },
-            { title: 'System Update', link: '#', icon: 'fa-duotone fa-gear' }
+            { title: 'New Message', link: '#', icon: 'fa-solid fa-envelope' },
+            { title: 'System Update', link: '#', icon: 'fa-solid fa-gear' }
         ]
     });
 

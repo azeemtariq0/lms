@@ -59,7 +59,7 @@ class Sidebar {
                                 <i class="${route.icon}"></i>
                                 <span class="sidebar-text ml-3 text-sm font-light">${route.title}</span>
                             </div>
-                            <i class="fa-duotone fa-chevron-down sidebar-text chevron text-xs ${isActive && !this.isCollapsed ? 'rotate-180' : ''} transition-all duration-300"></i>
+                            <i class="fa-solid fa-chevron-down sidebar-text chevron text-xs ${isActive && !this.isCollapsed ? 'rotate-180' : ''} transition-all duration-300"></i>
                         </div>
                         ${submenuHtml}
                     ` : `
@@ -165,69 +165,164 @@ class Sidebar {
     }
 }
 
+// class Dropdown {
+//     constructor(options = {}) {
+//         this.triggerSelector = options.triggerElement;
+//         this.dropdownItems = options.items || [];
+//         this.dropdownId = options.id || `dropdown-${Math.floor(Math.random() * 1000)}`;
+//         this.initialize();
+//     }
+
+//     initialize() {
+//         this.renderDropdown();
+//         this.$triggerElement = $(`#${this.dropdownId}`).prev();
+//         this.$dropdownElement = $(`#${this.dropdownId}`);
+//         this.bindEventListeners();
+//     }
+
+//     renderDropdown() {
+//         const $originalTrigger = $(this.triggerSelector);
+//         const dropdownHtml = `
+//             <div class="relative">
+//                 <button id="${this.triggerSelector.slice(1)}" class="cursor-pointer">${$originalTrigger.html()}</button>
+//                 <div id="${this.dropdownId}" class="dropdown-menu p-1.5 border border-gray-200 rounded-md shadow-md">
+//                     ${this.dropdownItems.map(item => `
+//                         <a href="${item.link || 'javascript:void(0)'}" ${item.onClick ? `onclick="${item.onClick}"` : ''} class=" block px-4 rounded-md py-2 text-sm text-gray-700 cursor-pointer ${item.link ? 'hover:bg-gray-100' : ' text-gray-900 !cursor-default'}"><i class="${item.icon} mr-2"></i> ${item.title}</a>
+//                     `).join('')}
+//                 </div>
+//             </div>
+//         `;
+//         $originalTrigger.replaceWith(dropdownHtml);
+//     }
+
+//     bindEventListeners() {
+//         this.$triggerElement.on('click', (event) => {
+//             event.preventDefault();
+//             this.toggleDropdown();
+//         });
+
+//         $(document).on('click', (event) => {
+//             const $target = $(event.target);
+//             if (!this.$triggerElement.is($target.parent('button')) &&
+//                 !this.$triggerElement.has($target.parent('button')).length &&
+//                 !this.$dropdownElement.is($target.parent('button')) &&
+//                 !this.$dropdownElement.has($target.parent('button')).length) {
+//                 this.hideDropdown();
+//             }
+//         });
+//     }
+
+//     toggleDropdown() {
+//         if (this.$dropdownElement.hasClass('active')) {
+//             this.hideDropdown();
+//         } else {
+//             this.showDropdown();
+//         }
+//     }
+
+//     showDropdown() {
+//         this.$dropdownElement.addClass('active');
+//     }
+
+//     hideDropdown() {
+//         this.$dropdownElement.removeClass('active');
+//     }
+// }
 class Dropdown {
-    constructor(options = {}) {
-        this.triggerSelector = options.triggerElement;
-        this.dropdownItems = options.items || [];
-        this.dropdownId = options.id || `dropdown-${Math.floor(Math.random() * 1000)}`;
+    constructor(selector, options = {}) {
+        this.$triggerElement = $(selector);
+        this.options = options.options || [];
+        this.onChange = options.onChange || null;
+        this.dropdownId = `dropdown-${Math.floor(Math.random() * 1000)}`;
+        this.selectedOption = null; // Set initial selection
+
         this.initialize();
     }
 
     initialize() {
+        if (this.$triggerElement.length === 0) {
+            console.error(`Dropdown trigger element ${this.$triggerElement.selector} not found!`);
+            return;
+        }
+
         this.renderDropdown();
-        this.$triggerElement = $(`#${this.dropdownId}`).prev();
         this.$dropdownElement = $(`#${this.dropdownId}`);
         this.bindEventListeners();
     }
 
     renderDropdown() {
-        const $originalTrigger = $(this.triggerSelector);
+        const initialText = this.selectedOption
+            ? this.selectedOption.label
+            : this.$triggerElement.html().trim() || "Select Option";
+
         const dropdownHtml = `
-            <div class="relative">
-                <button id="${this.triggerSelector.slice(1)}" class="cursor-pointer">${$originalTrigger.html()}</button>
-                <div id="${this.dropdownId}" class="dropdown-menu p-1.5 border border-gray-200 rounded-md shadow-md">
-                    ${this.dropdownItems.map(item => `
-                        <a href="${item.link || 'javascript:void(0)'}" ${item.onClick ? `onclick="${item.onClick}"` : ''} class=" block px-4 rounded-md py-2 text-sm text-gray-700 cursor-pointer ${item.link ? 'hover:bg-gray-100' : ' text-gray-900 !cursor-default'}"><i class="${item.icon} mr-2"></i> ${item.title}</a>
-                    `).join('')}
-                </div>
+        <div class="relative inline-block">
+            <button id="${this.$triggerElement.attr('id')}" 
+                    class="cursor-pointer ${this.$triggerElement.attr('class') || ''}">
+                ${initialText}
+            </button>
+            <div id="${this.dropdownId}" 
+                 class="dropdown-menu p-1.5 border border-gray-200 rounded-md shadow-md ">
+                ${this.options.map(option => `
+                    <a href="javascript:void(0)" data-href="${option.link || ''}" 
+                       data-value="${option.value || ''}" 
+                       class="dropdown-item block px-4 rounded-md py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100 ${option.className ?? ''}">
+                        ${option.label}
+                    </a>
+                `).join('')}
             </div>
-        `;
-        $originalTrigger.replaceWith(dropdownHtml);
+        </div>
+    `;
+        this.$triggerElement.replaceWith(dropdownHtml);
+        this.$triggerElement = $(`#${this.$triggerElement.attr('id')}`);
     }
 
     bindEventListeners() {
-        this.$triggerElement.on('click', (event) => {
+        const $button = $(`#${this.$triggerElement.attr('id')}`);
+        const $dropdown = $(`#${this.dropdownId}`);
+
+        $button.on('click', (event) => {
             event.preventDefault();
-            this.toggleDropdown();
+            $dropdown.toggleClass('active');
+        });
+
+        $dropdown.on('click', '.dropdown-item', (event) => {
+            event.preventDefault();
+            const $target = $(event.target);
+            const selectedValue = $target.data('value');
+            const href = $target.data('href');
+            const selectedLabel = $target.text();
+
+
+            // Trigger onChange callback
+            if (typeof this.onChange === "function") {
+                this.selectedOption = { value: selectedValue, label: selectedLabel };
+                $button.text(selectedLabel);
+                this.onChange(this.selectedOption);
+            } else {
+                if (href) {
+                    window.location.href = href;
+                }
+            }
+            if (href || this.onChange) {
+                this.hideDropdown();
+            }
         });
 
         $(document).on('click', (event) => {
-            const $target = $(event.target);
-            if (!this.$triggerElement.is($target.parent('button')) &&
-                !this.$triggerElement.has($target.parent('button')).length &&
-                !this.$dropdownElement.is($target.parent('button')) &&
-                !this.$dropdownElement.has($target.parent('button')).length) {
+            if (!$button.is(event.target) && !$dropdown.is(event.target) && !$dropdown.has(event.target).length) {
                 this.hideDropdown();
             }
         });
     }
 
-    toggleDropdown() {
-        if (this.$dropdownElement.hasClass('active')) {
-            this.hideDropdown();
-        } else {
-            this.showDropdown();
-        }
-    }
-
-    showDropdown() {
-        this.$dropdownElement.addClass('active');
-    }
-
     hideDropdown() {
         this.$dropdownElement.removeClass('active');
     }
+
 }
+
+
 // Breadcrumb Component 
 class Breadcrumb {
     constructor(options = {}) {
@@ -270,7 +365,7 @@ class Breadcrumb {
             return false;
         };
         findRoute(this.routes, this.currentPath);
-        return trail.length ? [{ title: 'Home', link: '/admin   ', icon: 'fa-duotone fa-home' }, ...trail] : [{ title: 'Home', link: '/', icon: 'fa-duotone fa-home' }];
+        return trail.length ? [{ title: 'Home', link: '/admin   ', icon: 'fa-solid fa-home' }, ...trail] : [{ title: 'Home', link: '/', icon: 'fa-solid fa-home' }];
     }
 
     renderBreadcrumb() {

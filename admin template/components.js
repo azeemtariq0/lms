@@ -59,7 +59,7 @@ class Sidebar {
                                 <i class="${route.icon}"></i>
                                 <span class="sidebar-text ml-3 text-sm font-light">${route.title}</span>
                             </div>
-                            <i class="fa-duotone fa-chevron-down sidebar-text chevron text-xs ${isActive && !this.isCollapsed ? 'rotate-180' : ''} transition-all duration-300"></i>
+                            <i class="fa-solid fa-chevron-down sidebar-text chevron text-xs ${isActive && !this.isCollapsed ? 'rotate-180' : ''} transition-all duration-300"></i>
                         </div>
                         ${submenuHtml}
                     ` : `
@@ -270,7 +270,7 @@ class Breadcrumb {
             return false;
         };
         findRoute(this.routes, this.currentPath);
-        return trail.length ? [{ title: 'Home', link: '/', icon: 'fa-duotone fa-home' }, ...trail] : [{ title: 'Home', link: '/', icon: 'fa-duotone fa-home' }];
+        return trail.length ? [{ title: 'Home', link: '/', icon: 'fa-solid fa-home' }, ...trail] : [{ title: 'Home', link: '/', icon: 'fa-solid fa-home' }];
     }
 
     renderBreadcrumb() {
@@ -364,13 +364,13 @@ class Breadcrumb {
 //               type="submit"
 //               class="px-4 py-2 text-xs font-medium bg-gray-300 rounded-md hover:bg-gray-300/90 focus:outline-none focus:ring-2 focus:ring-[#023c40]/50 focus:ring-offset-2 transition-all duration-200"
 //             >
-//               <i class="fa-duotone fa-arrow-left mr-2"></i> Back
+//               <i class="fa-solid fa-arrow-left mr-2"></i> Back
 //             </button>
 //             <button
 //               type="submit"
 //               class="px-4 py-2 text-xs text-white font-light bg-[#023c40] rounded-md shadow-md hover:bg-[#023c40]/90 focus:outline-none focus:ring-2 focus:ring-[#023c40]/50 focus:ring-offset-2 transition-all duration-200"
 //             >
-//                Submit <i class="fa-duotone fa-arrow-right ml-2"></i>
+//                Submit <i class="fa-solid fa-arrow-right ml-2"></i>
 //             </button>
 //         </div>
 //         </form>

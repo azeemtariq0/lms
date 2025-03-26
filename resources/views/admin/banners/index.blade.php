@@ -21,7 +21,7 @@
                 class="shadow-sm bg-white rounded-lg overflow-hidden  w-full border-collapse bg-gray-50 !border-gray-300 text-sm">
                 <thead>
                     <tr>
-                        <th class=" w-1/3">
+                        <th>
                             <div class="form-label p-2 !m-0">Name</div>
                         </th>
                         <th class="!w-40">

@@ -24,19 +24,19 @@ class UserController extends Controller
                     $btn = "<div class='flex items-center justify-center gap-2'>";
                     // $btn .= "<div class='relative group'>
                     //             <a href='" . route('admin.users.show', $row->id) . "' class='view action-success'><i
-                    //                 class='fa-duotone text-gray-500 group-hover:text-emerald-600 fa-eye transition-all'></i></a>
+                    //                 class='fa-solid text-gray-500 group-hover:text-emerald-600 fa-eye transition-all'></i></a>
                     //             <span class='tooltip-top-center group-hover:!block'>View Row</span>
                     //         </div>";
                     $btn .= "<div class='relative group'>
                                 <a href='" . route('admin.users.edit', $row->id) . "' class='edit action-info'><i
-                                    class='fa-duotone text-gray-500 group-hover:text-blue-600 fa-pencil transition-all'></i></a>
+                                    class='fa-solid text-gray-500 group-hover:text-blue-600 fa-pencil transition-all'></i></a>
                                 <span class='tooltip-top-center group-hover:!block'>Edit Row</span>
                             </div>";
 
                     if ($row->is_admin != 1) {
                         $btn .= "<div class='relative group'>
                                 <a href='" . route('admin.users.destroy', $row->id) . "' class='delete action-danger'><i
-                                class='fa-duotone text-gray-500 group-hover:text-rose-600 fa-trash transition-all'></i></a>
+                                class='fa-solid text-gray-500 group-hover:text-rose-600 fa-trash transition-all'></i></a>
                                 <span class='tooltip-top-center group-hover:!block'>Delete Row</span>
                                 </div>";
                         $btn .= "</div>";

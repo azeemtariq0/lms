@@ -24,13 +24,13 @@ class PermissionController extends Controller
 
                     $btn .= "<div class='relative group'>
                             <a href='" . route('admin.permissions.edit', $row->id) . "' class='edit action-info'><i
-                                class='fa-duotone text-gray-500 group-hover:text-blue-600 fa-pencil transition-all'></i></a>
+                                class='fa-solid text-gray-500 group-hover:text-blue-600 fa-pencil transition-all'></i></a>
                             <span class='tooltip-top-center group-hover:!block'>Edit Row</span>
                         </div>";
 
                     $btn .= "<div class='relative group'>
                             <a href='" . route('admin.permissions.destroy', $row->id) . "' class='delete action-danger'><i
-                            class='fa-duotone text-gray-500 group-hover:text-rose-600 fa-trash transition-all'></i></a>
+                            class='fa-solid text-gray-500 group-hover:text-rose-600 fa-trash transition-all'></i></a>
                             <span class='tooltip-top-center group-hover:!block'>Delete Row</span>
                             </div>";
                     $btn .= "</div>";

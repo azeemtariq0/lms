@@ -53,16 +53,20 @@
 
             <div class="flex gap-2 w-fit ml-auto sticky bottom-0 py-3">
                 <a href='{{ route('admin.users.index') }}' type="button" class="btn-default">
-                    <i class="fa-duotone fa-arrow-left mr-2"></i> Back
+                    <i class="fa-solid fa-arrow-left mr-2"></i> Back
                 </a>
                 <button type="submit" class="btn-primary">
-                    Submit <i class="fa-duotone fa-arrow-right ml-2"></i>
+                    Submit <i class="fa-solid fa-arrow-right ml-2"></i>
                 </button>
             </div>
         </form>
     </div>
     </div>
 
+
+@endsection
+
+@section('pagelevelscript')
     <script>
         $(document).ready(function() {
 

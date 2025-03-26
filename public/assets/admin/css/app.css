@@ -1,6 +1,89 @@
+@font-face {
+    font-family: "Geist";
+    src: url("/assets/admin/plugins/webfonts/geist/Geist-Thin.woff2")
+        format("woff2");
+    font-weight: 100;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Geist";
+    src: url("/assets/admin/plugins/webfonts/geist/Geist-ExtraLight.woff2")
+        format("woff2");
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Geist";
+    src: url("/assets/admin/plugins/webfonts/geist/Geist-Light.woff2")
+        format("woff2");
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Geist";
+    src: url("/assets/admin/plugins/webfonts/geist/Geist-Regular.woff2")
+        format("woff2");
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Geist";
+    src: url("/assets/admin/plugins/webfonts/geist/Geist-Medium.woff2")
+        format("woff2");
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Geist";
+    src: url("/assets/admin/plugins/webfonts/geist/Geist-SemiBold.woff2")
+        format("woff2");
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Geist";
+    src: url("/assets/admin/plugins/webfonts/geist/Geist-Bold.woff2")
+        format("woff2");
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Geist";
+    src: url("/assets/admin/plugins/webfonts/geist/Geist-ExtraBold.woff2")
+        format("woff2");
+    font-weight: 800;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Geist";
+    src: url("/assets/admin/plugins/webfonts/geist/Geist-Black.woff2")
+        format("woff2");
+    font-weight: 900;
+    font-style: normal;
+}
+
+/* ✅ Variable font for dynamic weight selection */
+@font-face {
+    font-family: "Geist Variable";
+    src: url("/assets/admin/plugins/webfonts/geist/Geist[wght].woff2")
+        format("woff2");
+    font-weight: 100 900;
+    font-style: normal;
+}
+
+/* Apply Geist font */
 body {
     font-family: "Geist", sans-serif;
 }
+
 .tooltip {
     display: none;
     white-space: nowrap;
@@ -106,4 +189,8 @@ body {
     100% {
         transform: rotate(360deg);
     }
+}
+
+.dt-layout-row {
+    margin: 5px !important;
 }

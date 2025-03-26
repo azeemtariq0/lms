@@ -2,42 +2,100 @@
 
 
 @section('content')
+    <div class="w-1/2 bg-white p-2 rounded-lg border border-gray-300 ">
+        <div class="flex items-center justify-between">
+            <h1 class="pl-1 rounded-md">Users Analysis</h1>
+            <button id="userChartYearFilter"
+                class="btn-default !bg-gray-100 !text-gray-700 !font-medium border border-gray-300">1
+                Year</button>
 
-    @if (count($errors) > 0)
-    <div id="content" class="padding-20">
+        </div>
+        <canvas id="userChart"></canvas>
+    </div>
+@endsection
 
-        <div class="alert alert-danger margin-bottom-30">
-            <strong>Whoops!</strong> There were some problems with your input.<br><br>
-            <ul>
-               @foreach ($errors->all() as $error)
-               <li>{{ $error }}</li>
-               @endforeach
-           </ul>
-       </div>
-       @endif
-       <div class="colm-md-12 row" style="margin-top: 10px;">
-    <div class="col-md-11"></div>
-</div>
+@section('pagelevelscript')
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        $(document).ready(function() {
 
-       <div id="content" class="padding-20">
+            new Dropdown("#userChartYearFilter", {
+                options: [{
+                        value: 1,
+                        label: "1 Year"
+                    },
+                    {
+                        value: 2,
+                        label: "2 Years"
+                    },
+                    {
+                        value: 3,
+                        label: "3 Years"
+                    },
+                    {
+                        value: 4,
+                        label: "4 Years"
+                    },
+                    {
+                        value: 5,
+                        label: "5 Years"
+                    }
+                ],
+                onChange: function(option) {
+                    userChart({
+                        yearly: option.value
+                    });
+                }
+            });
+            let userChartInstance = null;
 
- 
-      </div>
+            function userChart(filters) {
+                $.ajax({
+                    url: "{{ url('admin/user-chart') }}",
+                    type: "GET",
+                    data: JSON.stringify(filters),
+                    contentType: "application/json",
+                    success: function(data) {
+                        let months = data.map(item => `Month ${item.month}`);
+                        let userCounts = data.map(item => item.count);
 
+                        let ctx = document.getElementById("userChart").getContext("2d");
 
-</div>
+                        // Destroy existing chart to prevent overlay issues
+                        if (userChartInstance !== null) {
+                            userChartInstance.destroy();
+                        }
 
+                        userChartInstance = new Chart(ctx, {
+                            type: "line",
+                            data: {
+                                labels: months,
+                                datasets: [{
+                                    tension: 0.4,
+                                    label: "Users",
+                                    data: userCounts,
+                                    backgroundColor: "rgba(54, 162, 235, 0.5)",
+                                    borderColor: "rgba(54, 162, 235, 1)",
+                                    borderWidth: 2
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                scales: {
+                                    y: {
+                                        beginAtZero: true
+                                    }
+                                }
+                            }
+                        });
+                    }
+                });
+            }
 
-
-
-
-<script type="text/javascript">
-    
-
-</script>
-
-
-
-
-
+            // Initial Chart Load
+            userChart({
+                yearly: 1
+            });
+        });
+    </script>
 @endsection

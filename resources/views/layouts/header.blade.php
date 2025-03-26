@@ -9,15 +9,16 @@
     class="fixed top-0 left-0 right-0 bg-white/60 backdrop-blur-md border-b border-gray-300 h-16 flex items-center justify-between px-4 z-20">
     <div class="flex items-center">
         <button id="toggleSidebar" class="w-4 mr-4 cursor-pointer"><i
-                class="text-lg text-gray-600 fa-duotone fa-bars"></i></button>
+                class="text-lg text-gray-600 fa-solid fa-bars"></i></button>
         <h1 class="text-md font-medium text-black">LMS / Management System</h1>
     </div>
     <div class="flex items-center space-x-4">
-        <button id="changePermission">
-            <div class="btn-default">{{ session('permission_name') ?? 'Permissions' }}</div>
+        <button id="changePermission" class="btn-default">
+            {{ session('permission_name') ?? 'Permissions' }}
         </button>
-        <button id="profileMenu"><i class="text-gray-600 text-lg fa-duotone fa-user-circle"></i></button>
-        <button id="notificationsMenu"><i class="text-gray-600 text-lg fa-duotone fa-bell"></i></button>
+        <button id="profileMenu"><i
+                class="pointer-events-none text-gray-600 text-lg fa-solid fa-user-circle"></i></button>
+        <button id="notificationsMenu"><i class="pointer-events-none text-gray-600 text-lg fa-solid fa-bell"></i></button>
 
     </div>
 </nav>
@@ -26,52 +27,50 @@
     $(document).ready(() => {
 
         // Profile Menu Dropdown init
-        new Dropdown({
-            triggerElement: '#profileMenu',
-            items: [{
-                    title: " {{ Auth::user()->name }}",
-                }, {
-                    title: 'Profile',
-                    link: '#',
-                    icon: 'fa-duotone fa-user'
+
+        new Dropdown("#profileMenu", {
+            options: [{
+                    label: "{{ Auth::user()->name }}",
+                    className: "hover:bg-white !cursor-default",
                 },
                 {
-                    title: 'Settings',
-                    link: '#',
-                    icon: 'fa-duotone fa-gear'
-                }, ,
+                    label: " <i class='fa-solid fa-user mr-1' ></i> Profile",
+                    link: "#",
+                },
                 {
-                    title: 'Logout',
+                    label: " <i class='fa-solid fa-gear mr-1' ></i> Settings",
+                    link: "#",
+                },
+                {
+                    label: " <i class='fa-solid fa-right-from-bracket mr-1' ></i> Logout",
                     link: "{{ route('logout') }}",
-                    icon: 'fa-duotone fa-right-from-bracket'
-                },
+                }
             ]
         });
         const all_permissions = {!! json_encode(session('all_permissions')) !!};
 
-        new Dropdown({
-            triggerElement: '#changePermission',
-            items: all_permissions.map(permission => {
+        new Dropdown("#changePermission", {
+            options: all_permissions.map(permission => {
                 return {
-                    title: permission.name,
-                    link: 'javascript:void(0)',
-                    onClick: `changePermission(${permission.id})`
-                };
-            })
+                    label: permission.name,
+                    value: permission.id,
+
+                }
+            }),
+            onChange: function(option) {
+                changePermission(option.value);
+            }
         });
 
         // Notifications Menu Dropdown init
-        new Dropdown({
-            triggerElement: '#notificationsMenu',
-            items: [{
-                    title: 'New Message',
+        new Dropdown('#notificationsMenu', {
+            options: [{
+                    label: '<i class="fa-solid fa-envelope mr-1"></i> New Message',
                     link: '#',
-                    icon: 'fa-duotone fa-envelope'
                 },
                 {
-                    title: 'System Update',
+                    label: '<i class="fa-solid fa-gear mr-1"></i> System Update',
                     link: '#',
-                    icon: 'fa-duotone fa-gear'
                 }
             ]
         });

@@ -30,29 +30,15 @@
       <meta name="Author" content="Ghulam Rasool [imgrasool@gmail.com]" />
       <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
 
-      {{-- google font (Geist Sans) --}}
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
 
-      {{-- tailwind and flowbite UI library --}}
-      <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-      <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
-      <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
-
-      {{-- fontawesome icons library --}}
-      <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.7.2/css/all.css">
-
-      {{-- jquery library --}}
-      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-      {{-- select2 library --}}
-      <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-      <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
-      {{-- external components and global css --}}
+      <link href="{{ asset('assets/admin/plugins/flowbite-3.1.2/css/flowbite.min.css') }}" rel="stylesheet" />
+      <link rel="stylesheet" href="{{ asset('assets/admin/plugins/fontawesome-6.7.2/css/all.min.css') }}">
       <link rel="stylesheet" href="{{ asset('assets/admin/css/components.css') }}" type="text/css" />
       <link rel="stylesheet" href="{{ asset('assets/admin/css/app.css') }}" type="text/css" />
+
+      <script src="{{ asset('assets/admin/plugins/tailwindcss/tailwindcss.min.js') }}"></script>
+      <script src="{{ asset('assets/admin/plugins/flowbite-3.1.2/js/flowbite.min.js') }}"></script>
+      <script src="{{ asset('assets/admin/plugins/jquery/jquery-3.7.2.min.js') }}"></script>
 
       <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -71,7 +57,7 @@
       }
 
       .form-input {
-          @apply bg-transparent w-full px-3 py-2 text-gray-700 border rounded-md border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#023c40]/50 focus:border-transparent transition-all;
+          @apply !bg-transparent !w-full !px-3 !py-2 !text-gray-700 !border !rounded-md !border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#023c40]/50 focus:border-transparent transition-all;
       }
 
       .form-file {
@@ -93,6 +79,7 @@
       .action-success {
           @apply w-7 h-7 rounded-md p-0 flex items-center justify-center text-sm bg-gray-50 cursor-pointer group-hover:bg-emerald-100 transition-all;
       }
+
       .action-info {
           @apply w-7 h-7 rounded-md p-0 flex items-center justify-center text-sm bg-gray-50 cursor-pointer group-hover:bg-blue-100 transition-all;
       }
@@ -112,9 +99,6 @@
 
   <body class="body">
 
-      {{-- loader --}}
-
-
 
       {{-- toast alert --}}
       @if ($message = Session::get('success'))
@@ -130,7 +114,7 @@
               <button type="button"
                   class="ms-auto -mx-1.5 -my-1.5 bg-green-100 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-50 cursor-pointer inline-flex items-center justify-center h-8 w-8 "
                   data-dismiss-target="#alert-success" aria-label="Close">
-                  <i class="fa-duotone fa-xmark"></i>
+                  <i class="fa-solid fa-xmark"></i>
               </button>
           </div>
       @endif
@@ -157,7 +141,7 @@
               <button type="button"
                   class="ms-auto -mx-1.5 -my-1.5 bg-rose-100 text-rose-500 rounded-lg focus:ring-2 focus:ring-rose-400 p-1.5 hover:bg-rose-50 cursor-pointer inline-flex items-center justify-center h-8 w-8 "
                   data-dismiss-target="#alert-danger" aria-label="Close">
-                  <i class="fa-duotone fa-xmark"></i>
+                  <i class="fa-solid fa-xmark"></i>
               </button>
           </div>
       @endif
@@ -173,7 +157,7 @@
           id="mainContent">
 
           <section class=" flex-1 bg-white/60 backdrop-blur-md border border-gray-300 rounded-lg m-3 mb-0 p-5 px-7">
-              <span class="loader"></span>
+              {{-- <span class="loader"></span> --}}
               <div class="flex align-center justify-between ">
                   <h1 class="text-xl font-medium">
                       <?php
@@ -192,9 +176,10 @@
           @include('layouts.footer')
       </main>
   </body>
-  <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
-  <script src="{{ asset('assets/admin/js/app.js') }}"></script>
+
+  <script src="{{ asset('assets/admin/plugins/jquery/jquery-validate-1.21.0.min.js') }}"></script>
   <script src="{{ asset('assets/admin/js/components.js') }}"></script>
+  <script src="{{ asset('assets/admin/js/app.js') }}"></script>
 
   @yield('pagelevelscript')
 

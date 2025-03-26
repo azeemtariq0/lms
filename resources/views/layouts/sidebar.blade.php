@@ -7,14 +7,14 @@
         // Sidebar init
         const currentPath = "{{ \Request::segment(2) }}";
         const sidebarRoutes = [{
-                icon: 'fa-duotone fa-house',
+                icon: 'fa-solid text-sm fa-house',
                 title: 'Dashboard',
                 link: "{{ url('admin/dashboard') }}",
                 key: 'dashboard',
                 permission: true
             },
             {
-                icon: 'fa-duotone fa-circle-user',
+                icon: 'fa-solid text-sm fa-circle-user',
                 title: 'Administration',
                 submenu: [{
                         title: 'Users',
@@ -27,23 +27,34 @@
                         link: "{{ route('admin.permissions.index') }}",
                         key: 'permissions',
                         permission: {{ auth()->user()->can('user_permission.list') == 1 ? 1 : 0 }}
-                    },
-                    {
+                    }
+                ]
+            },
+            {
+                icon: 'fa-solid text-sm fa-box',
+                title: 'General Group',
+                submenu: [{
                         title: 'Banners',
                         link: "{{ route('admin.banners.index') }}",
                         key: 'banners',
                         permission: {{ auth()->user()->can('banners.list') == 1 ? 1 : 0 }}
                     },
+                    {
+                        title: 'Category',
+                        link: "{{ route('admin.categories.index') }}",
+                        key: 'categories',
+                        permission: {{ auth()->user()->can('categories.list') == 1 ? 1 : 0 }}
+                    },
                 ]
             },
             {
-                icon: 'fa-duotone fa-screwdriver-wrench',
+                icon: 'fa-solid text-sm fa-screwdriver-wrench',
                 title: 'Settings',
                 link: '/settings',
                 permission: true
             },
             {
-                icon: 'fa-duotone fa-right-from-bracket',
+                icon: 'fa-solid text-sm fa-right-from-bracket',
                 title: 'Logout',
                 link: "{{ route('logout') }}",
                 key: 'logout',
