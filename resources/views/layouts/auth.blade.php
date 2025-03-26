@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en-US">
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
@@ -10,29 +11,28 @@
     <!-- mobile settings -->
     <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
 
-    <!-- WEB FONTS -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800&amp;subset=latin,latin-ext,cyrillic,cyrillic-ext" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/admin/plugins/flowbite-3.1.2/css/flowbite.min.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('assets/admin/plugins/fontawesome-6.7.2/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/admin/css/components.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('assets/admin/css/app.css') }}" type="text/css" />
 
-    <!-- CORE CSS -->
-    <link href="{{ asset('assets/admin/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
+    <script src="{{ asset('assets/admin/plugins/tailwindcss/tailwindcss.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/plugins/flowbite-3.1.2/js/flowbite.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/plugins/jquery/jquery-3.7.2.min.js') }}"></script>
 
-    <!-- THEME CSS -->
-    <link href="{{ asset('assets/admin/css/essentials.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/admin/css/layout.css') }}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('assets/admin/css/color_scheme/green.css') }}" rel="stylesheet" type="text/css" id="color_scheme" />
-    
 </head>
-    <!--
+<!--
         .boxed = boxed version
     -->
-    <body style="background-image:url('../assets/images/about-section.png'); background-size:cover;" >
 
-        @yield('content')
-        
+<body style="background-image:url('../assets/images/about-section.png'); background-size:cover;">
 
-        <!-- JAVASCRIPT FILES -->
-        <script type="text/javascript">var plugin_path = "{{ URL::asset('assets/admin/plugins/') }}/";</script>
-        <script type="text/javascript" src="{{ asset('assets/admin/plugins/jquery/jquery-2.1.4.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('assets/admin/js/app.js') }}"></script>
-    </body>
-    </html>
+    @yield('content')
+
+
+</body>
+<script src="{{ asset('assets/admin/plugins/jquery/jquery-validate-1.21.0.min.js') }}"></script>
+<script src="{{ asset('assets/admin/js/components.js') }}"></script>
+<script src="{{ asset('assets/admin/js/app.js') }}"></script>
+
+</html>

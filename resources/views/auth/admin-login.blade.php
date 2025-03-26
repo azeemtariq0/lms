@@ -1,98 +1,91 @@
 @extends('layouts.auth')
 
 @section('content')
- 
-<div class="padding-15"   >
 
-{{-- <img src="{{asset('frontend/img/Icon awesome-eye.png')}}" class="w-16" alt="eye">--}}
-    <div class="login-box">
-        <!-- login form -->
-        <form method="POST" action="{{ url('admin/login') }}" class="sky-form boxed">
-            @csrf
-            <header><i class="fa fa-users"></i> {{ __('Sign In') }}</header>
-                    <!--
-                    <div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
-                        Invalid Email or Password!
-                    </div>
+    <div class="flex items-center justify-center min-h-screen ">
+        <div class="w-full max-w-md bg-white shadow-lg rounded-lg p-6">
 
-                    <div class="alert alert-warning noborder text-center weight-400 nomargin noradius">
-                        Account Inactive!
-                    </div>
+            <!-- Login Header -->
+            <div class="text-center mb-4">
+                <h2 class="text-2xl font-semibold text-gray-700">
+                    <i class="fa fa-users"></i> {{ __('Sign In') }}
+                </h2>
+            </div>
 
-                    <div class="alert alert-default noborder text-center weight-400 nomargin noradius">
-                        <strong>Too many failures!</strong> <br />
-                        Please wait: <span class="inlineCountdown" data-seconds="180"></span>
-                    </div>
-                -->
-
-                @error('email')
-                <div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
-                    {{ $message }}
+            <!-- Error Messages -->
+            @if ($errors->any())
+                <div class="bg-red-100 text-red-700 px-4 py-2 rounded mb-3">
+                    @foreach ($errors->all() as $error)
+                        <p class="text-sm">{{ $error }}</p>
+                    @endforeach
                 </div>
-                @enderror
+            @endif
 
-                @error('password')
-                <div class="alert alert-danger noborder text-center weight-400 nomargin noradius">
-                    {{ $message }}
+            <!-- Login Form -->
+            <form method="POST" action="{{ route('admin.login') }}" class="space-y-4">
+                @csrf
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">{{ __('Email Address') }}</label>
+                    <div class="relative">
+                        <input id="email" type="email"
+                            class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#023c40]/50 @error('email') border-red-500 @enderror"
+                            name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                        <span class="absolute inset-y-0 right-3 flex items-center">
+                            <i class="fa fa-envelope text-gray-400"></i>
+                        </span>
+                    </div>
                 </div>
-                @enderror
-                <fieldset>  
-                    <section>
-                        <label class="label">{{ __('Email Address') }}</label>
-                        <label class="input">
-                            <i class="icon-append fa fa-envelope"></i>
-                             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-                            <span class="tooltip tooltip-top-right">Email Address</span>
-                        </label>
-                    </section>
-                    <section>
-                        <label class="label">{{ __('Password') }}</label>
-                        <label class="input">
-                            <i id="toggle-password" class="icon-append fa fa-eye"></i>
-                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-                        </label>
-                        
-                        
-                        <label class="checkbox">
-                            <input type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}><i></i>{{ __('Keep me logged in') }}
-                        </label>
-                    </section>
-                </fieldset>
-                <footer>
-                    <button type="submit" class="btn btn-primary pull-right">{{ __('Sign In') }}</button>
-                    <div class="forgot-password pull-left">
-                       @if (Route::has('password.request'))
-                       <a href="#">{{ __('Forgot Your Password?') }}?</a> <br />
-                       @endif
-                       <!-- <a href="page-register.html"><b>Need to Register?</b></a> -->
-                   </div>
-               </footer>
-           </form>
-           <!-- /login form -->
-           <hr />
-       </div>
-   </div>
-   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">{{ __('Password') }}</label>
+                    <div class="relative">
+                        <input id="password" type="password"
+                            class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-[#023c40]/50 @error('password') border-red-500 @enderror"
+                            name="password" required autocomplete="current-password">
+                        <button type="button"
+                            class="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-gray-700 toggle-password">
+                            <i class="fa fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
 
-   <script>
-            $(document).ready(function() {
-                $("#toggle-password").click(function() {
-                const passwordInput = $("#password");
-                const icon = $(this).find("i");
-                
+                <div class="flex items-center justify-between">
+                    <label class="flex items-center space-x-2">
+                        <input type="checkbox" name="remember" id="remember" class="form-checkbox text-[#023c40]"
+                            {{ old('remember') ? 'checked' : '' }}>
+                        <span class="text-sm text-gray-700">{{ __('Keep me logged in') }}</span>
+                    </label>
+
+                    @if (Route::has('password.request'))
+                        <a href="{{ route('password.request') }}"
+                            class="text-sm text-[#023c40] hover:underline">{{ __('Forgot Password?') }}</a>
+                    @endif
+                </div>
+
+                <button type="submit"
+                    class="w-full py-2 bg-[#023c40] text-white font-semibold rounded-lg  focus:ring-2 focus:ring-[#023c40]/50">
+                    {{ __('Sign In') }}
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $(".toggle-password").click(function() {
+                let passwordInput = $("#password");
+                let icon = $(this).find("i");
+
                 if (passwordInput.attr("type") === "password") {
                     passwordInput.attr("type", "text");
-                    icon.removeClass("fa-eye");
-                    icon.addClass("fa-eye-slash");
+                    icon.removeClass("fa-eye").addClass("fa-eye-slash");
                 } else {
                     passwordInput.attr("type", "password");
-                    icon.removeClass("fa-eye-slash");
-                    icon.addClass("fa-eye");
+                    icon.removeClass("fa-eye-slash").addClass("fa-eye");
                 }
-                });
             });
-            </script>
-   
+        });
+    </script>
+
 @endsection

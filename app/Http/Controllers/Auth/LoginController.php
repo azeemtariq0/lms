@@ -52,6 +52,7 @@ class LoginController extends Controller
     public function userLogin(Request $request)
     {
         $credentials = $request->only('email', 'password');
+        // dd($credentials);
 
         // Check if the user is a regular user
         if (Auth::attempt($credentials) && !Auth::user()->is_admin) {
