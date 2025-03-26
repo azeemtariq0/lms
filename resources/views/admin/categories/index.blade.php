@@ -3,6 +3,7 @@
 
 @section('content')
     @include('layouts.additionalscripts.adddatatable')
+    @include('layouts.additionalscripts.addselect2')
 
     <div id="content" class="padding-20">
 
@@ -15,7 +16,11 @@
             @endcan
 
         </div>
-
+        <style>
+            .filter-input {
+                user-select: auto !important;
+            }
+        </style>
         <div class=" mt-2">
             <table id="dataTable"
                 class="shadow-sm bg-white rounded-lg overflow-hidden  w-full border-collapse bg-gray-50 !border-gray-300 text-sm">
@@ -23,26 +28,39 @@
                     <tr>
                         <th>
                             <div class="form-label p-2 !m-0">Parent Category</div>
+                            <div class="pl-2 pr-8">
+                                <input type="text" id="category" class="form-input text-xs !font-normal filter-input">
+                            </div>
                         </th>
                         <th>
                             <div class="form-label p-2 !m-0">Sub Category</div>
+                            <div class="pl-2 pr-8">
+                                <input type="text" id="sub_category"
+                                    class="form-input text-xs !font-normal filter-input">
+                            </div>
                         </th>
                         <th>
                             <div class="form-label p-2 !m-0">Status</div>
+                            <div class="pl-2 pr-8">
+                                <select name="status" id="status" class="select2 form-input !font-normal filter-input">
+                                    <option value=""></option>
+                                    <option value="1">Active</option>
+                                    <option value="0">Inactive</option>
+                                </select>
+                            </div>
                         </th>
                         <th class="!w-40">
-                            <div class="form-label p-2 !m-0 text-center"> Action</div>
+                            <div class="form-label p-2 !m-0 text-center">Action</div>
                         </th>
-
                     </tr>
                 </thead>
+
                 <tbody>
                 </tbody>
 
             </table>
 
         </div>
-        <!-- /panel content -->
 
     </div>
 @endsection
@@ -54,10 +72,12 @@
             var table = $("#dataTable").DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('admin.categories.index') }}",
+                ajax: {
+                    url: "{{ route('admin.categories.index') }}",
+                },
                 columns: [{
                         data: 'parent_name',
-                        name: 'parent.name'
+                        name: 'parent.name',
                     },
                     {
                         data: 'name',
@@ -77,6 +97,17 @@
                 ...dataTableParams
 
             });
+
+
+            $('.filter-input').on('input change', function() {
+                let columnIndex = $(this).closest('th').index();
+                table.column(columnIndex).search(this.value).draw();
+            });
+
+            $('.filter-input').on('click', function(event) {
+                event.stopPropagation();
+            });
+
 
             $(document).on('click', '.change-status', function() {
                 let id = $(this).data('id');
