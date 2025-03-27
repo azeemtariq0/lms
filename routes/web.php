@@ -11,6 +11,9 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\LookupController;
 use App\Models\Banner;
 use App\Models\User;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Validation\Rules\File;
 
 // Regular user routes
 
@@ -61,17 +64,20 @@ Route::get('signup', [HomeController::class, 'signup']);
 
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+   
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
     Route::get('dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
 
+    Route::get('categories/list', [CategoryController::class, 'getParentCategories'])->name('categories.list');
+    Route::post('categories/change-status', [CategoryController::class, 'changeStatus'])
+        ->name('categories.changeStatus');
     // Resource
     Route::resource('users', UserController::class);
     Route::resource('permissions', PermissionController::class);
     Route::resource('notifications', NotificationController::class);
     Route::resource('banners', BannerController::class);
     Route::resource('categories', CategoryController::class);
-    Route::post('categories/change-status', [CategoryController::class, 'changeStatus'])
-        ->name('categories.changeStatus');
+
 
     Route::post('change-permission', [LookupController::class, 'changePermission']);
     // dashboard charts

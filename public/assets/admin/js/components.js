@@ -262,11 +262,11 @@ class Dropdown {
                 ${initialText}
             </button>
             <div id="${this.dropdownId}" 
-                 class="dropdown-menu p-1.5 border border-gray-200 rounded-md shadow-md ">
+                 class=" dropdown-menu p-1.5 border border-gray-200 rounded-md shadow-md ">
                 ${this.options.map(option => `
                     <a href="javascript:void(0)" data-href="${option.link || ''}" 
                        data-value="${option.value || ''}" 
-                       class="dropdown-item block px-4 rounded-md py-2 text-sm text-gray-700 cursor-pointer hover:bg-gray-100 ${option.className ?? ''}">
+                       class="dropdown-item block px-4 rounded-md py-2 text-sm text-gray-700 cursor-pointer hover:bg-[#919eab0d] ${option.className ?? ''}">
                         ${option.label}
                     </a>
                 `).join('')}

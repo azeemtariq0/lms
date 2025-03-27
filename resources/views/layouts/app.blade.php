@@ -1,4 +1,3 @@
-  {{-- New Scalable Dashboard Design  --}}
   <?php
   $page_title = '';
   $title = '';
@@ -33,69 +32,19 @@
 
       <link href="{{ asset('assets/admin/plugins/flowbite-3.1.2/css/flowbite.min.css') }}" rel="stylesheet" />
       <link rel="stylesheet" href="{{ asset('assets/admin/plugins/fontawesome-6.7.2/css/all.min.css') }}">
-      <link rel="stylesheet" href="{{ asset('assets/admin/css/components.css') }}" type="text/css" />
-      <link rel="stylesheet" href="{{ asset('assets/admin/css/app.css') }}" type="text/css" />
 
       <script src="{{ asset('assets/admin/plugins/tailwindcss/tailwindcss.min.js') }}"></script>
       <script src="{{ asset('assets/admin/plugins/flowbite-3.1.2/js/flowbite.min.js') }}"></script>
       <script src="{{ asset('assets/admin/plugins/jquery/jquery-3.7.2.min.js') }}"></script>
+
+      <link rel="stylesheet" href="{{ asset('assets/admin/css/components.css') }}" type="text/css" />
+      <link rel="stylesheet" href="{{ asset('assets/admin/css/app.css') }}" type="text/css" />
 
       <meta name="csrf-token" content="{{ csrf_token() }}">
 
       @yield('pagelevelstyle')
 
   </head>
-
-  <!-- tailwind classes components -->
-  <style type="text/tailwindcss">
-      .form-label {
-          @apply block ml-2 mb-1 text-sm font-medium text-gray-700 relative;
-      }
-
-      .form-label.required::after {
-          @apply content-['*'] text-red-500 w-4 h-4 absolute top-0 -left-2;
-      }
-
-      .form-input {
-          @apply !bg-transparent !w-full !px-3 !py-2 !text-gray-700 !border !rounded-md !border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#023c40]/50 focus:border-transparent transition-all;
-      }
-
-      .form-file {
-          @apply w-full text-gray-700 file:mr-4 file:py-2 file:px-4 px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-[#023c40]/10 file:text-[#023c40] hover:file:bg-[#023c40]/20;
-      }
-
-      .btn-default {
-          @apply px-4 py-2 text-xs font-medium bg-gray-300 rounded-md hover:bg-gray-300/90 focus:outline-none focus:ring-2 focus:ring-[#023c40]/50 focus:ring-offset-2 transition-all duration-200 cursor-pointer;
-      }
-
-      .btn-primary {
-          @apply px-4 py-2 text-xs font-medium bg-[#023c40] text-white rounded-md hover:bg-[#023c40]/90 focus:outline-none focus:ring-2 focus:ring-[#023c40]/50 focus:ring-offset-2 transition-all duration-200 cursor-pointer;
-      }
-
-      .action-danger {
-          @apply w-7 h-7 rounded-md p-0 flex items-center justify-center text-sm bg-gray-50 cursor-pointer group-hover:bg-rose-100 transition-all;
-      }
-
-      .action-success {
-          @apply w-7 h-7 rounded-md p-0 flex items-center justify-center text-sm bg-gray-50 cursor-pointer group-hover:bg-emerald-100 transition-all;
-      }
-
-      .action-info {
-          @apply w-7 h-7 rounded-md p-0 flex items-center justify-center text-sm bg-gray-50 cursor-pointer group-hover:bg-blue-100 transition-all;
-      }
-
-      .form-checkbox {
-          @apply w-4 h-4 mr-1 cursor-pointer text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 focus:ring-2;
-      }
-
-      .form-radio {
-          @apply w-4 h-4 mr-1 cursor-pointer text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 focus:ring-2;
-      }
-
-      .body {
-          @apply bg-gradient-to-r from-blue-100 to-red-100 flex flex-col min-h-screen;
-      }
-  </style>
 
   <body class="body">
 
@@ -180,7 +129,7 @@
   <script src="{{ asset('assets/admin/plugins/jquery/jquery-validate-1.21.0.min.js') }}"></script>
   <script src="{{ asset('assets/admin/js/components.js') }}"></script>
   <script src="{{ asset('assets/admin/js/app.js') }}"></script>
-
   @yield('pagelevelscript')
+
 
   </html>

@@ -5,10 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
-use App\Models\User;
-use App\Models\Banner;
-use DB;
-use DataTables, Form;
+use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\Facades\DataTables;
 
 class CategoryController extends Controller
 {
@@ -18,9 +16,9 @@ class CategoryController extends Controller
         if ($request->ajax()) {
             $data = Category::query()
                 ->leftJoin('category as parent', 'category.parent_id', '=', 'parent.id')
-                ->select('category.*', 'parent.name as parent_name'); // Ensure 'status' is included
+                ->select('category.*', DB::raw('IFNULL(parent.name, "No Parent") as parent_name'));
 
-            return Datatables::of($data)
+            return DataTables::of($data)
                 ->addIndexColumn()
                 ->editColumn('status', function ($row) {
                     $statusLabel = $row->status == 1 ? 'Active' : 'Inactive';
@@ -66,6 +64,21 @@ class CategoryController extends Controller
             'slug' => 'Add',
         );
         return view('admin.categories.create', compact('data', 'categories'));
+    }
+
+    public function getParentCategories(Request $request)
+    {
+        $search = $request->input('search', '');
+
+        $categories = Category::whereNull('parent_id') // Get only parent categories
+            ->when($search, function ($query) use ($search) {
+                return $query->where('name', 'LIKE', "%{$search}%");
+            })
+            ->orderBy('name')
+            ->limit(10)
+            ->get(['id', 'name']);
+
+        return response()->json($categories);
     }
 
     public function changeStatus(Request $request)

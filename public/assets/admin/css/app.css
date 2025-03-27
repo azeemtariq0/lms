@@ -194,3 +194,241 @@ body {
 .dt-layout-row {
     margin: 5px !important;
 }
+
+.form-label {
+    display: block;
+    margin-left: 0.5rem; /* ml-2 */
+    margin-bottom: 0.25rem; /* mb-1 */
+    font-size: 0.875rem; /* text-sm */
+    font-weight: 500; /* font-medium */
+    color: rgb(55, 65, 81); /* text-gray-700 */
+    position: relative;
+}
+
+.form-label.required::after {
+    content: "*";
+    color: rgb(239, 68, 68); /* text-red-500 */
+    width: 1rem; /* w-4 */
+    height: 1rem; /* h-4 */
+    position: absolute;
+    top: 0;
+    left: -0.5rem; /* -left-2 */
+}
+
+.form-input,
+.select2-selection {
+    background-color: transparent !important; /* !bg-transparent */
+    width: 100% !important; /* !w-full */
+    padding: 0.5rem 0.75rem !important; /* !px-3 !py-2 */
+    min-height: 34px !important;
+    color: rgb(55, 65, 81) !important; /* !text-gray-700 */
+    border: 1px solid rgb(209, 213, 219) !important; /* !border !border-gray-300 */
+    border-radius: 0.375rem !important; /* !rounded-md */
+    outline: none;
+    transition: all 0.2s;
+}
+
+.select2-selection{
+padding: 2px !important;
+font-weight: 400 !important;
+}
+.select2-selection__arrow{
+    top: 4px !important;
+    right: 8px !important;
+}
+.form-input:focus,
+.select2-selection:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(2, 60, 64, 0.5); /* focus:ring-2 focus:ring-[#023c40]/50 */
+    border-color: transparent; /* focus:border-transparent */
+}
+
+.form-file {
+    width: 100%; /* w-full */
+    color: rgb(55, 65, 81); /* text-gray-700 */
+    padding-left: 1rem; /* px-4 */
+}
+
+/* Styling file input */
+.form-file::file-selector-button {
+    margin-right: 1rem; /* file:mr-4 */
+    padding: 0.5rem 1rem; /* file:py-2 file:px-4 */
+    border-radius: 0.375rem; /* file:rounded-md */
+    border: none; /* file:border-0 */
+    font-size: 0.875rem; /* file:text-sm */
+    font-weight: 600; /* file:font-semibold */
+    background-color: rgba(2, 60, 64, 0.1); /* file:bg-[#023c40]/10 */
+    color: rgb(2, 60, 64); /* file:text-[#023c40] */
+    transition: background-color 0.2s;
+}
+
+.form-file:hover::file-selector-button {
+    background-color: rgba(2, 60, 64, 0.2); /* hover:file:bg-[#023c40]/20 */
+}
+
+/* Default Button */
+.btn-default {
+    padding: 0.5rem 1rem; /* px-4 py-2 */
+    font-size: 0.75rem; /* text-xs */
+    font-weight: 500; /* font-medium */
+    background-color: rgb(209, 213, 219); /* bg-gray-300 */
+    border-radius: 0.375rem; /* rounded-md */
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-default:hover {
+    background-color: rgba(209, 213, 219, 0.9); /* hover:bg-gray-300/90 */
+}
+
+.btn-default:focus {
+    outline: none; /* focus:outline-none */
+    box-shadow: 0 0 0 2px rgba(2, 60, 64, 0.5); /* focus:ring-2 focus:ring-[#023c40]/50 */
+    margin: 2px; /* focus:ring-offset-2 */
+}
+
+/* Primary Button */
+.btn-primary {
+    padding: 0.5rem 1rem; /* px-4 py-2 */
+    font-size: 0.75rem; /* text-xs */
+    font-weight: 500; /* font-medium */
+    background-color: #023c40; /* bg-[#023c40] */
+    color: white; /* text-white */
+    border-radius: 0.375rem; /* rounded-md */
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: rgba(2, 60, 64, 0.9); /* hover:bg-[#023c40]/90 */
+}
+
+.btn-primary:focus {
+    outline: none; /* focus:outline-none */
+    box-shadow: 0 0 0 2px rgba(2, 60, 64, 0.5); /* focus:ring-2 focus:ring-[#023c40]/50 */
+    margin: 2px; /* focus:ring-offset-2 */
+}
+
+/* Danger Action Button */
+.action-danger {
+    width: 1.75rem; /* w-7 */
+    height: 1.75rem; /* h-7 */
+    border-radius: 0.375rem; /* rounded-md */
+    padding: 0; /* p-0 */
+    display: flex; /* flex */
+    align-items: center; /* items-center */
+    justify-content: center; /* justify-center */
+    font-size: 0.875rem; /* text-sm */
+    background-color: rgb(249, 250, 251); /* bg-gray-50 */
+    cursor: pointer;
+    transition: all 0.2s; /* transition-all */
+}
+
+.group:hover .action-danger {
+    background-color: rgb(254, 205, 211); /* group-hover:bg-rose-100 */
+}
+
+/* Success Action Button */
+.action-success {
+    width: 1.75rem; /* w-7 */
+    height: 1.75rem; /* h-7 */
+    border-radius: 0.375rem; /* rounded-md */
+    padding: 0; /* p-0 */
+    display: flex; /* flex */
+    align-items: center; /* items-center */
+    justify-content: center; /* justify-center */
+    font-size: 0.875rem; /* text-sm */
+    background-color: rgb(249, 250, 251); /* bg-gray-50 */
+    cursor: pointer;
+    transition: all 0.2s; /* transition-all */
+}
+
+.group:hover .action-success {
+    background-color: rgb(209, 250, 229); /* group-hover:bg-emerald-100 */
+}
+
+/* Info Action Button */
+.action-info {
+    width: 1.75rem; /* w-7 */
+    height: 1.75rem; /* h-7 */
+    border-radius: 0.375rem; /* rounded-md */
+    padding: 0; /* p-0 */
+    display: flex; /* flex */
+    align-items: center; /* items-center */
+    justify-content: center; /* justify-center */
+    font-size: 0.875rem; /* text-sm */
+    background-color: rgb(249, 250, 251); /* bg-gray-50 */
+    cursor: pointer;
+    transition: all 0.2s; /* transition-all */
+}
+
+.group:hover .action-info {
+    background-color: rgb(219, 234, 254); /* group-hover:bg-blue-100 */
+}
+
+/* Form Checkbox */
+.form-checkbox {
+    padding: 5px;
+    width: 1rem; /* w-4 */
+    height: 1rem; /* h-4 */
+    margin-right: 0.125rem; /* mr-1 */
+    cursor: pointer;
+    color: #023c40; /* text-blue-600 */
+    background-color: rgb(243, 244, 246); /* bg-gray-100 */
+    border: 1px solid rgb(209, 213, 219); /* border-gray-300 */
+    border-radius: 0.25rem; /* rounded-sm */
+    display: inline-block;
+    vertical-align: middle;
+    position: relative;
+}
+[type="checkbox"]:checked {
+    background-image: url("data:image/svg+xml,%3csvg aria-hidden='true' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 16 12'%3e %3cpath stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' d='M1 5.517 5.724 10 14 1.5'/%3e %3c/svg%3e") !important;
+}
+
+.form-checkbox:checked {
+    background-color: #023c40; /* Checked state */
+    border-color: #023c40;
+}
+
+.form-checkbox:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #023c405a; /* focus:ring-blue-500 focus:ring-2 */
+}
+
+/* Form Radio Button */
+.form-radio {
+    width: 1rem; /* w-4 */
+    height: 1rem; /* h-4 */
+    margin-right: 0.25rem; /* mr-1 */
+    cursor: pointer;
+    color: rgb(37, 99, 235); /* text-blue-600 */
+    background-color: rgb(243, 244, 246); /* bg-gray-100 */
+    border: 1px solid rgb(209, 213, 219); /* border-gray-300 */
+    border-radius: 50%; /* Makes it a circle */
+    appearance: none;
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.form-radio:checked {
+    background-color: #023c40; /* Checked state */
+    border-color: #023c40;
+}
+
+.form-radio:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px 023c405a; /* focus:ring-blue-500 focus:ring-2 */
+}
+
+/* Body Background with Gradient */
+.body {
+    background: linear-gradient(
+        to right,
+        rgb(219, 234, 254),
+        rgb(254, 202, 202)
+    ); /* bg-gradient-to-r from-blue-100 to-red-100 */
+    display: flex; /* flex */
+    flex-direction: column; /* flex-col */
+    min-height: 100vh; /* min-h-screen */
+}

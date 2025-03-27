@@ -13,7 +13,7 @@
                 <div>
                     <label for="parent_id" class="form-label ">Parent</label>
                     <select name="parent_id" id="parent_id" class="form-input">
-                        <option value=""></option>
+                        <option value="">No Parent</option>
                         @foreach ($categories as $cat)
                             <option value="{{ $cat->id }}"
                                 {{ isset($category) ? ($cat->id == $category->parent_id ? 'selected' : '') : '' }}>

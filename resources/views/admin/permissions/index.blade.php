@@ -1,9 +1,9 @@
 @extends('layouts.app')
 
-
-@section('content')
+@section('pagelevelstyle')
     @include('layouts.additionalscripts.adddatatable')
-
+@endsection
+@section('content')
     <div id="content" class="padding-20">
 
         <div class="flex items-center justify-end">
@@ -58,7 +58,7 @@
                     orderable: false,
                     searchable: false
                 }, ],
-                ...dataTableParams
+                ...dataTableStyling
 
             });
         });

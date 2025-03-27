@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Permission;
+use App\Models\PermissionUser;
 use App\Models\User;
 use Hash;
 use DB;
@@ -109,7 +110,15 @@ class UserController extends Controller
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
 
-        $user = User::create($input);
+        User::create($input);
+
+        $user = User::where('email', $input['email'])->first();
+        foreach ($input['permission_id'] as $value) {
+            PermissionUser::insert([
+                'permission_id' => $value,
+                'user_id' => $user->id,
+            ]);
+        }
 
         // dd($request->all()); 
         return redirect()->route('admin.users.index')
@@ -162,6 +171,14 @@ class UserController extends Controller
             $user->password = Hash::make($request->input('password'));
         }
         $user->save();
+
+        PermissionUser::where('user_id', $user->id)->delete();
+        foreach ($user->permission_id as $value) {
+            PermissionUser::insert([
+                'permission_id' => $value,
+                'user_id' => $user->id,
+            ]);
+        }
 
         return redirect()->route('admin.users.index')->with('success', 'User updated successfully');
     }

@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-
-@section('content')
+@section('pagelevelstyle')
     @include('layouts.additionalscripts.adddatatable')
     @include('layouts.additionalscripts.addselect2')
-
+@endsection
+@section('content')
     <div id="content" class="padding-20">
 
         <div class="flex items-center justify-end">
@@ -29,11 +29,13 @@
                         <th>
                             <div class="form-label p-2 !m-0">Parent Category</div>
                             <div class="pl-2 pr-8">
-                                <input type="text" id="category" class="form-input text-xs !font-normal filter-input">
+                                <select name="parent_id" id="parent_id"
+                                    class="select2 form-input text-xs !font-normal filter-input"></select>
+
                             </div>
                         </th>
                         <th>
-                            <div class="form-label p-2 !m-0">Sub Category</div>
+                            <div class="form-label p-2 !m-0">Category</div>
                             <div class="pl-2 pr-8">
                                 <input type="text" id="sub_category"
                                     class="form-input text-xs !font-normal filter-input">
@@ -42,7 +44,7 @@
                         <th>
                             <div class="form-label p-2 !m-0">Status</div>
                             <div class="pl-2 pr-8">
-                                <select name="status" id="status" class="select2 form-input !font-normal filter-input">
+                                <select name="status" id="status" class=" form-input text-xs !font-normal filter-input">
                                     <option value=""></option>
                                     <option value="1">Active</option>
                                     <option value="0">Inactive</option>
@@ -66,18 +68,21 @@
 @endsection
 
 @section('pagelevelscript')
-    <script type="text/javascript">
-        $(function() {
+    <script>
+        $(document).ready(function() {
+            const csrfToken = "{{ csrf_token() }}";
+            const changeStatusRoute = "{{ route('admin.categories.changeStatus') }}";
 
-            var table = $("#dataTable").DataTable({
+            // Initialize DataTable
+            $("#dataTable").DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('admin.categories.index') }}",
+                    url: "{{ route('admin.categories.index') }}"
                 },
                 columns: [{
                         data: 'parent_name',
-                        name: 'parent.name',
+                        name: 'parent_id'
                     },
                     {
                         data: 'name',
@@ -92,39 +97,85 @@
                         name: 'action',
                         orderable: false,
                         searchable: false
-                    },
+                    }
                 ],
-                ...dataTableParams
-
+                ...window.dataTableStyling
             });
 
 
-            $('.filter-input').on('input change', function() {
-                let columnIndex = $(this).closest('th').index();
-                table.column(columnIndex).search(this.value).draw();
-            });
+            $('.select2').select2({
+                width: '100%',
+                placeholder: "Select Parent Category",
+                allowClear: true,
+                ajax: {
+                    url: "{{ route('admin.categories.list') }}",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function(params) {
+                        return {
+                            search: params.term
+                        };
+                    },
+                    processResults: function(data) {
+                        return {
+                            results: data.map(function(item) {
+                                return {
+                                    id: item.id,
+                                    text: item.name
+                                };
+                            })
+                        };
+                    },
+                    cache: true
+                }
+            })
 
-            $('.filter-input').on('click', function(event) {
-                event.stopPropagation();
-            });
-
-
+            // ✅ Change Status Event
             $(document).on('click', '.change-status', function() {
                 let id = $(this).data('id');
                 let status = $(this).data('status') ? 0 : 1;
                 $.ajax({
-                    url: "{{ route('admin.categories.changeStatus') }}",
+                    url: changeStatusRoute,
                     type: 'POST',
                     data: {
-                        _token: "{{ csrf_token() }}",
+                        _token: csrfToken,
                         id: id,
                         status: status
                     },
-                    success: function(response) {
+                    success: function() {
                         $("#dataTable").DataTable().ajax.reload();
                     }
                 });
             });
+
+            // ✅ DELETE Row Event (Reusable)
+            $(document).on('click', '.delete', function(e) {
+                e.preventDefault();
+                const csrfToken = $('meta[name="csrf-token"]').attr('content');
+                const path = $(this).attr('href');
+                $.ajax({
+                    url: path,
+                    method: 'delete',
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            $("#dataTable").DataTable().ajax.reload();
+                        }
+                    }
+                });
+            });
+
+
+            // ✅ Filter Input Events
+            $('.filter-input, .select2-selection__rendered').on('input change', function() {
+                let columnIndex = $(this).closest('th').index();
+                $("#dataTable").DataTable().column(columnIndex).search(this.value).draw();
+            }).on('click', function(event) {
+                event.stopPropagation();
+            });
+
         });
     </script>
 @endsection

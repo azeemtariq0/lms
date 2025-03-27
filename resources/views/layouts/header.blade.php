@@ -31,7 +31,7 @@
         new Dropdown("#profileMenu", {
             options: [{
                     label: "{{ Auth::user()->name }}",
-                    className: "hover:bg-white !cursor-default",
+                    className: "hover:bg-transparent !cursor-default",
                 },
                 {
                     label: " <i class='fa-solid fa-user mr-1' ></i> Profile",

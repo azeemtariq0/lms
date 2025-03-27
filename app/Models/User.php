@@ -69,7 +69,7 @@ class User extends Authenticatable
         if (@auth()->user()->id) {
             $permissions = $this->permissions()->where('permission_id', $permission_id)->first()->permission ?? [];
             if (!empty($permissions))
-                $permissions = json_decode($permissions, true);
+                $permissions = $permissions;
             // dd($this->permissions()->where('permission_id', $permission_id)->first());
         }
 

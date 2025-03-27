@@ -70,7 +70,7 @@
                         searchable: false
                     },
                 ],
-                ...dataTableParams
+                ...dataTableStyling
 
             });
 
