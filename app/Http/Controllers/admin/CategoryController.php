@@ -66,19 +66,31 @@ class CategoryController extends Controller
         return view('admin.categories.create', compact('data', 'categories'));
     }
 
-    public function getParentCategories(Request $request)
+    public function list(Request $request)
     {
         $search = $request->input('search', '');
+        $onlyParent = $request->input('onlyParent', false);
+        $onlyChild = $request->input('onlyChild', false);
 
-        $categories = Category::whereNull('parent_id') // Get only parent categories
-            ->when($search, function ($query) use ($search) {
-                return $query->where('name', 'LIKE', "%{$search}%");
-            })
-            ->orderBy('name')
-            ->limit(10)
-            ->get(['id', 'name']);
 
-        return response()->json($categories);
+        $list = Category::when($search, function ($query) use ($search) {
+            return $query->where('name', 'LIKE', "%{$search}%");
+        });
+
+        if ($onlyParent) {
+            $list = $list->whereNull('parent_id');
+        } else if ($onlyChild) {
+            $list = $list->whereNotNull('parent_id');
+        }
+        $list = $list->orderBy('name')
+            ->paginate(10, ['id', 'name']);
+
+        return response()->json([
+            'results' => $list->items(),
+            'pagination' => [
+                'more' => $list->hasMorePages()
+            ]
+        ]);
     }
 
     public function changeStatus(Request $request)

@@ -104,7 +104,7 @@ class PermissionController extends Controller
 
         $permission = Permission::create([
             'name' => trim($request->input('name')),
-            'permission' => trim(json_encode($request->permission))
+            'permission' => trim($request->permission)
         ]);
 
 
@@ -175,7 +175,7 @@ class PermissionController extends Controller
 
         // dd($permission->permission);
 
-        $permission->permission = !empty($permission->permission) ? @json_decode($permission->permission, true) : null;
+        $permission->permission = !empty($permission->permission) ? @$permission->permission : null;
 
 
         $arrPermissions = [];
@@ -222,7 +222,7 @@ class PermissionController extends Controller
         ]);
 
         $permission = Permission::find($id);
-        $permission->permission = json_encode($request->permission);
+        $permission->permission = $request->permission;
         $permission->name = $request->name;
         $permission->updated_at = date('Y-m-d H:i:s');
         $permission->update();

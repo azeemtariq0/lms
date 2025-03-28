@@ -30,7 +30,7 @@
                             <div class="form-label p-2 !m-0">Parent Category</div>
                             <div class="pl-2 pr-8">
                                 <select name="parent_id" id="parent_id"
-                                    class="select2 form-input text-xs !font-normal filter-input"></select>
+                                    class="form-input text-xs !font-normal filter-input"></select>
 
                             </div>
                         </th>
@@ -73,6 +73,7 @@
             const csrfToken = "{{ csrf_token() }}";
             const changeStatusRoute = "{{ route('admin.categories.changeStatus') }}";
 
+
             // Initialize DataTable
             $("#dataTable").DataTable({
                 processing: true,
@@ -102,33 +103,10 @@
                 ...window.dataTableStyling
             });
 
+            createSelect2("#parent_id", "{{ route('admin.categories.list') }}", {
+                'onlyParent': true
+            });
 
-            $('.select2').select2({
-                width: '100%',
-                placeholder: "Select Parent Category",
-                allowClear: true,
-                ajax: {
-                    url: "{{ route('admin.categories.list') }}",
-                    dataType: 'json',
-                    delay: 250,
-                    data: function(params) {
-                        return {
-                            search: params.term
-                        };
-                    },
-                    processResults: function(data) {
-                        return {
-                            results: data.map(function(item) {
-                                return {
-                                    id: item.id,
-                                    text: item.name
-                                };
-                            })
-                        };
-                    },
-                    cache: true
-                }
-            })
 
             // ✅ Change Status Event
             $(document).on('click', '.change-status', function() {
@@ -148,30 +126,10 @@
                 });
             });
 
-            // ✅ DELETE Row Event (Reusable)
-            $(document).on('click', '.delete', function(e) {
-                e.preventDefault();
-                const csrfToken = $('meta[name="csrf-token"]').attr('content');
-                const path = $(this).attr('href');
-                $.ajax({
-                    url: path,
-                    method: 'delete',
-                    headers: {
-                        'X-CSRF-TOKEN': csrfToken
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            $("#dataTable").DataTable().ajax.reload();
-                        }
-                    }
-                });
-            });
-
-
             // ✅ Filter Input Events
             $('.filter-input, .select2-selection__rendered').on('input change', function() {
                 let columnIndex = $(this).closest('th').index();
-                $("#dataTable").DataTable().column(columnIndex).search(this.value).draw();
+                $(this).closest('table').DataTable().column(columnIndex).search(this.value).draw();
             }).on('click', function(event) {
                 event.stopPropagation();
             });

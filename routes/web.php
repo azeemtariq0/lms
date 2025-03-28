@@ -64,13 +64,14 @@ Route::get('signup', [HomeController::class, 'signup']);
 
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
-   
+
     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
     Route::get('dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
 
-    Route::get('categories/list', [CategoryController::class, 'getParentCategories'])->name('categories.list');
+    Route::get('categories/list', [CategoryController::class, 'list'])->name('categories.list');
     Route::post('categories/change-status', [CategoryController::class, 'changeStatus'])
         ->name('categories.changeStatus');
+
     // Resource
     Route::resource('users', UserController::class);
     Route::resource('permissions', PermissionController::class);
