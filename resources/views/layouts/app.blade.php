@@ -129,6 +129,7 @@
   <script src="{{ asset('assets/admin/plugins/jquery/jquery-validate-1.21.0.min.js') }}"></script>
   <script src="{{ asset('assets/admin/js/components.js') }}"></script>
   <script src="{{ asset('assets/admin/js/app.js') }}"></script>
+  
   @yield('pagelevelscript')
 
 

@@ -65,7 +65,9 @@ function createSelect2(element, url, options = {}) {
             },
             cache: true
         }
-    })
+    }).on('select2:clear', function () {
+        $(this).val(null).trigger('change'); // Clears the selected value
+    });
 
     // ✅ DELETE Datatable Row Event (Reusable)
     $(document).on('click', '.delete', function (e) {

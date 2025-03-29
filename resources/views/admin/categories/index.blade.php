@@ -127,7 +127,7 @@
             });
 
             // ✅ Filter Input Events
-            $('.filter-input, .select2-selection__rendered').on('input change', function() {
+            $('.filter-input, .select2-selection__rendered, .select2-selection__arrow').on('input change', function() {
                 let columnIndex = $(this).closest('th').index();
                 $(this).closest('table').DataTable().column(columnIndex).search(this.value).draw();
             }).on('click', function(event) {
