@@ -61,36 +61,36 @@
                 </div>
             </div>
 
-            <div class="mt-30 text-center relative bg-[#d1dbe4] p-10 rounded-3xl border border-[#1b4552]">
+            <div class="mt-30 text-center relative  p-10 lg:p-20 rounded-2xl ">
                 <h2 class="text-4xl  font-bold text-stone-900 mb-8 relative z-10">Our Impact at a Glance</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
-                    <div class="p-8 rounded-2xl bg-white border border-[#1b4552] relative overflow-hidden">
-                        <div class="absolute inset-0 rounded-2xl"></div>
-                        <i class="fa-regular fa-user-graduate text-5xl text-[#1b4552] mb-4 relative z-10"></i>
-                        <h4 class="text-3xl font-bold text-gray-900 mb-2 relative z-10 animate-count" data-target="413">
+                    <div class="p-8 rounded-xl bg-[#d1dbe4]/20 relative overflow-hidden">
+                        <i class="fa-light fa-user-graduate text-7xl text-[#1b4552] mb-4 relative z-10"></i>
+                        <h4 class="text-5xl my-5 font-bold text-gray-900 mb-2 relative z-10 animate-count"
+                            data-target="413">
                             +</h4>
-                        <p class="text-gray-700 relative z-10">Number of Enrollments</p>
+                        <p class="text-gray-700 mt-5 relative z-10">Number of Enrollments</p>
                     </div>
-                    <div class="p-8 rounded-2xl bg-white border border-[#1b4552] relative overflow-hidden">
-                        <div class="absolute inset-0  rounded-2xl"></div>
-                        <i class="fa-regular fa-check-circle text-5xl text-teal-600 mb-4 relative z-10"></i>
-                        <h4 class="text-3xl font-bold text-gray-900 mb-2 relative z-10 animate-count" data-target="53">+
+                    <div class="p-8 rounded-xl bg-[#d1dbe4]/20 relative overflow-hidden">
+                        <i class="fa-light fa-check-circle text-7xl text-teal-600 mb-4 relative z-10"></i>
+                        <h4 class="text-5xl my-5 font-bold text-gray-900 mb-2 relative z-10 animate-count" data-target="53">
+                            +
                         </h4>
-                        <p class="text-gray-700 relative z-10">Number of Completed</p>
+                        <p class="text-gray-700 mt-5 relative z-10">Number of Completed</p>
                     </div>
-                    <div class="p-8 rounded-2xl bg-white border border-[#1b4552] relative overflow-hidden">
-                        <div class="absolute inset-0  rounded-2xl"></div>
-                        <i class="fa-regular fa-book-open text-5xl text-green-600 mb-4 relative z-10"></i>
-                        <h4 class="text-3xl font-bold text-gray-900 mb-2 relative z-10 animate-count" data-target="5">+
+                    <div class="p-8 rounded-xl bg-[#d1dbe4]/20 relative overflow-hidden">
+                        <i class="fa-light fa-book-open text-7xl text-green-600 mb-4 relative z-10"></i>
+                        <h4 class="text-5xl my-5 font-bold text-gray-900 mb-2 relative z-10 animate-count" data-target="5">
+                            +
                         </h4>
-                        <p class="text-gray-700 relative z-10">Number of Courses</p>
+                        <p class="text-gray-700 mt-5 relative z-10">Number of Courses</p>
                     </div>
-                    <div class="p-8 rounded-2xl bg-white border border-[#1b4552] relative overflow-hidden">
-                        <div class="absolute inset-0  rounded-2xl"></div>
-                        <i class="fa-regular fa-chalkboard-teacher text-5xl text-yellow-600 mb-4 relative z-10"></i>
-                        <h4 class="text-3xl font-bold text-gray-900 mb-2 relative z-10 animate-count" data-target="4">+
+                    <div class="p-8 rounded-xl bg-[#d1dbe4]/20 relative overflow-hidden">
+                        <i class="fa-light fa-chalkboard-teacher text-7xl text-yellow-600 mb-4 relative z-10"></i>
+                        <h4 class="text-5xl my-5 font-bold text-gray-900 mb-2 relative z-10 animate-count" data-target="4">
+                            +
                         </h4>
-                        <p class="text-gray-700 relative z-10">Number of Tutors</p>
+                        <p class="text-gray-700 mt-5 relative z-10">Number of Tutors</p>
                     </div>
                 </div>
             </div>
@@ -141,8 +141,7 @@
 
                 <div
                     class="bg-white rounded-2xl shadow-md overflow-hidden card-transition hover:shadow-lg hover:shadow-[#d1dbe4] hover:transform hover:-translate-y-2">
-                    <img src="{{ asset('assets/images/post-03.jpg') }}" alt="Course Image"
-                        class="w-full h-48 object-cover">
+                    <img src="{{ asset('assets/images/post-03.jpg') }}" alt="Course Image" class="w-full h-48 object-cover">
                     <div class="p-6">
                         <h3 class="text-xl font-semibold text-gray-900 mb-2">Itikaf Course</h3>
                         <p class="text-gray-600 mb-4">Haji Muhammad Shahid Attari</p>
