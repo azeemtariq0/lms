@@ -61,31 +61,31 @@
                 </div>
             </div>
 
-            <div class="mt-30 text-center relative  p-10 lg:p-20 rounded-2xl ">
+            <div class="mt-30 text-center relative bg-[#d1dbe4]/60 p-10 lg:p-20 rounded-2xl ">
                 <h2 class="text-4xl  font-bold text-stone-900 mb-8 relative z-10">Our Impact at a Glance</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
-                    <div class="p-8 rounded-xl bg-[#d1dbe4]/20 relative overflow-hidden">
+                    <div class="p-8 rounded-xl bg-white relative overflow-hidden">
                         <i class="fa-light fa-user-graduate text-7xl text-[#1b4552] mb-4 relative z-10"></i>
                         <h4 class="text-5xl my-5 font-bold text-gray-900 mb-2 relative z-10 animate-count"
                             data-target="413">
                             +</h4>
                         <p class="text-gray-700 mt-5 relative z-10">Number of Enrollments</p>
                     </div>
-                    <div class="p-8 rounded-xl bg-[#d1dbe4]/20 relative overflow-hidden">
+                    <div class="p-8 rounded-xl bg-white relative overflow-hidden">
                         <i class="fa-light fa-check-circle text-7xl text-teal-600 mb-4 relative z-10"></i>
                         <h4 class="text-5xl my-5 font-bold text-gray-900 mb-2 relative z-10 animate-count" data-target="53">
                             +
                         </h4>
                         <p class="text-gray-700 mt-5 relative z-10">Number of Completed</p>
                     </div>
-                    <div class="p-8 rounded-xl bg-[#d1dbe4]/20 relative overflow-hidden">
+                    <div class="p-8 rounded-xl bg-white relative overflow-hidden">
                         <i class="fa-light fa-book-open text-7xl text-green-600 mb-4 relative z-10"></i>
                         <h4 class="text-5xl my-5 font-bold text-gray-900 mb-2 relative z-10 animate-count" data-target="5">
                             +
                         </h4>
                         <p class="text-gray-700 mt-5 relative z-10">Number of Courses</p>
                     </div>
-                    <div class="p-8 rounded-xl bg-[#d1dbe4]/20 relative overflow-hidden">
+                    <div class="p-8 rounded-xl bg-white relative overflow-hidden">
                         <i class="fa-light fa-chalkboard-teacher text-7xl text-yellow-600 mb-4 relative z-10"></i>
                         <h4 class="text-5xl my-5 font-bold text-gray-900 mb-2 relative z-10 animate-count" data-target="4">
                             +
