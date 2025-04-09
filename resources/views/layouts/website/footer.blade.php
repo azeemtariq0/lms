@@ -30,19 +30,19 @@
             class="flex gap-4 md:gap-10 mx-auto flex-col md:flex-row border-y border-white/50 md:border-0 py-10 my-5 md:my-0 text-center md:text-left">
             <div class="flex flex-col gap-4">
                 <a href="#" class="text-sm font-light text-white/80 hover:text-white"><i
-                        class="fa-regular text-xs mr-1 text-white fa-arrow-right"></i> Home</a>
+                        class="fa-solid text-xs mr-1 text-white fa-arrow-right"></i> Home</a>
                 <a href="#" class="text-sm font-light text-white/80 hover:text-white"><i
-                        class="fa-regular text-xs mr-1 text-white fa-arrow-right"></i> Courses</a>
+                        class="fa-solid text-xs mr-1 text-white fa-arrow-right"></i> Courses</a>
                 <a href="#" class="text-sm font-light text-white/80 hover:text-white"><i
-                        class="fa-regular text-xs mr-1 text-white fa-arrow-right"></i> Gallery</a>
+                        class="fa-solid text-xs mr-1 text-white fa-arrow-right"></i> Gallery</a>
                 <a href="#" class="text-sm font-light text-white/80 hover:text-white"><i
-                        class="fa-regular text-xs mr-1 text-white fa-arrow-right"></i> About Us</a>
+                        class="fa-solid text-xs mr-1 text-white fa-arrow-right"></i> About Us</a>
             </div>
             <div class="flex flex-col gap-4">
                 <a href="#" class="text-sm font-light text-white/80 hover:text-white"><i
-                        class="fa-regular text-xs mr-1 text-white fa-arrow-right"></i> Contact Us</a>
+                        class="fa-solid text-xs mr-1 text-white fa-arrow-right"></i> Contact Us</a>
                 <a href="#" class="text-sm font-light text-white/80 hover:text-white"><i
-                        class="fa-regular text-xs mr-1 text-white fa-arrow-right"></i> Events</a>
+                        class="fa-solid text-xs mr-1 text-white fa-arrow-right"></i> Events</a>
             </div>
 
 
@@ -50,13 +50,13 @@
         <div class="flex gap-10 mx-auto py-3 md:py-10">
             <div class="flex flex-col gap-4 text-center md:text-left ">
                 <a href="#" class="text-sm font-light text-center sm:text-left text-white/80 hover:text-white"><i
-                        class="fa-regular text-xs mr-1 text-white fa-location-dot"></i> Madina Town,
+                        class="fa-solid text-xs mr-1 text-white fa-location-dot"></i> Madina Town,
                     Faisalabad,
                     Punjab, Pakistan</a>
                 <a href="#" class="text-sm font-light text-white/80 hover:text-white"><i
-                        class="fa-regular text-xs mr-1 text-white fa-phone"></i> +923108882057</a>
+                        class="fa-solid text-xs mr-1 text-white fa-phone"></i> +923108882057</a>
                 <a href="#" class="text-sm font-light text-white/80 hover:text-white"><i
-                        class="fa-regular text-xs mr-1 text-white fa-envelope"></i> lms@dawateislami.net</a>
+                        class="fa-solid text-xs mr-1 text-white fa-envelope"></i> lms@dawateislami.net</a>
             </div>
 
         </div>
