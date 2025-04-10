@@ -26,7 +26,7 @@
                         title: 'Permissions',
                         link: "{{ route('admin.permissions.index') }}",
                         key: 'permissions',
-                        permission: {{ auth()->user()->can('user_permission.list') == 1 ? 1 : 0 }}
+                        permission: {{ auth()->user()->id == 1 ? 1 : 0 }}
                     }
                 ]
             },
@@ -43,8 +43,14 @@
                         title: 'Category',
                         link: "{{ route('admin.categories.index') }}",
                         key: 'categories',
-                        permission: {{ auth()->user()->can('categories.list') == 1 ? 1 : 0 }}
+                        permission: {{ auth()->user()->can('category.list') == 1 ? 1 : 0 }}
                     },
+                    {
+                        title: 'Courses',
+                        link: "{{ route('admin.courses.index') }}",
+                        key: 'courses',
+                        permission: {{ auth()->user()->can('courses.list') == 1 ? 1 : 0 }}
+                    }
                 ]
             },
             {

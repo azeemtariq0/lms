@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+
 @section('content')
     <div id="content">
         <form id="form" enctype="multipart/form-data"
@@ -27,7 +28,7 @@
                 </div>
                 <div class="bg-white p-2 px-3 rounded-lg ">
                     <label class="form-label !ml-0">Saved Image</label>
-                    <img class="w-20 aspect-square" src="{{ isset($banner->path) ? asset($banner->path) : '' }}"
+                    <img class="w-20 aspect-square" id="preview" src="{{ isset($banner->path) ? asset($banner->path) : asset('assets/clip.png')  }}"
                         alt="Image" />
 
                 </div>
@@ -80,5 +81,29 @@
 
             });
         });
+
+
+
+var fileTag = document.getElementById("file"),
+preview = document.getElementById("preview");
+    
+fileTag.addEventListener("change", function() {
+  changeImage(this);
+});
+
+function changeImage(input) {
+  var reader;
+
+  if (input.files && input.files[0]) {
+    reader = new FileReader();
+
+    reader.onload = function(e) {
+      preview.setAttribute('src', e.target.result);
+    }
+
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
     </script>
 @endsection

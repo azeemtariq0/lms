@@ -9,6 +9,7 @@ class Permission extends Model
 {
     use HasFactory;
 
+
     protected $fillable = [
         'name',
         'permission'
@@ -22,5 +23,6 @@ class Permission extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
 
 }

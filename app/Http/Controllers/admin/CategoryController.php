@@ -15,8 +15,8 @@ class CategoryController extends Controller
     {
         if ($request->ajax()) {
             $data = Category::query()
-                ->leftJoin('category as parent', 'category.parent_id', '=', 'parent.id')
-                ->select('category.*', DB::raw('IFNULL(parent.name, "No Parent") as parent_name'));
+                ->leftJoin('categories as parent', 'categories.parent_id', '=', 'parent.id')
+                ->select('categories.*', DB::raw('IFNULL(parent.name, "No Parent") as parent_name'));
 
             return DataTables::of($data)
                 ->addIndexColumn()
@@ -53,10 +53,9 @@ class CategoryController extends Controller
         ];
         return view('admin.categories.index', compact('data'));
     }
-
     public function create()
     {
-        $categories = Category::get();
+        $categories = Category::where('parent_id','=',0)->get();
 
         $data['page_management'] = array(
             'page_title' => 'Add Categories',
@@ -78,9 +77,9 @@ class CategoryController extends Controller
         });
 
         if ($onlyParent) {
-            $list = $list->whereNull('parent_id');
+            $list = $list->where('parent_id',0);
         } else if ($onlyChild) {
-            $list = $list->whereNotNull('parent_id');
+          $list = $list->where('parent_id','<>',0);
         }
         $list = $list->orderBy('name')
             ->paginate(10, ['id', 'name']);
@@ -93,7 +92,7 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function changeStatus(Request $request)
+     public function changeStatus(Request $request)
     {
         $banner = Category::find($request->id);
 
@@ -108,19 +107,19 @@ class CategoryController extends Controller
     }
 
 
-    public function store(Request $request)
+   public function store(Request $request )
     {
-        $this->validate($request, [
+           $this->validate($request, [
             'name' => 'required',
         ]);
-
+        
         $input = $request->all();
         $user = Category::create($input);
-
+        
         return redirect()->route('admin.categories.index')
-            ->with('success', 'Category created successfully');
+        ->with('success','Category created successfully');
     }
-    public function show($id)
+     public function show($id)
     {
         $category = Category::find($id);
         $data['page_management'] = array(
@@ -129,14 +128,14 @@ class CategoryController extends Controller
             'slug' => 'View',
         );
 
-        return view('admin.categories.create', compact('category', 'data'));
+        return view('admin.categories.create',compact('category' ,'data'));
     }
 
     public function edit($id)
     {
 
         $category = Category::find($id);
-        $categories = Category::where('id', '!=', $id)->get();
+        $categories = Category::where('id', '!=', $id)->where('parent_id', '=', 0)->get();
 
         $data['page_management'] = array(
             'page_title' => 'Categories',

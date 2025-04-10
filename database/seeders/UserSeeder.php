@@ -1,11 +1,6 @@
 <?php
-
 namespace Database\Seeders;
 
-use App\Models\Permission;
-use App\Models\PermissionUser;
-use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -14,28 +9,23 @@ class UserSeeder extends Seeder
 {
     public function run()
     {
-        $permission = Permission::first();
-        User::truncate()->insert(
-            [
-                'permission_id' => json_encode([$permission->id]),
-                'email' => 'admin@gmail.com',
-                'name' => 'Global Admin',
-                'password' => Hash::make(12345),
-                'is_admin' => 1,
-                'created_at' => Carbon::now(),
-            ]
+        DB::table('users')->truncate();
+        DB::table('users')->insert([
+            'permission_id' => '["1"]',
+            'name' => 'Admin',
+            'email' => 'admin@gmail.com',
+            'password' => Hash::make('demo@123'),
+            'is_admin'=>1
+        ]);
 
-        );
 
-        $user = User::first();
-        PermissionUser::truncate()->insert(
+        // permission 
+        DB::table('permission_user')->truncate();
+        DB::table('permission_user')->insert([
+            'user_id' => 1,
+            'permission_id' => 1
+        ]);
 
-            [
-                'user_id' => $user->id,
-                'permission_id' => $permission->id,
-                'created_at' => Carbon::now(),
-            ]
 
-        );
     }
 }

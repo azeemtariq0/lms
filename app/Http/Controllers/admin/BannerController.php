@@ -73,35 +73,34 @@ class BannerController extends Controller
 
     public function create()
     {
-
-        $roles = Permission::pluck('name', 'id')->all();
+        
+        $roles = Permission::pluck('name','id')->all();
         $data['page_management'] = array(
-            'page_title' => 'Add Banner',
-            'title' => 'Create Banner',
-            'slug' => 'Add',
-        );
-        return view('admin.banners.create', compact('data'));
+                'page_title' => 'Add Banner',
+                'title'=>'Create Banner',
+                'slug'=>'Add',
+            );
+        return view('admin.banners.create',compact('data'));
     }
 
-    public function store(Request $request)
+   public function store(Request $request )
     {
-        $this->validate($request, [
+           $this->validate($request, [
             'name' => 'required',
             'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
         
-
         $input = $request->all();
 
-        if ($request->hasFile('file')) {
-            // Get the file from the request
-            $image = $request->file('file');
+         if ($request->hasFile('file')) {
+        // Get the file from the request
+        $image = $request->file('file');
 
-            // Generate a unique name for the image
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
+        // Generate a unique name for the image
+        $imageName = time() . '.' . $image->getClientOriginalExtension();
 
-            // Move the image to the 'public/uploads' directory
-            $image->move(public_path('uploads/banners'), $imageName);
+        // Move the image to the 'public/uploads' directory
+        $image->move(public_path('uploads/banners'), $imageName);
 
             // Add the image path to the input data
             $input['image'] = $imageName;
@@ -110,35 +109,35 @@ class BannerController extends Controller
 
         // dd($input);
         $user = Banner::create($input);
-
+        
         return redirect()->route('admin.banners.index')
-            ->with('success', 'Banner created successfully');
+        ->with('success','Banner created successfully');
     }
-    public function show($id)
+     public function show($id)
     {
         $banner = Banner::find($id);
         $data['page_management'] = array(
-            'page_title' => 'Show Banner',
-            'title' => 'Show Banner',
-            'slug' => 'View',
-        );
+                'page_title' => 'Show Banner',
+                'title'=>'Show Banner',
+                'slug'=>'View',
+            );
 
-        return view('admin.banners.create', compact('banner', 'data'));
+        return view('admin.banners.create',compact('banner' ,'data'));
     }
 
-    public function edit($id)
+     public function edit($id)
     {
-
+   
         $banner = Banner::find($id);
-
-        $data['page_management'] = array(
+       
+         $data['page_management'] = array(
             'page_title' => 'Banner',
             'slug' => 'Edit',
             'title' => 'Edit Banner',
             'add' => 'Edit Banner',
         );
-
-        return view('admin.banners.create', compact('banner', 'data'));
+        
+        return view('admin.banners.create',compact('banner','data'));
     }
 
     public function update(Request $request, $id)
@@ -147,14 +146,14 @@ class BannerController extends Controller
             'name' => 'required',
             'file' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-
+        
         $input = $request->all();
-
+        
         $banner = Banner::find($id);
         $input['name'] = trim($input['name']);
 
 
-        // Handle the file upload if a new file is provided
+         // Handle the file upload if a new file is provided
         if ($request->hasFile('file')) {
             // Get the uploaded file
             $image = $request->file('file');
@@ -175,15 +174,18 @@ class BannerController extends Controller
             $input['path'] = 'uploads/banners/' . $imageName;
         }
 
-
+    
         $banner->update($input);
 
-
+        
         return redirect()->route('admin.banners.index')
-            ->with('success', 'Banner updated successfully');
+        ->with('success','Banner updated successfully');
+
+
+        
     }
 
-    /**
+     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
@@ -194,4 +196,5 @@ class BannerController extends Controller
         Banner::where('id', $id)->delete();
         return response()->json(['success' => true]);
     }
+
 }

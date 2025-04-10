@@ -26,28 +26,35 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
 
+         
+    if(Schema::hasTable('permissions')){
+        // Retrieve all permissions from the database
+        $permissions = Permission::all();
 
-        if (Schema::hasTable('permissions')) {
-            // Retrieve all permissions from the database
-            $permissions = Permission::all();
 
-            foreach ($permissions as $permission) {
+        foreach ($permissions as $permission) {
 
-                $abilities = $permission->permission;
-
-                if (!empty($abilities))
-                    foreach ($abilities as $category => $actions) {
-                        foreach ($actions as $action => $value) {
-                            if ($value == "1") {
-                                // dd($action);
-                                // Define the gate dynamically for each action in the permission
-                                Gate::define("{$category}.{$action}", function (User $user) use ($permission, $category, $action) {
-                                    return $user->hasPermissionTo($category, $action);
-                                });
-                            }
-                        }
+            $abilities = json_decode($permission->permission,true);
+    
+           if(!empty($abilities))
+            foreach ($abilities as $category => $actions) {
+                foreach ($actions as $action => $value) {
+                    if ($value == "1") {
+                            // dd($abilities);
+                        // Define the gate dynamically for each action in the permission
+                        Gate::define("{$category}.{$action}", function (User $user) use ($permission, $category, $action) {
+                            return $user->hasPermissionTo($category, $action);
+                        });
                     }
+                }
             }
         }
     }
+    }
 }
+
+
+
+
+
+

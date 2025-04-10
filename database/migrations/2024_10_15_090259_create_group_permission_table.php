@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('route', 255);
             $table->string('permission_id', 16);
             $table->string('permission_name', 32);
-            $table->decimal('sort_order', 11, 3)->default(0.000);
+            $table->decimal('sort_order', 11, 3)->default(0.000);        
         });
     }
 

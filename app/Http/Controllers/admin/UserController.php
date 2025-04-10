@@ -108,12 +108,15 @@ class UserController extends Controller
         ]);
 
         $input = $request->all();
+        $permission_id = $input['permission_id'];
+
         $input['password'] = Hash::make($input['password']);
+        $input['permission_id'] = json_encode($input['permission_id']);
 
         User::create($input);
 
         $user = User::where('email', $input['email'])->first();
-        foreach ($input['permission_id'] as $value) {
+        foreach ($permission_id as $value) {
             PermissionUser::insert([
                 'permission_id' => $value,
                 'user_id' => $user->id,
@@ -162,10 +165,11 @@ class UserController extends Controller
             // Handle the case where the user is not found
             return redirect()->route('admin.users.index')->with('error', 'User not found');
         }
+        $permission_id = $request->input('permission_id');
 
         $user->name = $request->input('name');
         $user->email = $request->input('email');
-        $user->permission_id = $request->input('permission_id');
+        $user->permission_id = json_encode($request->input('permission_id'));
 
         if ($request->filled('password')) {
             $user->password = Hash::make($request->input('password'));
@@ -173,7 +177,7 @@ class UserController extends Controller
         $user->save();
 
         PermissionUser::where('user_id', $user->id)->delete();
-        foreach ($user->permission_id as $value) {
+        foreach ($permission_id as $value) {
             PermissionUser::insert([
                 'permission_id' => $value,
                 'user_id' => $user->id,

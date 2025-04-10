@@ -74,7 +74,7 @@ class PermissionController extends Controller
                 'route' => $route,
                 'permission_id' => $permission_id,
                 'permission_name' => $permission_name,
-                'selected' => (isset($permission->permission->$route->$permission_id) ? $permission->permission->$route->$permission_id : 0),
+                'selected' => (isset($permission->permission->$route->$permission_id)? $permission->permission->$route->$permission_id : 0),
             ];
         }
 
@@ -104,7 +104,7 @@ class PermissionController extends Controller
 
         $permission = Permission::create([
             'name' => trim($request->input('name')),
-            'permission' => trim($request->permission)
+            'permission' => trim(json_encode($request->permission))
         ]);
 
 
@@ -149,7 +149,7 @@ class PermissionController extends Controller
 
 
 
-
+        
 
         $data['page_management'] = array(
             'page_title' => 'Show Permissions',
@@ -159,7 +159,7 @@ class PermissionController extends Controller
 
         return view('admin.permissions.show', compact('permission', 'data'));
     }
-
+    
     /**
      * Show the form for editing the specified resource.
      *
@@ -168,18 +168,18 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
-        $controls = GroupPermission::orderBy('sort_order', 'asc')->get();
+       $controls = GroupPermission::orderBy('sort_order','asc')->get();
         $permission = Permission::where('id', $id)->first();
 
-        if (empty($permission)) return $this->jsonResponse([], 404, " Permission Not Found!");
+        if(empty($permission)) return $this->jsonResponse([],404," Permission Not Found!");
 
         // dd($permission->permission);
 
-        $permission->permission = !empty($permission->permission) ? @$permission->permission : null;
+        $permission->permission = !empty($permission->permission) ? @json_decode($permission->permission,true) : null;
 
 
         $arrPermissions = [];
-        foreach ($controls as $value) {
+         foreach($controls as $value) {
 
             $module_name = $value->module_name;
             $form_name = $value->form_name;
@@ -192,7 +192,7 @@ class PermissionController extends Controller
                 'route' => $route,
                 'permission_id' => $permission_id,
                 'permission_name' => $permission_name,
-                'selected' => (isset($permission->permission[$route][$permission_id]) ? $permission->permission[$route][$permission_id] : 0),
+                'selected' => (isset($permission->permission[$route][$permission_id])? $permission->permission[$route][$permission_id] : 0),
             ];
         }
 
@@ -222,7 +222,7 @@ class PermissionController extends Controller
         ]);
 
         $permission = Permission::find($id);
-        $permission->permission = $request->permission;
+        $permission->permission = json_encode($request->permission);
         $permission->name = $request->name;
         $permission->updated_at = date('Y-m-d H:i:s');
         $permission->update();
@@ -242,3 +242,4 @@ class PermissionController extends Controller
         return response()->json(['success' => true]);
     }
 }
+

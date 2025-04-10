@@ -27,8 +27,8 @@
 
 <body style="background-image:url('../assets/images/about-section.png'); background-size:cover;">
 
-    @yield('content')
-
+        @yield('content')
+        
 
 </body>
 <script src="{{ asset('assets/admin/plugins/jquery/jquery-validate-1.21.0.min.js') }}"></script>

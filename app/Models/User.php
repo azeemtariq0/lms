@@ -6,12 +6,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+// use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Session;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use  HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -45,11 +45,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
-        'permission_id' => 'array',
     ];
 
 
-    public function permissions()
+   public function permissions()
     {
         return $this->belongsToMany(Permission::class);
     }
@@ -62,17 +61,18 @@ class User extends Authenticatable
     }
 
     // Check if the user has a specific permission
-    public function hasPermissionTo($type, $action,)
+    public function hasPermissionTo($type ,$action, )
     {
         $permission_id = Session::get('permission_id');
 
-        if (@auth()->user()->id) {
+        if(@auth()->user()->id){
             $permissions = $this->permissions()->where('permission_id', $permission_id)->first()->permission ?? [];
-            if (!empty($permissions))
-                $permissions = $permissions;
+            if(!empty($permissions))
+                $permissions = json_decode($permissions,true);
             // dd($this->permissions()->where('permission_id', $permission_id)->first());
         }
 
         return isset($permissions[$type][$action]) && $permissions[$type][$action] == '1';
     }
+
 }

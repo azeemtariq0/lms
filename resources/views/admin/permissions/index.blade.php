@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('pagelevelstyle')
-    @include('layouts.additionalscripts.adddatatable')
-@endsection
+
 @section('content')
-    <div id="content" class="padding-20">
+  @include('layouts.additionalscripts.adddatatable')
+
+  <div id="content" class="padding-20">
 
         <div class="flex items-center justify-end">
 
@@ -21,7 +21,7 @@
                 class="shadow-sm bg-white rounded-lg overflow-hidden  w-full border-collapse bg-gray-50 !border-gray-300 text-sm">
                 <thead>
                     <tr>
-                        <th>
+                        <th class=" w-1/3">
                             <div class="form-label p-2 !m-0"> Full Name</div>
                         </th>
                         <th class="!w-40">
@@ -45,10 +45,12 @@
     <script type="text/javascript">
         $(function() {
 
-            var table = $("#dataTable").DataTable({
+             $("#dataTable").DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('admin.permissions.index') }}",
+                ajax: {
+                    url: "{{ route('admin.permissions.index') }}"
+                },
                 columns: [{
                     data: 'name',
                     name: 'name'
@@ -59,8 +61,8 @@
                     searchable: false
                 }, ],
                 ...dataTableStyling
-
             });
+
         });
     </script>
 @endsection

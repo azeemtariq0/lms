@@ -9,7 +9,7 @@
 
         <div class="flex items-center justify-end">
 
-            @can('categories.add')
+            @can('category.add')
                 <a href="{{ route('admin.categories.create') }}" class="btn-primary !font-normal">
                     <i class="fa-solid fa-plus"></i> Create Category
                 </a>
@@ -100,7 +100,7 @@
                         searchable: false
                     }
                 ],
-                ...window.dataTableStyling
+                ...dataTableStyling
             });
 
             createSelect2("#parent_id", "{{ route('admin.categories.list') }}", {

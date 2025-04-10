@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+
 @section('content')
     <div id="content">
         <form id="form" enctype="multipart/form-data"
@@ -12,7 +13,7 @@
             <div class="grid grid-cols-2 gap-6">
                 <div>
                     <label for="parent_id" class="form-label ">Parent</label>
-                    <select name="parent_id" id="parent_id" class="form-input">
+                    <select name="parent_id" id="parent_id" class="form-input select2">
                         <option value="">No Parent</option>
                         @foreach ($categories as $cat)
                             <option value="{{ $cat->id }}"

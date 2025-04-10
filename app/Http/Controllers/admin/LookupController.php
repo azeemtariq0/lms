@@ -21,4 +21,5 @@ class LookupController extends Controller
         Session::put('permission_name', $data->name);
         echo json_encode(true);
     }
+
 }

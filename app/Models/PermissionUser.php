@@ -21,4 +21,8 @@ class PermissionUser extends Model
         'permission_id',
         'created_at',
     ];
+
+
+
+
 }

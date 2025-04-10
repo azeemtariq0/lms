@@ -2,100 +2,138 @@
 
 
 @section('content')
-    <div class="w-1/2 bg-white p-2 rounded-lg border border-gray-300 ">
-        <div class="flex items-center justify-between">
-            <h1 class="pl-1 rounded-md">Users Analysis</h1>
-            <button id="userChartYearFilter"
-                class="btn-default !bg-gray-100 !text-gray-700 !font-medium border border-gray-300">1
-                Year</button>
+<style type="text/css">
+    .card{
+        background: #fff;   padding: 7px;
+                border-radius: 6px;
+                text-align: center;margin-top: 5px;margin-left: 5px;float:left;
+    }
+    .card-title{
+        font-size: 14px;
+    }
+    .card-text{
+        font-size: 16px;
+        font-weight: bold;
+    }
+</style>
+    @if (count($errors) > 0)
+    <div id="content" class="padding-20">
 
-        </div>
-        <canvas id="userChart"></canvas>
-    </div>
-@endsection
+        <div class="alert alert-danger margin-bottom-30">
+            <strong>Whoops!</strong> There were some problems with your input.<br><br>
+            <ul>
+               @foreach ($errors->all() as $error)
+               <li>{{ $error }}</li>
+               @endforeach
+           </ul>
+       </div>
+       @endif
+       <div class="colm-md-12 row" style="margin-top: 10px;">
+    <div class="col-md-11"></div>
+</div>
 
-@section('pagelevelscript')
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        $(document).ready(function() {
+       <div id="content" class="padding-20">
+            
 
-            new Dropdown("#userChartYearFilter", {
-                options: [{
-                        value: 1,
-                        label: "1 Year"
-                    },
-                    {
-                        value: 2,
-                        label: "2 Years"
-                    },
-                    {
-                        value: 3,
-                        label: "3 Years"
-                    },
-                    {
-                        value: 4,
-                        label: "4 Years"
-                    },
-                    {
-                        value: 5,
-                        label: "5 Years"
-                    }
-                ],
-                onChange: function(option) {
-                    userChart({
-                        yearly: option.value
-                    });
-                }
-            });
-            let userChartInstance = null;
+             <div class="row">
+       
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                      <h4 class="card-title h-10">Total Users</h4>
+                      <p class="card-text"><b>( 22 )</b></p>
+                      <a href="#" class="card-link">Show All </a>
+                    </div>
+                  </div>
+              </div>
 
-            function userChart(filters) {
-                $.ajax({
-                    url: "{{ url('admin/user-chart') }}",
-                    type: "GET",
-                    data: JSON.stringify(filters),
-                    contentType: "application/json",
-                    success: function(data) {
-                        let months = data.map(item => `Month ${item.month}`);
-                        let userCounts = data.map(item => item.count);
+            <div class="col-md-3">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title h-10">Total Enrolled Users</h4>
+                  <p class="card-text"><b>( 22 )</b></p>
+                  <a href="#" class="card-link">Show All </a>
+                </div>
+              </div>
+          </div>
 
-                        let ctx = document.getElementById("userChart").getContext("2d");
 
-                        // Destroy existing chart to prevent overlay issues
-                        if (userChartInstance !== null) {
-                            userChartInstance.destroy();
-                        }
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title h-10">Total Courses</h4>
+                  <p class="card-text"><b>( 16 )</b></p>
+                  <a href="#" class="card-link">Show All </a>
+                </div>
+              </div>
 
-                        userChartInstance = new Chart(ctx, {
-                            type: "line",
-                            data: {
-                                labels: months,
-                                datasets: [{
-                                    tension: 0.4,
-                                    label: "Users",
-                                    data: userCounts,
-                                    backgroundColor: "rgba(54, 162, 235, 0.5)",
-                                    borderColor: "rgba(54, 162, 235, 1)",
-                                    borderWidth: 2
-                                }]
-                            },
-                            options: {
-                                responsive: true,
-                                scales: {
-                                    y: {
-                                        beginAtZero: true
-                                    }
-                                }
-                            }
-                        });
-                    }
-                });
-            }
 
-            // Initial Chart Load
-            userChart({
-                yearly: 1
-            });
-        });
-    </script>
+
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title h-10">Total Candidate</h4>
+                  <p class="card-text"><b>( 20 )</b></p>
+                  <a href="#" class="card-link">Show All </a>
+                </div>
+              </div>
+
+
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title h-10">Total Candidate (Successed)</h4>
+                  <p class="card-text"><b>( 7 )</b></p>
+                  <a href="#" class="card-link">Show All </a>
+                </div>
+              </div>
+
+
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title h-10">Total Candidate (Failed)</h4>
+                  <p class="card-text"><b>( 4 )</b></p>
+                  <a href="#" class="card-link">Show All </a>
+                </div>
+              </div>
+
+
+
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title h-10">Total Candidate (Incomplete Course)</h4>
+                  <p class="card-text"><b>( 9 )</b></p>
+                  <a href="#" class="card-link">Show All </a>
+                </div>
+              </div>
+
+
+
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title h-10">Certificate Print</h4>
+                  <p class="card-text"><b>( 2 )</b></p>
+                  <a href="#" class="card-link">Show All </a>
+                </div>
+              </div>
+       
+
+   </div>
+
+ 
+      </div>
+
+
+</div>
+
+
+
+
+
+<script type="text/javascript">
+    
+
+</script>
+
+
+
+
+
 @endsection

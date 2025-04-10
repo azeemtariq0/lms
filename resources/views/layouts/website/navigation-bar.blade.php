@@ -26,27 +26,14 @@
 
 
                 <!-- Language Dropdown -->
-                <li class="md:absolute right-4 top-6 relative">
+                <li >
                     <a href="javascript:void(0)"
                         class="border border-white/30 px-4 py-2 rounded-xl text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white"
                         id="language-toggle">
                         <i class="fa fa-globe"></i> EN <i class="fa fa-angle-down"></i>
                     </a>
 
-
-                    @if (@auth()->user()->id)
-                        <a href="javascript:void(0)" id="login-id-toggle"
-                            class="border border-white/30 px-4 py-2 mx-2 rounded-xl text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white">
-                            <i class="fa fa-user"></i> {{ auth()->user()->name }} <i class="fa fa-angle-down"></i>
-                        </a>
-                    @else
-                        <a href="{{ url('/login') }}"
-                            class="border border-white/30 px-4 py-2 rounded-xl text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white">Login</a>
-                        <a href="{{ url('/signup') }}"
-                            class="bg-[#1b4552] px-4 py-2 rounded-xl text-sm font-medium text-stone-900">Register</a>
-                    @endif
-
-                    <!-- Language Dropdown -->
+                     <!-- Language Dropdown -->
                     <div id="language-dropdown"
                         class="dropdown-menu absolute hidden z-10 mt-2 w-32 bg-white/95 backdrop-blur-md border border-gray-200/50 rounded-xl shadow-md transition-all duration-200 ease-in-out">
                         <ul class="p-1">
@@ -61,9 +48,27 @@
                             </li>
                         </ul>
                     </div>
+
+                </li>
+                 <li >
+                    @if (@auth()->user()->id && @auth()->user()->is_admin==0)
+                        <a href="javascript:void(0)" id="login-id-toggle"
+                            class="border border-white/30 px-4 py-2 mx-2 rounded-xl text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white">
+                            <i class="fa fa-user"></i> {{ auth()->user()->name }} <i class="fa fa-angle-down"></i>
+                        </a>
+                    @else
+                        <a href="{{  env('ORG_LOGIN') }}"
+                            class="border border-white/30 px-4 py-2 rounded-xl text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white">Login</a>
+                        <a href="{{ env('ORG_SIGNUP') }}"
+                            class="bg-[#FFDE79] px-4 py-2 rounded-xl text-sm font-medium text-stone-900">Register</a>
+                    @endif
+
+
+
+                    
                     <!-- Login ID Dropdown -->
                     <div id="login-id-dropdown"
-                        class="dropdown-menu absolute hidden right-0 z-10 mt-2 w-40 bg-white/95 backdrop-blur-md border border-gray-200/50 rounded-xl shadow-md transition-all duration-200 ease-in-out">
+                        class="dropdown-menu absolute hidden z-10 mt-2 w-40 bg-white/95 backdrop-blur-md border border-gray-200/50 rounded-xl shadow-md transition-all duration-200 ease-in-out">
                         <ul class="p-1">
                             <li>
                                 <a href="{{ url('user-profile/') }}"
@@ -77,6 +82,10 @@
                         </ul>
                     </div>
 
+
+                </li>
+
+                   
 
             </ul>
 

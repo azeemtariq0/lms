@@ -21,7 +21,8 @@ return new class extends Migration
             $table->string('path', 255)->nullable();
             $table->char('created_by',40)->nullable();
             $table->char('updated_by',40)->nullable();
-            $table->decimal('sort_order', 11, 3)->default(0.000);        
+            $table->decimal('sort_order', 11, 3)->default(0.000);
+            $table->timestamps();        
         });
     }
 

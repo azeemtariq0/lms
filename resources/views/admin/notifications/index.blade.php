@@ -2,34 +2,9 @@
 
 
 @section('content')
-
-
-  
   @include('layouts.additionalscripts.adddatatable')
 
-
   <div id="content" class="padding-20">
-
-    @if ($message = Session::get('success'))
-    <div class="alert alert-success">
-      <p>{{ $message }}</p>
-    </div>
-    @endif
-    <div id="panel-1" class="panel panel-default">
-      <div class="panel-heading">
-        <span class="title elipsis">
-          <strong>Manage Notification</strong> <!-- panel title -->
-        </span>
-
-        <!-- right options -->
-        <ul class="options pull-right list-inline">
-          <li><a href="#" class="opt panel_colapse" data-toggle="tooltip" title="Colapse" data-placement="bottom"></a></li>
-          <li><a href="#" class="opt panel_fullscreen hidden-xs" data-toggle="tooltip" title="Fullscreen" data-placement="bottom"><i class="fa fa-expand"></i></a></li>
-          <li><a href="#" class="opt panel_close" data-confirm-title="Confirm" data-confirm-message="Are you sure you want to remove this panel?" data-toggle="tooltip" title="Close" data-placement="bottom"><i class="fa fa-times"></i></a></li>
-        </ul>
-        <!-- /right options -->
-
-      </div>
 
 
         <div class="col-md-3 pb-3" style="padding: 10px;">
@@ -39,52 +14,88 @@
        </select>
      </div>
 
-      <!-- panel content -->
-      <div class="panel-body mt-4">
-       
+        <div class=" mt-2">
+            <table id="dataTable"
+                class="shadow-sm bg-white rounded-lg overflow-hidden  w-full border-collapse bg-gray-50 !border-gray-300 text-sm">
+                <thead>
+                    <tr>
+                        <th class=" w-1/3">
+                            <div class="form-label p-2 !m-0">Heading Text</div>
+                        </th>
+                        <th class=" w-1/3">
+                            <div class="form-label p-2 !m-0">Message</div>
+                        </th>
+                        <th class=" w-1/3">
+                            <div class="form-label p-2 !m-0">Status</div>
+                        </th>
+                        <th class="!w-40">
+                            <div class="form-label p-2 !m-0 text-center"> Action</div>
+                        </th>
 
-      
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
 
-        <table class="table table-striped table-bordered table-hover table-responsive data-table">
-          <thead>
-            <tr>
-              <th>Notification</th>
-              <th width="20%">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-          </tbody>
-        </table>
+            </table>
 
-      </div>
-      <!-- /panel content -->
+        </div>
+        <!-- /panel content -->
 
     </div>
-    <!-- /PANEL -->
-
-  </div>
-
 @endsection
 
-
-
 @section('pagelevelscript')
-<script type="text/javascript">
-  $(function () {
+    <script type="text/javascript">
+        const csrfToken = "{{ csrf_token() }}";
+        const changeStatusRoute = "{{ route('admin.notifications.changeStatus') }}";
+        $(function() {
 
-    var table = $('.data-table').DataTable({
-      processing: true,
-      serverSide: true,
-      ajax: "{{ route('admin.notifications.index') }}",
-      columns: [
-      {data: 'heading_text', name: 'heading_text'},
-      {data: 'action', name: 'action', orderable: false, searchable: false},
-      ]
-    });
+             $("#dataTable").DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: "{{ route('admin.notifications.index') }}"
+                },
+                columns: [{
+                    data: 'heading_text',
+                    name: 'heading_text'
+                },{
+                    data: 'message',
+                    name: 'message'
+                },{
+                    data: 'is_read',
+                    name: 'is_read'
+                }, {
+                    data: 'action',
+                    name: 'action',
+                    orderable: false,
+                    searchable: false
+                }, ],
+                ...dataTableStyling
+            });
 
-   
+        });
 
 
-  });
-</script>
+        // ✅ Change Status Event
+            $(document).on('click', '.change-status', function() {
+                let id = $(this).data('id');
+                let status = $(this).data('status') ? 0 : 1;
+                $.ajax({
+                    url: changeStatusRoute,
+                    type: 'POST',
+                    data: {
+                        _token: csrfToken,
+                        id: id,
+                        status: status
+                    },
+                    success: function() {
+                        $("#dataTable").DataTable().ajax.reload();
+                    }
+                });
+            });
+
+
+    </script>
 @endsection
