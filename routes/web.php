@@ -45,6 +45,7 @@ Route::middleware('auth')->group(function () {
     Route::get('about-us', [HomeController::class, 'aboutUs']);
     Route::get('contact-us', [HomeController::class, 'contactUs']);
     Route::get('courses', [HomeController::class, 'courses']);
+    Route::get('courses/{id}', [HomeController::class, 'courseDetail']);
     Route::get('events', [HomeController::class, 'events']);
     Route::get('signup', [HomeController::class, 'signup']);
 

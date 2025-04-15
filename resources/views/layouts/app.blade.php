@@ -46,7 +46,7 @@
 
   </head>
 
-  <body class="body">
+  <body class="body scroll-smooth">
 
 
       {{-- toast alert --}}

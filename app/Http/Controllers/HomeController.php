@@ -27,7 +27,12 @@ class HomeController extends Controller
     public function courses()
     {
          return view('website.courses');
-    } public function events()
+    }
+    public function courseDetail($id)
+    {
+        return view('website.course-detail',compact('id'));
+    }
+     public function events()
     {
          return view('website.events');
     }
