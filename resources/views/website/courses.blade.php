@@ -89,7 +89,7 @@
                     </div>
 
                     <!-- Button -->
-                    <a href="{{ url('courses', $course['title']) }}"
+                    <a href="{{ url('course-detail', $course['title']) }}"
                         class="inline-block mt-4 text-[#1b4552] text-sm font-medium hover:underline">View
                         Course →</a>
                 </div>

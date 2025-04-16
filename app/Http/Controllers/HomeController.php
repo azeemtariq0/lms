@@ -17,27 +17,30 @@ class HomeController extends Controller
     {
          return view('website.user-profile');
     }
+
     public function aboutUs()
     {
          return view('website.about-us');
     }
+
     public function contactUs()
     {
          return view('website.contact-us');
-    } 
+    }
+
     public function courses()
     {
          $courses = Course::where('status',1)->get();
          return view('website.courses',compact('courses'));
-    } 
-    public function events()
-    {
-         return view('website.events');
     }
 
-
-     public function courseDetail()
+    public function events()
     {
-         return view('website.course_detail');
+        return view('website.events');
+    }
+
+    public function courseDetail(Request $request)
+    {
+         return view('website.course-detail');
     }
 }
