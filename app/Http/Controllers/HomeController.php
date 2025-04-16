@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Banner;
+use App\Models\Course;
 
 class HomeController extends Controller
 {
@@ -26,14 +27,17 @@ class HomeController extends Controller
     } 
     public function courses()
     {
-         return view('website.courses');
-    }
-    public function courseDetail($id)
-    {
-        return view('website.course-detail',compact('id'));
-    }
-     public function events()
+         $courses = Course::where('status',1)->get();
+         return view('website.courses',compact('courses'));
+    } 
+    public function events()
     {
          return view('website.events');
+    }
+
+
+     public function courseDetail()
+    {
+         return view('website.course_detail');
     }
 }

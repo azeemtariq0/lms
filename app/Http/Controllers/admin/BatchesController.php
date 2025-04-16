@@ -1,23 +1,22 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Batches;
 use App\Models\Course;
 use App\Models\Category;
 use App\Models\User;
 use DB;
 use DataTables, Form;
 
-class CourseController extends Controller
+
+class BatchesController extends Controller
 {
     public function index(Request $request)
     {
          if ($request->ajax()) {
-            $data = Course::join('categories as c','c.id','=','category_id')
-                ->join('users as u','u.id','=','mollim_id')
-                ->select('courses.*','c.name as category_name','u.name as mollim');
+            $data = Batches::join('courses as c','c.id','=','course_id')->select('*');
             return Datatables::of($data)
             ->addIndexColumn()
              ->editColumn('status', function ($row) {
@@ -32,13 +31,13 @@ class CourseController extends Controller
                 $btn = "<div class='flex items-center justify-center gap-2'>";
 
                     $btn .= "<div class='relative group'>
-                            <a href='" . route('admin.courses.edit', $row->id) . "' class='edit action-info'><i
+                            <a href='" . route('admin.batches.edit', $row->id) . "' class='edit action-info'><i
                                 class='fa-solid text-gray-500 group-hover:text-blue-600 fa-pencil transition-all'></i></a>
                             <span class='tooltip-top-center group-hover:!block'>Edit Row</span>
                         </div>";
 
                     $btn .= "<div class='relative group'>
-                            <a href='" . route('admin.courses.destroy', $row->id) . "' class='delete action-danger'><i
+                            <a href='" . route('admin.batches.destroy', $row->id) . "' class='delete action-danger'><i
                             class='fa-solid text-gray-500 group-hover:text-rose-600 fa-trash transition-all'></i></a>
                             <span class='tooltip-top-center group-hover:!block'>Delete Row</span>
                             </div>";
@@ -61,23 +60,23 @@ class CourseController extends Controller
         }
 
         $data['page_management'] = array(
-            'page_title' => 'Courses',
-             'title'=>' Courses',
+            'page_title' => 'Batches',
+             'title'=>' Batches',
             'slug' => 'Admin'
         );
-        return view('admin.courses.index', compact('data'));
+        return view('admin.batches.index', compact('data'));
     }
     public function create()
     {
 
-        $categories = Category::where('status','=',1)->get();
+        $courses = Course::where('status','=',1)->get();
         $users = User::all();
         $data['page_management'] = array(
-                'page_title' => 'Add Course',
-                'title'=>'Add Course',
+                'page_title' => 'Add Batches',
+                'title'=>'Add Batches',
                 'slug'=>'Add',
             );
-        return view('admin.courses.create',compact('data','categories','users'));
+        return view('admin.batches.create',compact('data','courses','users'));
     }
 
 
@@ -91,46 +90,37 @@ class CourseController extends Controller
         
         $input = $request->all();
 
-
-        if ($request->hasFile('file')) {
-            $image = $request->file('file');
-
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('uploads/courses'), $imageName);
-
-            $input['image'] = $imageName;
-            $input['path'] = 'uploads/courses/' . $imageName;
-        }
-
-        Course::create($input);
+        // dd($input);
+        Batches::create($input);
         
-        return redirect()->route('admin.courses.index')
-        ->with('success','Course created successfully');
+        return redirect()->route('admin.batches.index')
+        ->with('success','Batches Created Successfully');
     }
      public function show($id)
     {
+        $batches = Batches::find($id);
         $course = Course::find($id);
         $data['page_management'] = array(
-                'page_title' => 'Show Courses',
+                'page_title' => 'Show Batches',
                 'slug'=>'View',
             );
 
-        return view('admin.courses.create',compact('course' ,'data'));
+        return view('admin.batches.create',compact('course','batches' ,'data'));
     }
 
      public function edit($id)
     {
-        $categories = Category::where('parent_id','<=',0)->get();
-        $course = Course::find($id);
+        $courses = Course::where('status',1)->get();
+        $batches = Batches::find($id);
          $users = User::all();
          $data['page_management'] = array(
-            'page_title' => 'Courses',
+            'page_title' => 'Batches',
             'slug' => 'Edit',
-            'title' => 'Edit Course',
-            'add' => 'Edit Course',
+            'title' => 'Edit Batch',
+            'add' => 'Edit Batch',
         );
         
-        return view('admin.courses.create',compact('users','course','categories','data'));
+        return view('admin.batches.create',compact('users','courses','batches','data'));
     }
 
 
@@ -143,42 +133,49 @@ class CourseController extends Controller
         
         $input = $request->all();
         
-        $course = Course::find($id);
+        $batches = Batches::find($id);
         $input['course_name'] = trim($input['course_name']);
         $input['course_name_ur'] = trim($input['course_name_ur']);
 
+
         if ($request->hasFile('file')) {
-     
             $image = $request->file('file');
+
             $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('uploads/batches'), $imageName);
 
-
-            $image->move(public_path('uploads/courses'), $imageName);
             if ($course->image && file_exists(public_path($course->image))) {
                 unlink(public_path($course->image));
             }
 
             $input['image'] = $imageName;
-            $input['path'] = 'uploads/courses/' . $imageName;
+            $input['path'] = 'uploads/batches/' . $imageName;
         }
-        $course->update($input);
+
+    
+        $batches->update($input);
+
         
-        return redirect()->route('admin.courses.index')
+        return redirect()->route('admin.batches.index')
         ->with('success','Course updated successfully');
 
     }
 
     public function changeStatus(Request $request)
     {
-        $banner = Course::find($request->id);
-
-        if ($banner) {
-            $banner->status = $request->status;
-            $banner->save();
+        $batches = Batches::find($request->id);
+        if ($batches) {
+            $batches->status = $request->status;
+            $batches->save();
 
             return response()->json(['success' => true]);
         }
-
         return response()->json(['success' => false]);
+    }
+
+    public function destroy($id)
+    {
+        Batches::find($id)->delete();
+        return response()->json(['success' => true]);
     }
 }

@@ -50,6 +50,12 @@
                         link: "{{ route('admin.courses.index') }}",
                         key: 'courses',
                         permission: {{ auth()->user()->can('courses.list') == 1 ? 1 : 0 }}
+                    },
+                    {
+                        title: 'Batches',
+                        link: "{{ route('admin.batches.index') }}",
+                        key: 'batches',
+                        permission: {{ auth()->user()->can('batches.list') == 1 ? 1 : 0 }}
                     }
                 ]
             },

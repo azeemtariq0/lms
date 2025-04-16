@@ -12,9 +12,9 @@
 
         <div class="flex items-center justify-end">
 
-            @can('courses.add')
-                <a href="{{ route('admin.courses.create') }}" class="btn-primary !font-normal">
-                    <i class="fa-solid fa-plus"></i> Create Course
+            @can('batches.add')
+                <a href="{{ route('admin.batches.create') }}" class="btn-primary !font-normal">
+                    <i class="fa-solid fa-plus"></i> Create Batch
                 </a>
             @endcan
 
@@ -31,11 +31,11 @@
                     <tr>
 
                           <th>
-                            <div class="form-label p-2 !m-0">Category</div>
+                            <div class="form-label p-2 !m-0">Batch Title</div>
                             <div class="pl-2 pr-8">
-                               
-                            <input name="category_name" id="category_name"
+                                <input name="batch_title" id="batch_title"
                                     class="form-input text-xs !font-normal filter-input"></input>
+
                             </div>
                         </th>
                         <th>
@@ -46,16 +46,14 @@
 
                             </div>
                         </th>
+           
 
-
-
-
-                          <th>
-                            <div class="form-label p-2 !m-0">Mollim</div>
-                            <div class="pl-2 pr-8">
-                               
-                            <input name="mollim" id="mollim"
+                        <th class="text-center">
+                            <div class="form-label p-2 !m-0">Total Marks</div>
+                            <div class="pl">
+                                <input name="total_marks" id="total_marks"
                                     class="form-input text-xs !font-normal filter-input"></input>
+
                             </div>
                         </th>
 
@@ -93,7 +91,7 @@
     <script>
         $(document).ready(function() {
             const csrfToken = "{{ csrf_token() }}";
-            const changeStatusRoute = "{{ route('admin.courses.changeStatus') }}";
+            const changeStatusRoute = "{{ route('admin.batches.changeStatus') }}";
 
 
             // Initialize DataTable
@@ -101,19 +99,19 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('admin.courses.index') }}"
+                    url: "{{ route('admin.batches.index') }}"
                 },
                 columns: [{
-                        data: 'category_name',
-                        name: 'c.name'
+                        data: 'batch_title',
+                        name: 'batch_title'
                     },
-                    {
+                   {
                         data: 'course_name',
-                        name: 'course_name'
+                        name: 'c.course_name'
                     },
                     {
-                        data: 'mollim',
-                        name: 'u.name'
+                        data: 'total_marks',
+                        name: 'total_marks'
                     },
                     {
                         data: 'status',

@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\LookupController;
 use App\Http\Controllers\Admin\CourseController;
+use App\Http\Controllers\Admin\BatchesController;
 use App\Http\Controllers\Admin\EnrollmentUserController;
 
 // Regular user routes
@@ -27,13 +28,6 @@ Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/', [HomeController::class, 'index']);
 
-// Admin routes (protected with middleware)
-// Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
-//     Route::get('dashboard', function () {
-//         return view('admin.dashboard');
-//     })->middleware('admin');
-// });
-
 // User routes (protected with middleware)
 Route::middleware('auth')->group(function () {
     Route::get('dashboard', function () {
@@ -45,57 +39,9 @@ Route::middleware('auth')->group(function () {
     Route::get('about-us', [HomeController::class, 'aboutUs']);
     Route::get('contact-us', [HomeController::class, 'contactUs']);
     Route::get('courses', [HomeController::class, 'courses']);
-    Route::get('courses/{id}', [HomeController::class, 'courseDetail']);
+    Route::get('course-detail/{id}', [HomeController::class, 'courseDetail']);
     Route::get('events', [HomeController::class, 'events']);
     Route::get('signup', [HomeController::class, 'signup']);
-
-
-// Admin routes (protected with middleware)
-// Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
-//     // Define the admin dashboard route here
-
-//     // Route::get('/', [AdminController::class, 'index'])->name('dashboard');
-
-//     Route::get('dashboard', function () {
-//         return view('admin.dashboard');
-//     })->name('dashboard');  // Define the route name as 'admin.dashboard'
-// });
-
-
-// Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
-//     Route::get('/', [AdminController::class, 'dashboard'])->name('dashboard');
-
-    // Resource
-
-// Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function() {
-
-//     Route::get('dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
-//      Route::resource('users', UserController::class);
-//      Route::resource('enrollment-users', EnrollmentUserController::class);
-//      Route::resource('permissions', PermissionController::class);
-//      Route::resource('notifications', NotificationController::class);
-//      Route::resource('banners', BannerController::class);
-//      Route::resource('categories', CategoryController::class);
-//      Route::resource('courses', CourseController::class);
-
-//      // Route::delete('banners/{id}', [BannerController::class, 'destroy'])->name('admin.banners.destroy');
-
-//      //
-
-//      Route::post('/banners/change-status', [BannerController::class, 'changeStatus'])->name('admin.banners.changeStatus');
-//      Route::post('/categories/change-status', [CategoryController::class, 'changeStatus'])->name('admin.categories.changeStatus');
-
-
-//      // Api 
-//       // Route::post('/categories/change-status', [CategoryController::class, 'changeStatus'])->name('admin.categories.changeStatus');
-     
-
-
-
-//      Route::post('change-permission', [LookupController::class,'changePermission']);
-// });
-
-
 
 
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function() {
@@ -114,6 +60,15 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function() {
    Route::post('notifications/change-status', [NotificationController::class, 'changeStatus'])
         ->name('notifications.changeStatus');
 
+
+  Route::post('batches/change-status', [BatchesController::class, 'changeStatus'])
+        ->name('batches.changeStatus');
+
+  
+  Route::post('banners/change-status', [BannerController::class, 'changeStatus'])
+        ->name('banners.changeStatus');
+
+
     // Resource
     Route::resource('users', UserController::class);
     Route::resource('permissions', PermissionController::class);
@@ -121,6 +76,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function() {
     Route::resource('banners', BannerController::class);
     Route::resource('categories', CategoryController::class);
     Route::resource('courses', CourseController::class);
+    Route::resource('batches', BatchesController::class);
 
 
     Route::post('change-permission', [LookupController::class, 'changePermission']);

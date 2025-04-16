@@ -3,18 +3,62 @@
 
 @section('content')
 <style type="text/css">
-    .card{
-        background: #fff;   padding: 7px;
-                border-radius: 6px;
-                text-align: center;margin-top: 5px;margin-left: 5px;float:left;
+     body {
+      margin: 0;
+      padding: 20px;
+      background: #f0f2f5;
+      font-family: Arial, sans-serif;
     }
-    .card-title{
-        font-size: 14px;
+
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
     }
-    .card-text{
-        font-size: 16px;
-        font-weight: bold;
+
+    .stat-card {
+      color: #fff;
+    border-radius: 12px;
+    padding: 13px 25px;
+    width: 191px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     }
+
+    .stat-title {
+      font-size: 1.1em;
+      margin-bottom: 10px;
+    }
+
+    .stat-amount-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .stat-number {
+      font-size: 2em;
+      font-weight: bold;
+    }
+
+    .stat-icon {
+      font-size: 1.8em;
+    }
+
+    /* Different card colors */
+    .bg-blue { background: #4e73df; }
+    .bg-green { background: #1cc88a; }
+    .bg-orange { background: #f6c23e; }
+    .bg-red { background: #e74a3b; }
+    .bg-purple { background: #6f42c1; }
+    .bg-teal { background: #20c997; }
+    .bg-pink { background: #e83e8c; }
+    .bg-cyan { background: #17a2b8; }
+    .bg-dark { background: #343a40; }
+    .bg-indigo { background: #6610f2; }
 </style>
     @if (count($errors) > 0)
     <div id="content" class="padding-20">
@@ -32,104 +76,85 @@
     <div class="col-md-11"></div>
 </div>
 
-       <div id="content" class="padding-20">
-            
-
-             <div class="row">
-       
-            <div class="col-md-3">
-                <div class="card">
-                    <div class="card-body">
-                      <h4 class="card-title h-10">Total Users</h4>
-                      <p class="card-text"><b>( 22 )</b></p>
-                      <a href="#" class="card-link">Show All </a>
-                    </div>
-                  </div>
-              </div>
-
-            <div class="col-md-3">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title h-10">Total Enrolled Users</h4>
-                  <p class="card-text"><b>( 22 )</b></p>
-                  <a href="#" class="card-link">Show All </a>
-                </div>
-              </div>
-          </div>
 
 
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title h-10">Total Courses</h4>
-                  <p class="card-text"><b>( 16 )</b></p>
-                  <a href="#" class="card-link">Show All </a>
-                </div>
-              </div>
-
-
-
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title h-10">Total Candidate</h4>
-                  <p class="card-text"><b>( 20 )</b></p>
-                  <a href="#" class="card-link">Show All </a>
-                </div>
-              </div>
-
-
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title h-10">Total Candidate (Successed)</h4>
-                  <p class="card-text"><b>( 7 )</b></p>
-                  <a href="#" class="card-link">Show All </a>
-                </div>
-              </div>
-
-
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title h-10">Total Candidate (Failed)</h4>
-                  <p class="card-text"><b>( 4 )</b></p>
-                  <a href="#" class="card-link">Show All </a>
-                </div>
-              </div>
-
-
-
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title h-10">Total Candidate (Incomplete Course)</h4>
-                  <p class="card-text"><b>( 9 )</b></p>
-                  <a href="#" class="card-link">Show All </a>
-                </div>
-              </div>
-
-
-
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="card-title h-10">Certificate Print</h4>
-                  <p class="card-text"><b>( 2 )</b></p>
-                  <a href="#" class="card-link">Show All </a>
-                </div>
-              </div>
-       
-
-   </div>
-
- 
+<div id="content" class="padding-20">
+  <div class="card-container">
+    <div class="stat-card bg-blue">
+      <div class="stat-title">No of Students</div>
+      <div class="stat-amount-row">
+        <div class="stat-number">245</div>
+        <div class="stat-icon"><i class="fas fa-user-graduate"></i></div>
       </div>
-
-
+    </div>
+    <div class="stat-card bg-green">
+      <div class="stat-title">Teachers</div>
+      <div class="stat-amount-row">
+        <div class="stat-number">38</div>
+        <div class="stat-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+      </div>
+    </div>
+    <div class="stat-card bg-orange">
+      <div class="stat-title">Courses</div>
+      <div class="stat-amount-row">
+        <div class="stat-number">12</div>
+        <div class="stat-icon"><i class="fas fa-book-open"></i></div>
+      </div>
+    </div>
+    <div class="stat-card bg-red">
+      <div class="stat-title">Pending Fees</div>
+      <div class="stat-amount-row">
+        <div class="stat-number">₹34,000</div>
+        <div class="stat-icon"><i class="fas fa-rupee-sign"></i></div>
+      </div>
+    </div>
+    <div class="stat-card bg-purple">
+      <div class="stat-title">Library Books</div>
+      <div class="stat-amount-row">
+        <div class="stat-number">1,200</div>
+        <div class="stat-icon"><i class="fas fa-book"></i></div>
+      </div>
+    </div>
+    <div class="stat-card bg-teal">
+      <div class="stat-title">Online Users</div>
+      <div class="stat-amount-row">
+        <div class="stat-number">87</div>
+        <div class="stat-icon"><i class="fas fa-user-clock"></i></div>
+      </div>
+    </div>
+    <div class="stat-card bg-pink">
+      <div class="stat-title">Assignments</div>
+      <div class="stat-amount-row">
+        <div class="stat-number">320</div>
+        <div class="stat-icon"><i class="fas fa-tasks"></i></div>
+      </div>
+    </div>
+    <div class="stat-card bg-cyan">
+      <div class="stat-title">Attendance</div>
+      <div class="stat-amount-row">
+        <div class="stat-number">93%</div>
+        <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
+      </div>
+    </div>
+    <div class="stat-card bg-dark">
+      <div class="stat-title">Alumni</div>
+      <div class="stat-amount-row">
+        <div class="stat-number">560</div>
+        <div class="stat-icon"><i class="fas fa-users"></i></div>
+      </div>
+    </div>
+    <div class="stat-card bg-indigo">
+      <div class="stat-title">Events</div>
+      <div class="stat-amount-row">
+        <div class="stat-number">14</div>
+        <div class="stat-icon"><i class="fas fa-calendar-alt"></i></div>
+      </div>
+    </div>
+  </div>
 </div>
 
 
-
-
-
 <script type="text/javascript">
-    
-
 </script>
 
 
