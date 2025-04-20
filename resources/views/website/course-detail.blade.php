@@ -4,9 +4,9 @@
     <!-- Hero Section -->
     <section class="relative bg-gradient-to-r from-[#1b4552]/20 via-white to-green-100 py-12">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <h1 id="hero-title" class="text-5xl font-extrabold text-gray-900 opacity-0 -translate-y-5">Zeli Nigran Course</h1>
-            <p id="hero-sub" class="mt-3 text-lg text-gray-600 opacity-0 translate-y-5">Training in Shari’, Akhlaqi,
-                Tanzeemi, and Technical Aspects</p>
+            <h1 id="hero-title" class="text-5xl font-extrabold text-gray-900 opacity-0 -translate-y-5">
+                {{ $data['course_name'] }}</h1>
+            {{-- <p id="hero-sub" class="mt-3 text-lg text-gray-600 opacity-0 translate-y-5">{{$data['']}}</p> --}}
         </div>
     </section>
 
@@ -16,10 +16,11 @@
         <div class="lg:col-span-3">
             <!-- Instructor -->
             <div class="flex items-center gap-4 mb-6">
-                <img src="https://i.ibb.co/XbFFqZK/shahid.png" class="w-14 h-14 rounded-full shadow-md" alt="Instructor">
+                <img src="{{ asset('/uploads/users/' . $data->mollim['mollim_image']) }}"
+                    class="w-14 h-14 rounded-full shadow-md" alt="Instructor">
                 <div>
-                    <h2 class="text-xl font-semibold text-gray-800">Haji Muhammad Shahid Attari</h2>
-                    <p class="text-sm text-gray-500">Nigran Pakistan Mashawarat</p>
+                    <h2 class="text-xl font-semibold text-gray-800">{{ $data->mollim['name'] }}</h2>
+                    <p class="text-sm text-gray-500">{{ $data->mollim['mollim_designation'] }}</p>
                 </div>
             </div>
 
@@ -39,11 +40,9 @@
 
             <!-- Overview -->
             <div id="overview" class="tab-content space-y-6">
-                <p class="text-gray-700 leading-relaxed">
-                    In this course, you will receive training in Shari’, Akhlaqi, tanzeemi, and technical aspects. This will
-                    enable you to perform your responsibilities in an exemplary manner.
+                <p class="text-gray-700 leading-relaxed">{{ $data['course_detail'] }}
                 </p>
-                <p class="text-sm text-blue-600 font-semibold">Only for Zeeli Nigrans</p>
+                <p class="text-sm text-blue-600 font-semibold">{{ $data['course_requirement'] }}</p>
             </div>
             <!-- Curriculum Section -->
             <div id="curriculum" class="tab-content hidden">
@@ -97,15 +96,30 @@
             <div id="instructor" class="tab-content hidden mt-6">
                 <div class="bg-white p-6 rounded-2xl shadow-lg border border-gray-200">
                     <div class="flex items-center gap-4 mb-5">
-                        <img src="https://i.ibb.co/y6ZqL6Y/maulana.png" alt="Instructor Photo"
+                        <img src="{{ asset('/uploads/users/' . $data->mollim['mollim_image']) }}" alt="Instructor Photo"
                             class="w-16 h-16 rounded-full border-2 border-white shadow-md transition hover:scale-105 duration-300">
                         <div>
-                            <h3 class="text-xl font-semibold text-gray-800">Maulana Ilyas Attar Qadri</h3>
-                            <p class="text-sm text-gray-500">Spiritual Leader & Founder of Dawat-e-Islami</p>
+                            <h3 class="text-xl font-semibold text-gray-800">{{ $data->mollim['name'] }}</h3>
+                            <p class="text-sm text-gray-500">{{ $data->mollim['mollim_designation'] }}</p>
                         </div>
                     </div>
+                    <div class="flex items-center gap-1 mb-3">
+                        <a target="_blank" class="flex justify-center items-center w-8 h-8 bg-gray-100 rounded-full"
+                            href="{{ $data->mollim['facebook_link'] }}"><i
+                                class="fa-brands fa-facebook-f text-sky-700"></i></a>
+                        <a target="_blank" class="flex justify-center items-center w-8 h-8 bg-gray-100 rounded-full"
+                            href="{{ $data->mollim['twitter_link'] }}"><i
+                                class="fa-brands fa-twitter text-sky-700"></i></a>
+                        <a target="_blank" class="flex justify-center items-center w-8 h-8 bg-gray-100 rounded-full"
+                            href="{{ $data->mollim['google_link'] }}"><i
+                                class="fa-brands fa-google text-orange-600"></i></a>
+                        <a target="_blank" class="flex justify-center items-center w-8 h-8 bg-gray-100 rounded-full"
+                            href="{{ $data->mollim['instagram_link'] }}"><i
+                                class="fa-brands fa-instagram text-pink-600"></i></a>
+                    </div>
+                    <p class="text-sm text-gray-500">{{ $data->mollim['mollim_details'] }}</p>
 
-                    <ul class="space-y-3 text-sm text-gray-700">
+                    {{-- <ul class="space-y-3 text-sm text-gray-700">
                         <li class="flex items-start gap-2">
                             <i class="fa-solid fa-cake-candles text-yellow-600 mt-1 w-5"></i>
                             <span><strong>Born:</strong> 17th May 1965, Nawabshah, Sindh</span>
@@ -122,7 +136,7 @@
                             <i class="fa-solid fa-users-gear text-indigo-600 mt-1 w-5"></i>
                             <span><strong>Majlis:</strong> Markazi Majlis-e-Shura (Since 2000)</span>
                         </li>
-                    </ul>
+                    </ul> --}}
 
 
                 </div>
@@ -226,7 +240,7 @@
                         <path d="M12 8v4l3 3" />
                         <path d="M12 19a7 7 0 1 0-7-7" />
                     </svg>
-                    <span><span class="font-semibold text-gray-900">Duration:</span> 8 Hours, 3 Minutes</span>
+                    <span><span class="font-semibold text-gray-900">Duration:</span> {{$data['duration']}}</span>
                 </li>
 
                 <li class="flex items-center gap-3">
@@ -234,7 +248,7 @@
                         viewBox="0 0 24 24">
                         <path d="M4 6h16M4 10h16M4 14h10" />
                     </svg>
-                    <span><span class="font-semibold text-gray-900">Lectures:</span> 43</span>
+                    <span><span class="font-semibold text-gray-900">Lectures:</span> {{$data['lectures'] ?? "N/A"}}</span>
                 </li>
 
                 <li class="flex items-center gap-3">
@@ -243,7 +257,7 @@
                         <path d="M12 9v2m0 4h.01" />
                         <circle cx="12" cy="12" r="10" />
                     </svg>
-                    <span><span class="font-semibold text-gray-900">Test:</span> 1</span>
+                    <span><span class="font-semibold text-gray-900">Test:</span> {{$data['test'] ?? "N/A"}}</span>
                 </li>
 
                 <li class="flex items-center gap-3">
@@ -253,7 +267,7 @@
                             d="M17 21v-2a4 4 0 0 0-3-3.87M9 10a4 4 0 1 0-3 3.87v2.13a4 4 0 0 0 4 4h6a4 4 0 0 0 4-4v-2.13A4 4 0 0 0 15 10" />
                         <path d="M15 10a4 4 0 1 0-6 0" />
                     </svg>
-                    <span><span class="font-semibold text-gray-900">Users:</span> 56</span>
+                    <span><span class="font-semibold text-gray-900">Users:</span> {{$data['users'] ?? "N/A"}}</span>
                 </li>
             </ul>
 

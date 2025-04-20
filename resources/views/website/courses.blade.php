@@ -34,42 +34,19 @@
 
     <!-- Course Cards Grid -->
     <div id="courses" class="h-screen grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 p-4 max-w-7xl mx-auto">
-        {{-- Repeat for all courses --}}
-        @php
-            $courses = [
-                [
-                    'title' => 'Itikaf Course',
-                    'img' => asset('assets/images/post-01.jpg'),
-                    'teacher' => 'Maulana Ilyas Attar Qadri',
-                    'avatar' => 'https://i.ibb.co/y6ZqL6Y/maulana.png',
-                ],
-                [
-                    'title' => 'Zeli Nigran Course',
-                    'img' => asset('assets/images/post-02.jpg'),
-                    'teacher' => 'Haji Muhammad Shahid Attari',
-                    'avatar' => 'https://i.ibb.co/XbFFqZK/shahid.png',
-                ],
-                [
-                    'title' => 'UC Nigran Course',
-                    'img' => asset('assets/images/post-03.jpg'),
-                    'teacher' => 'Haji Muhammad Shahid Attari',
-                    'avatar' => 'https://i.ibb.co/XbFFqZK/shahid.png',
-                ],
-            ];
-        @endphp
-
+      
         @foreach ($courses as $course)
             <div
                 class="course-card translate-y-[20px] opacity-0 h-fit group relative  border border-gray-200 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition duration-300">
 
                 <!-- Image with dark overlay -->
                 <div class="relative">
-                    <img src="{{ $course['img'] }}" alt="{{ $course['title'] }}" class="w-full h-48 object-cover">
+                    <img src="{{ asset('/uploads/courses/'.$course['image']) }}" alt="{{ $course['course_name'] }}" class="w-full h-48 object-cover">
                     <div class="absolute inset-0 group-hover:bg-black/10 transition duration-300"></div>
 
                     <!-- Floating Avatar -->
                     <div class="absolute -bottom-6 left-4 z-10">
-                        <img src="{{ $course['avatar'] }}" class="w-12 h-12 border-2 border-white rounded-full shadow-md"
+                        <img src="{{ asset('/uploads/users/'.$course->mollim['mollim_image']) }}" class="w-12 h-12 border-2 border-white rounded-full shadow-md"
                             alt="Avatar">
                     </div>
                 </div>
@@ -77,19 +54,19 @@
                 <!-- Card Content -->
                 <div class="pt-8 pb-4 px-4">
                     <h3 class="text-xl font-bold text-gray-800 group-hover:text-indigo-600 transition">
-                        {{ $course['title'] }}</h3>
-                    <p class="text-sm text-gray-600 mt-1">{{ $course['teacher'] }}</p>
+                        {{ $course['course_name'] }}</h3>
+                    <p class="text-sm text-gray-600 mt-1">{{ $course->mollim['name'] }}</p>
 
                     <!-- Optional: Tag badges -->
                     <div class="flex flex-wrap gap-2 mt-3">
                         <span
-                            class="bg-[#1b4552]/10 text-[#1b4552] text-xs font-semibold px-2.5 py-0.5 rounded-full">Spiritual</span>
+                            class="bg-yellow-100 text-yellow-700 text-xs font-semibold px-2.5 py-0.5 rounded-full">23 lectures</span>
                         <span
-                            class="bg-yellow-100 text-yellow-700 text-xs font-semibold px-2.5 py-0.5 rounded-full">Leadership</span>
+                            class="bg-[#1b4552]/10 text-[#1b4552] text-xs font-semibold px-2.5 py-0.5 rounded-full">{{$course['duration']}}</span>
                     </div>
 
                     <!-- Button -->
-                    <a href="{{ url('course-detail', $course['title']) }}"
+                    <a href="{{ url('course-detail', $course['slug']) }}"
                         class="inline-block mt-4 text-[#1b4552] text-sm font-medium hover:underline">View
                         Course →</a>
                 </div>

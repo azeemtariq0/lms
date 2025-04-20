@@ -32,7 +32,8 @@ class HomeController extends Controller
 
      public function courses()
      {
-          $courses = Course::where('status', 1)->get();
+          $courses = Course::with('mollim')->where('status', 1)->get();
+          
           return view('website.courses', compact('courses'));
      }
 
@@ -41,9 +42,10 @@ class HomeController extends Controller
           return view('website.events');
      }
 
-     public function courseDetail(Request $request)
+     public function courseDetail($id,Request $request)
      {
-          return view('website.course-detail');
+         $data = Course::with('mollim')->where('slug',$id)->first();
+          return view('website.course-detail',compact('data'));
      }
 
      public function contactSave(Request $request)
