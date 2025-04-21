@@ -23,18 +23,22 @@ class GroupPermissionsSeeder extends Seeder
             ['module_name' => 'General Group', 'form_name' => 'Banners', 'route' => 'banners', 'permission_id' => 'add', 'permission_name' => 'Add', 'sort_order' => 1.302],
             ['module_name' => 'General Group', 'form_name' => 'Banners', 'route' => 'banners', 'permission_id' => 'edit', 'permission_name' => 'Edit', 'sort_order' => 1.303],
             ['module_name' => 'General Group', 'form_name' => 'Banners', 'route' => 'banners', 'permission_id' => 'delete', 'permission_name' => 'Delete', 'sort_order' => 1.304],
+
             ['module_name' => 'General Group', 'form_name' => 'Category', 'route' => 'category', 'permission_id' => 'list', 'permission_name' => 'List', 'sort_order' => 1.401],
             ['module_name' => 'General Group', 'form_name' => 'Category', 'route' => 'category', 'permission_id' => 'add', 'permission_name' => 'Add', 'sort_order' => 1.402],
             ['module_name' => 'General Group', 'form_name' => 'Category', 'route' => 'category', 'permission_id' => 'edit', 'permission_name' => 'Edit', 'sort_order' => 1.403],
             ['module_name' => 'General Group', 'form_name' => 'Category', 'route' => 'category', 'permission_id' => 'delete', 'permission_name' => 'Delete', 'sort_order' => 1.404],
+
             ['module_name' => 'General Group', 'form_name' => 'Courses', 'route' => 'courses', 'permission_id' => 'list', 'permission_name' => 'List', 'sort_order' => 1.501],
             ['module_name' => 'General Group', 'form_name' => 'Courses', 'route' => 'courses', 'permission_id' => 'add', 'permission_name' => 'Add', 'sort_order' => 1.502],
             ['module_name' => 'General Group', 'form_name' => 'Courses', 'route' => 'courses', 'permission_id' => 'edit', 'permission_name' => 'Edit', 'sort_order' => 1.503],
             ['module_name' => 'General Group', 'form_name' => 'Courses', 'route' => 'courses', 'permission_id' => 'delete', 'permission_name' => 'Delete', 'sort_order' => 1.504],
             
+            ['module_name' => 'General Group', 'form_name' => 'Batches', 'route' => 'batches', 'permission_id' => 'list', 'permission_name' => 'List', 'sort_order' => 1.601],
+            ['module_name' => 'General Group', 'form_name' => 'Batches', 'route' => 'batches', 'permission_id' => 'add', 'permission_name' => 'Add', 'sort_order' => 1.602],
+            ['module_name' => 'General Group', 'form_name' => 'Batches', 'route' => 'batches', 'permission_id' => 'edit', 'permission_name' => 'Edit', 'sort_order' => 1.603],
+            ['module_name' => 'General Group', 'form_name' => 'Batches', 'route' => 'batches', 'permission_id' => 'delete', 'permission_name' => 'Delete', 'sort_order' => 1.604],
             
-       
-
         ]);
     }
 }

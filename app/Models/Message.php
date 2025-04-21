@@ -15,5 +15,7 @@ class Message extends Model
         'email',
         'subject',
         'message',
+        'created_by',
+        'updated_by',
     ];
 }

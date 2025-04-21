@@ -9,14 +9,14 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('messages', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email');
-            $table->string('subject');
-            $table->text('message');
+            $table->increments('id')->primary();
+            $table->string('name', 255)->nullable();
+            $table->string('email',255)->nullable();
+            $table->string('subject',255)->nullable();
+            $table->longText('message')->nullable();
             $table->timestamps();
         });
     }

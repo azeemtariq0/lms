@@ -91,4 +91,36 @@
             }
         });
     }
+
+
+
+    $(function() {
+  $('input[name="course_duration"]').daterangepicker({
+    opens: 'left',
+    autoApply:true,
+     locale: { cancelLabel: 'Clear' }  
+  }, function(start, end, label) {
+     var startDate = start.format('YYYY-MM-DD');
+     var endDate = end.format('YYYY-MM-DD');
+     $('input[name="course_duration_days"]').val(3);
+    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+  });
+});
+
+
+  $(function() {
+  $('.dtpDate').daterangepicker({
+    opens: 'left',
+    singleDatePicker: true,
+    autoApply:true
+    // autoUpdateInput: false
+    // showDropdowns: true,
+    // minYear: 1901,
+    // maxYear: parseInt(moment().format('YYYY'),10)
+  }, function(start, end, label) {
+    var years = moment().diff(start, 'years');
+
+  });
+});
+  
 </script>

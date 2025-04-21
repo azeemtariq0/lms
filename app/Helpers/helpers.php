@@ -41,3 +41,8 @@ if (!function_exists('hasPermission')) {
         return isset($permissions[$parts[0]][$parts[1]]) && $permissions[$parts[0]][$parts[1]] === 1;
     }
 }
+
+
+function stdDate($mySqlDate){
+  return !empty($mySqlDate) ? date('d/m/Y',strtotime($mySqlDate)) : "";
+}

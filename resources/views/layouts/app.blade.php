@@ -40,6 +40,12 @@
       <link rel="stylesheet" href="{{ asset('assets/admin/css/components.css') }}" type="text/css" />
       <link rel="stylesheet" href="{{ asset('assets/admin/css/app.css') }}" type="text/css" />
 
+
+      <!-- date Time Pocker -->
+      <link rel="stylesheet" type="text/css" href="{{ asset('assets/admin/plugins/dateTimePicker@3.1.0/css/datetimepicker.css') }}" />
+
+
+
       <meta name="csrf-token" content="{{ csrf_token() }}">
 
       @yield('pagelevelstyle')
@@ -125,6 +131,12 @@
           @include('layouts.footer')
       </main>
   </body>
+
+
+
+<!-- Date Time Picker -->
+<script type="text/javascript" src="{{ asset('assets/admin/plugins/dateTimePicker@3.1.0/js/moment.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('assets/admin/plugins/dateTimePicker@3.1.0/js/daterangepicker.min.js') }}"></script>
 
   <script src="{{ asset('assets/admin/plugins/jquery/jquery-validate-1.21.0.min.js') }}"></script>
   <script src="{{ asset('assets/admin/js/components.js') }}"></script>

@@ -20,6 +20,10 @@
     <script src="{{ asset('assets/admin/plugins/flowbite-3.1.2/js/flowbite.min.js') }}"></script>
     <script src="{{ asset('assets/admin/plugins/jquery/jquery-3.7.2.min.js') }}"></script>
 
+
+    <!--  -->
+
+
 </head>
 <!--
         .boxed = boxed version

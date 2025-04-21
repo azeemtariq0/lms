@@ -16,7 +16,7 @@ class BatchesController extends Controller
     public function index(Request $request)
     {
          if ($request->ajax()) {
-            $data = Batches::join('courses as c','c.id','=','course_id')->select('*');
+            $data = Batches::join('courses as c','c.id','=','course_id')->select('batches.*','c.course_name');
             return Datatables::of($data)
             ->addIndexColumn()
              ->editColumn('status', function ($row) {
@@ -112,6 +112,9 @@ class BatchesController extends Controller
     {
         $courses = Course::where('status',1)->get();
         $batches = Batches::find($id);
+
+
+        // dd($batches);
          $users = User::all();
          $data['page_management'] = array(
             'page_title' => 'Batches',
@@ -128,31 +131,25 @@ class BatchesController extends Controller
      public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'course_name' => 'required',
+            // 'course_name' => 'required',
         ]);
         
         $input = $request->all();
-        
         $batches = Batches::find($id);
-        $input['course_name'] = trim($input['course_name']);
-        $input['course_name_ur'] = trim($input['course_name_ur']);
+
+        
 
 
-        if ($request->hasFile('file')) {
-            $image = $request->file('file');
-
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('uploads/batches'), $imageName);
-
-            if ($course->image && file_exists(public_path($course->image))) {
-                unlink(public_path($course->image));
-            }
-
-            $input['image'] = $imageName;
-            $input['path'] = 'uploads/batches/' . $imageName;
+        if(!empty($input['start_date'])){
+            $input['start_date'] = date('Y-m-d',strtotime($input['start_date']));
         }
 
-    
+        if(!empty($input['end_date'])){
+            $input['end_date'] = date('Y-m-d',strtotime($input['end_date']));
+        }
+
+
+
         $batches->update($input);
 
         

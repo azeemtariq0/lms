@@ -32,8 +32,8 @@
 
                 <div>
                     <label for="name" class="form-label">Category</label>
-                    <select type="text" name="category_id" id="category_id"  class="form-input">
-                        <option value="0">No Parent</option>
+                    <select type="text" name="category_id" required id="category_id"  class="form-input">
+                        <option value=""></option>
                         @foreach($categories as $value)
                         <option {{ @$course->category_id==$value->id ? 'selected' : ''}}  value="{{ $value->id }}">{{ $value->name }}</option>
                         @endforeach
@@ -107,7 +107,7 @@
             <div class="grid grid-cols-2 gap-6">
 
                <div>
-                    <label for="file" class="form-label required">Image</label>
+                    <label for="file" class="form-label">Image</label>
                     <input type="file" name="file" id="file" class="form-file" accept="image/*">
 
                 </div>
@@ -117,9 +117,6 @@
                         alt="Image" />
 
                 </div>
-
-
-               
             </div>
 
 
@@ -142,10 +139,17 @@
         $(document).ready(function() {
 
             let rules = {
-                name: {
+                category_id: {
                     required: true,
-                    minlength: 5,
-                    maxlength: 100
+                },
+                mollim_id: {
+                    required: true,
+                },
+                 course_name: {
+                    required: true,
+                },
+                course_name_ur: {
+                    required: true,
                 },
                 description: {
                     maxlength: 255
@@ -157,7 +161,7 @@
                 rules: rules,
                 messages: {
                     name: {
-                        required: "Category Name is required",
+                        category_id: "Category is required",
                     },
                     description: {
                         maxlength: "Description must be less than 255 characters",

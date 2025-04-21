@@ -120,7 +120,7 @@ class CourseController extends Controller
 
      public function edit($id)
     {
-        $categories = Category::where('parent_id','<=',0)->get();
+        $categories = Category::where('status','!=',0)->get();
         $course = Course::find($id);
          $users = User::all();
          $data['page_management'] = array(

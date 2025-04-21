@@ -2,9 +2,11 @@
 
 
 @section('content')
+
+
     <div id="content">
         <form id="form" enctype="multipart/form-data"
-            action="{{ isset($batches->id) ? route('admin.batches.update', ['batches' => $batches->id]) : route('admin.batches.store') }}"
+            action="{{ isset($batches->id) ? route('admin.batches.update', ['batch' => $batches->id]) : route('admin.batches.store') }}"
             method="POST" class="space-y-6">
             @if (isset($batches->id))
                 @method('PUT')
@@ -40,11 +42,11 @@
 
                 <div>
                     <label for="name" class="form-label">Course Duration</label>
-                    <input type="text" name="course_duration" id="course_duration" placeholder="Course Duration"  class="form-input" value="{{ @$batches->course_duration }}">
+                    <input type="text" name="course_duration" id="course_duration" placeholder="Course Duration"  class="form-input" value="{{ @$batches->course_duration ?? '' }}">
                 </div>
                 <div>
                     <label for="name" class="form-label">Course Duration Days</label>
-                    <input type="number" name="course_duration_days" id="course_duration_days"  class="form-input" value="{{ @$batches->course_duration_days }}">
+                    <input type="number" readonly name="course_duration_days" id="course_duration_days"  class="form-input" value="{{ @$batches->course_duration_days }}">
                 </div>
             </div>
 
@@ -57,7 +59,7 @@
                 </div>
                 <div>
                     <label for="name" class="form-label">Total Marks</label>
-                    <input type="number" name="total_marks" id="total_marks" placeholder="Add Course (Urdu)"  class="form-input" value="{{ @$batches->total_marks }}">
+                    <input type="number" name="total_marks" id="total_marks" placeholder="Total Marks"  class="form-input" value="{{ @$batches->total_marks }}">
                 </div>
             </div>
 
@@ -84,7 +86,7 @@
                 </div>
                 <div>
                     <label for="name" class="form-label">No of Hard Questions</label>
-                    <input type="number" name="no_of_medium_question" id="no_of_medium_question" placeholder="Hard Questions"  class="form-input" value="{{ @$batches->no_of_medium_question }}">
+                    <input type="number" name="no_of_hard_question" id="no_of_hard_question" placeholder="Hard Questions"  class="form-input" value="{{ @$batches->no_of_hard_question }}">
                 </div>
             </div>
 
@@ -106,11 +108,11 @@
             <div class="grid grid-cols-2 gap-6">
                 <div>
                     <label for="name" class="form-label">Start Date</label>
-                    <input type="text" name="start_date" id="start_date" placeholder="Start Date"  class="form-input" value="{{ @$batches->start_date }}">
+                    <input type="text" name="start_date" id="start_date" placeholder="Start Date"  class="form-input dtpDate" autocomplete="off" value="{{ stdDate(@$batches->start_date) }}">
                 </div>
                 <div>
-                    <label for="name" class="form-label">Month</label>
-                    <input type="text" name="end_date" id="end_date" placeholder="End date"  class="form-input" value="{{ @$batches->end_date }}">
+                    <label for="name" class="form-label">End Date</label>
+                    <input type="text" name="end_date" id="end_date" placeholder="End date"  class="form-input dtpDate" autocomplete="off" value="{{ stdDate(@$batches->end_date) }}">
                 </div>
             </div>
 
@@ -168,12 +170,6 @@
 
 
 
-var fileTag = document.getElementById("file"),
-preview = document.getElementById("preview");
-    
-fileTag.addEventListener("change", function() {
-  changeImage(this);
-});
 
 function changeImage(input) {
   var reader;
@@ -188,6 +184,7 @@ function changeImage(input) {
     reader.readAsDataURL(input.files[0]);
   }
 }
+
 
     </script>
 @endsection

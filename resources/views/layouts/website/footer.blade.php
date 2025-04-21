@@ -29,19 +29,17 @@
         <div
             class="flex gap-4 md:gap-10 mx-auto flex-col md:flex-row border-y border-white/50 md:border-0 py-10 my-5 md:my-0 text-center md:text-left">
             <div class="flex flex-col gap-4">
-                <a href="#" class="text-sm font-light text-white/80 hover:text-white"><i
+                <a href="{{ url('/') }}" class="text-sm font-light text-white/80 hover:text-white"><i
                         class="fa-solid text-xs mr-1 text-white fa-arrow-right"></i> Home</a>
-                <a href="#" class="text-sm font-light text-white/80 hover:text-white"><i
+                <a href="{{ url('/courses') }}" class="text-sm font-light text-white/80 hover:text-white"><i
                         class="fa-solid text-xs mr-1 text-white fa-arrow-right"></i> Courses</a>
-                <a href="#" class="text-sm font-light text-white/80 hover:text-white"><i
-                        class="fa-solid text-xs mr-1 text-white fa-arrow-right"></i> Gallery</a>
-                <a href="#" class="text-sm font-light text-white/80 hover:text-white"><i
+                <a href="{{ url('/about-us') }}" class="text-sm font-light text-white/80 hover:text-white"><i
                         class="fa-solid text-xs mr-1 text-white fa-arrow-right"></i> About Us</a>
             </div>
             <div class="flex flex-col gap-4">
-                <a href="#" class="text-sm font-light text-white/80 hover:text-white"><i
+                <a href="{{ url('/contact-us') }}" class="text-sm font-light text-white/80 hover:text-white"><i
                         class="fa-solid text-xs mr-1 text-white fa-arrow-right"></i> Contact Us</a>
-                <a href="#" class="text-sm font-light text-white/80 hover:text-white"><i
+                <a href="{{ url('/events') }}" class="text-sm font-light text-white/80 hover:text-white"><i
                         class="fa-solid text-xs mr-1 text-white fa-arrow-right"></i> Events</a>
             </div>
 
