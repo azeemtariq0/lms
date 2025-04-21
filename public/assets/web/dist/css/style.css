@@ -157,3 +157,15 @@ body {
 .card-transition {
     transition: 0.3s ease;
 }
+.animated-button {
+  background: linear-gradient(to right, #1b4552 34%, wheat 66%, #d1dbe4 100%);
+  background-size: 300% 100%;
+  background-position: right bottom;
+  transition: all .5s ease-out;
+}
+
+.animated-button:hover {
+  color: wheat;
+  box-shadow: wheat 0px 0px 0px 2px, #1b45525a 0px 0px 0px 4px;
+  background-position: left bottom;
+}

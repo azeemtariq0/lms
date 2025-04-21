@@ -13,7 +13,10 @@ class HomeController extends Controller
      public function index()
      {
           $banners = Banner::get();
-          return view('website.home', compact('banners'));
+
+          $courses = Course::with('mollim')->where('status', 1)->get();
+          $upcoming_courses = Course::with('mollim')->where('status', '=', 1)->get();
+          return view('website.home', compact('banners', 'courses', 'upcoming_courses'));
      }
      public function userProfile()
      {
@@ -33,7 +36,7 @@ class HomeController extends Controller
      public function courses()
      {
           $courses = Course::with('mollim')->where('status', 1)->get();
-          
+
           return view('website.courses', compact('courses'));
      }
 
@@ -42,10 +45,10 @@ class HomeController extends Controller
           return view('website.events');
      }
 
-     public function courseDetail($id,Request $request)
+     public function courseDetail($id, Request $request)
      {
-         $data = Course::with('mollim')->where('slug',$id)->first();
-          return view('website.course-detail',compact('data'));
+          $data = Course::with('mollim')->where('slug', $id)->first();
+          return view('website.course-detail', compact('data'));
      }
 
      public function contactSave(Request $request)

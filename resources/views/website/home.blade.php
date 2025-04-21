@@ -53,7 +53,7 @@
                             class="bg-[#d1dbe4] border border-[#1b4552] text-stone-900 py-3 px-6 rounded-full flex items-center gap-2">
                             Learn More <i class="fa-solid fa-arrow-right"></i>
                         </a>
-                        <a href="#"
+                        <a  href="{{ url('/contact-us') }}"
                             class="border border-[#1b4552] text-[#1b4552] font-medium py-3 px-6 rounded-full flex items-center gap-2">
                             Contact Us <i class="fa-solid fa-envelope"></i>
                         </a>
@@ -104,132 +104,148 @@
                 Our Featured Courses
                 <span class="absolute bottom-0 left-0 w-16 h-1 bg-[#1b4552] rounded-full"></span>
             </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Course Cards Grid -->
+            <div id="courses" class="mb-10 grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 p-4 max-w-7xl mx-auto">
 
-                <div
-                    class="bg-white rounded-2xl shadow-md overflow-hidden card-transition hover:shadow-lg hover:shadow-[#d1dbe4] hover:transform hover:-translate-y-2">
-                    <img src="{{ asset('assets/images/post-01.jpg') }}" alt="Course Image" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2">UC Nigran Course</h3>
-                        <p class="text-gray-600 mb-4">Haji Muhammad Shahid Attari</p>
-                        <div class="flex items-center justify-between">
-                            <span class="text-sm text-gray-500"><i class="fa-solid fa-clock mr-1"></i> 12 Weeks</span>
-                            <a href="#"
-                                class="bg-[#d1dbe4] border border-[#1b4552] text-stone-900 py-2 px-4 text-sm rounded-full flex items-center gap-2">
-                                Enroll now
-                            </a>
+                @foreach ($courses as $course)
+                    <div
+                        class="course-card translate-y-[20px] opacity-0 h-fit group relative  border border-gray-200 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition duration-300">
+
+                        <!-- Image with dark overlay -->
+                        <div class="relative">
+                            <img src="{{ asset('/uploads/courses/' . $course['image']) }}"
+                                alt="{{ $course['course_name'] }}" class="w-full h-48 object-cover">
+                            <div class="absolute inset-0 group-hover:bg-black/10 transition duration-300"></div>
+
+                            <!-- Floating Avatar -->
+                            <div class="absolute -bottom-6 left-4 z-10">
+                                <img src="{{ asset('/uploads/users/' . $course->mollim['mollim_image']) }}"
+                                    class="w-12 h-12 border-2 border-white rounded-full shadow-md" alt="Avatar">
+                            </div>
+                        </div>
+
+                        <!-- Card Content -->
+                        <div class="pt-8 pb-4 px-4">
+                            <h3 class="text-xl font-bold text-gray-800 group-hover:text-indigo-600 transition">
+                                {{ $course['course_name'] }}</h3>
+                            <p class="text-sm text-gray-600 mt-1">{{ $course->mollim['name'] }}</p>
+
+                            <!-- Optional: Tag badges -->
+                            <div class="flex flex-wrap gap-2 mt-3">
+                                <span
+                                    class="bg-yellow-100 text-yellow-700 text-xs font-semibold px-2.5 py-0.5 rounded-full">23
+                                    lectures</span>
+                                <span
+                                    class="bg-[#1b4552]/10 text-[#1b4552] text-xs font-semibold px-2.5 py-0.5 rounded-full">{{ $course['duration'] }}</span>
+
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <p class="text-xs text-gray-600">{{ $course->created_at->diffForHumans() }}</p>
+                                <!-- Button -->
+                                <a href="{{ url('course-detail', $course['slug']) }}"
+                                    class="inline-block float-end mb-4 border border-[#1b4552] bg-[#1b4552] text-white  py-2 px-4 text-sm rounded-full">
+                                    Enroll now
+                                </a>
+
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <div
-                    class="bg-white rounded-2xl shadow-md overflow-hidden card-transition hover:shadow-lg hover:shadow-[#d1dbe4] hover:transform hover:-translate-y-2">
-                    <img src="{{ asset('assets/images/post-02.jpg') }}" alt="Course Image" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2">12 Deeni Kaam Islamic Brother</h3>
-                        <p class="text-gray-600 mb-4">Haji Muhammad Shahid Attari</p>
-                        <div class="flex items-center justify-between">
-                            <span class="text-sm text-gray-500"><i class="fa-solid fa-clock mr-1"></i> 8 Weeks</span>
-                            <a href="#"
-                                class="bg-[#d1dbe4] border border-[#1b4552] text-stone-900 py-2 px-4 text-sm rounded-full flex items-center gap-2">
-                                Enroll now
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div
-                    class="bg-white rounded-2xl shadow-md overflow-hidden card-transition hover:shadow-lg hover:shadow-[#d1dbe4] hover:transform hover:-translate-y-2">
-                    <img src="{{ asset('assets/images/post-03.jpg') }}" alt="Course Image" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold text-gray-900 mb-2">Itikaf Course</h3>
-                        <p class="text-gray-600 mb-4">Haji Muhammad Shahid Attari</p>
-                        <div class="flex items-center justify-between">
-                            <span class="text-sm text-gray-500"><i class="fa-solid fa-clock mr-1"></i> 10 Weeks</span>
-                            <a href="#"
-                                class="bg-[#d1dbe4] border border-[#1b4552] text-stone-900 py-2 px-4 text-sm rounded-full flex items-center gap-2">
-                                Enroll now
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
+                @endforeach
             </div>
             <div class="flex justify-center pt-8 w-full">
-                <a href="#"
-                    class="bg-[#d1dbe4] border border-[#1b4552] text-stone-900 py-3 px-6 rounded-full flex items-center gap-2">
+                <a href="{{ url('courses') }}"
+                    class="animated-button  text-stone-900 py-3 px-6 rounded-full flex items-center gap-2">
                     Show All Courses <i class="fa-solid fa-arrow-right"></i>
                 </a>
             </div>
         </div>
     </section>
-    <section id="upcoming-events" class="pb-30 px-13">
-        <div class="container mx-auto">
-            <div class=" flex justify-center">
-                <div class="relative">
-                    <h2 class="text-4xl font-bold mb-12 text-stone-900 ">Upcoming Events</h2>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="100%" viewBox="0 0 340 85" fill="none"
-                        svg="animated" class="testi-arrow absolute top-0 -right-20 w-[80%] -z-10">
-                        <path
-                            d="M124.828 4.59888C169.229 9.92943 213.631 16.4339 226.361 37.5468C244.064 66.8985 104.053 89.9727 42.2616 68.2072C-118.59 11.5502 261.312 -12.1056 249.479 47.5269C240.224 94.1576 -7.80185 73.4384 28.2422 27.3184C35.7437 17.725 76.6543 7.90018 121.293 4.82427C171.88 -1.7839 284.375 5.075 328.375 81.875L299.875 79.6244L330.68 82.7494L337.43 57.6243"
-                            stroke="#d1dbe4" stroke-width="4" stroke-miterlimit="10" class="path-2"
-                            style="stroke-dashoffset: 0px; stroke-dasharray: 1300.05;"></path>
-                    </svg>
-                </div>
+    <section id="upcoming-events"
+        class="relative py-10 px-6 sm:px-10 lg:px-24 bg-gradient-to-b from-white via-[#f9fafb] to-white">
+        <div class="container mx-auto text-center">
+            <div class="relative inline-block mb-16">
+                <h2
+                    class="text-4xl sm:text-5xl font-extrabold bg-gradient-to-r from-[#1b4552] to-[wheat]  text-transparent bg-clip-text ">
+                    Upcoming Events
+                </h2>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 85" fill="none"
+                    class="absolute top-12 left-1/2 -translate-x-1/2 w-[70%] -z-10 opacity-20">
+                    <path
+                        d="M124.828 4.59888C169.229 9.92943 213.631 16.4339 226.361 37.5468C244.064 66.8985 104.053 89.9727 42.2616 68.2072C-118.59 11.5502 261.312 -12.1056 249.479 47.5269C240.224 94.1576 -7.80185 73.4384 28.2422 27.3184C35.7437 17.725 76.6543 7.90018 121.293 4.82427C171.88 -1.7839 284.375 5.075 328.375 81.875L299.875 79.6244L330.68 82.7494L337.43 57.6243"
+                        stroke="#1b4552" stroke-width="4" stroke-miterlimit="10" />
+                </svg>
             </div>
-            <ul class="space-y-4">
 
-                <li class="event-item flex items-center justify-between">
-                    <div class="flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#1b4552] mr-4" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                        <div>
-                            <h3 class="text-xl font-semibold text-stone-900">Itikaf Course</h3>
-                            <p class="text-sm text-stone-700">14 February, 2025 - Online</p>
-                            <div class="event-details mt-2">
-                                <p class="text-gray-500 text-sm">Learn the latest web development techniques and build
-                                    your own projects.</p>
-                                <a href="#"
-                                    class="mt-2 inline-block bg-[#1b4552] text-white py-2 px-4 rounded-full text-sm">Register
-                                    Now</a>
+            <div class="grid gap-10 md:grid-cols-2">
+                <!-- Event Card -->
+                @foreach ($upcoming_courses as $course)
+                    <div
+                        class="bg-white/80 backdrop-blur-md border border-gray-200 shadow-lg rounded-2xl p-6 hover:shadow-xl transition-all duration-300">
+                        <div class="flex items-start gap-4">
+                            <div class="shrink-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-[#1b4552]" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                            </div>
+                            <div class="text-left">
+                                <h3 class="text-xl font-bold text-gray-900">{{ $course->course_name }}</h3>
+                                <p class="text-sm text-gray-600">14 February, 2025 - Online</p>
+                                <p class="mt-2 text-gray-500 text-sm">{{ $course->course_detail }}</p>
+                                {{-- <a href="#"
+                                    class="inline-block mt-3 px-5 py-2 text-sm font-medium text-white bg-[#1b4552] hover:bg-[#16363f] rounded-full transition">Register
+                                    Now</a> --}}
                             </div>
                         </div>
+                        <p class="mt-4 text-right text-xs text-gray-500">2 weeks left</p>
                     </div>
-                    <span class="text-sm text-stone-600">Itikaf Course (Batch 1)</span>
-                </li>
+                @endforeach
 
-                <li class="event-item flex items-center justify-between">
-                    <div class="flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-500 mr-4" fill="none"
-                            viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 6.042A8.967 8.967 0 006 11c0 5.108 3.825 9.436 8.718 9.958.834.086 1.668.172 2.5.172 2.175 0 4.153-1.593 4.749-3.905A5.972 5.972 0 0018 11a8.963 8.963 0 00-6-4.958z" />
-                        </svg>
-                        <div>
-                            <h3 class="text-xl font-semibold text-stone-900">Fundraising Course</h3>
-                            <p class="text-sm text-stone-700">20 February, 2025 - Physical, City Hall</p>
-                            <div class="event-details mt-2">
-                                <p class="text-gray-500 text-sm">Explore the world of data science and learn how to
-                                    analyze and visualize data.</p>
-                                <a href="#"
-                                    class="mt-2 inline-block bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded-full text-sm">Learn
-                                    More</a>
-                            </div>
-                        </div>
-                    </div>
-                    <span class="text-sm text-stone-600">Fundraising Course (Batch 1)</span>
-                </li>
-
-
-            </ul>
+                <!-- Event Card -->
+                {{-- <div class="bg-white/80 backdrop-blur-md border border-gray-200 shadow-lg rounded-2xl p-6 hover:shadow-xl transition-all duration-300">
+              <div class="flex items-start gap-4">
+                <div class="shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-green-500" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M12 6.042A8.967 8.967 0 006 11c0 5.108 3.825 9.436 8.718 9.958.834.086 1.668.172 2.5.172 2.175 0 4.153-1.593 4.749-3.905A5.972 5.972 0 0018 11a8.963 8.963 0 00-6-4.958z" />
+                  </svg>
+                </div>
+                <div class="text-left">
+                  <h3 class="text-xl font-bold text-gray-900">Fundraising Course</h3>
+                  <p class="text-sm text-gray-600">20 February, 2025 - Physical, City Hall</p>
+                  <p class="mt-2 text-gray-500 text-sm">Explore the world of data science and learn how to analyze and visualize data.</p>
+                  <a href="#" class="inline-block mt-3 px-5 py-2 text-sm font-medium text-white bg-green-500 hover:bg-green-600 rounded-full transition">Learn More</a>
+                </div>
+              </div>
+              <p class="mt-4 text-right text-xs text-gray-500">Fundraising Course (Batch 1)</p>
+            </div> --}}
+            </div>
         </div>
     </section>
 
 
 
+
+    <script src="{{ asset('assets/admin/plugins/gsap-3.12.2/index.min.js') }}"></script>
+    <script src="{{ asset('assets/admin/plugins/gsap-3.12.2/scrolltrigger.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+
+            // Animate cards when they come into view
+            gsap.to(".course-card", {
+
+                scrollTrigger: {
+                    trigger: "#courses",
+                    start: "top 80%"
+                },
+                opacity: 1,
+                y: 0,
+                duration: .3,
+            });
+
+        });
+    </script>
 
 @endsection

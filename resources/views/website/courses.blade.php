@@ -19,7 +19,7 @@
             <svg class="w-6 h-6 text-yellow-500" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z" />
             </svg>
-            <span class="text-sm md:text-base font-medium">Showing 1 to 4 of 4 Results</span>
+            <span class="text-sm md:text-base font-medium">Showing 1 to {{count($courses)}} of {{count($courses)}} Results</span>
         </div>
         <select
             class="bg-white border border-gray-300 text-sm rounded-lg px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
@@ -33,7 +33,7 @@
     </div>
 
     <!-- Course Cards Grid -->
-    <div id="courses" class="h-screen grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 p-4 max-w-7xl mx-auto">
+    <div id="courses" class="mb-10 grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 p-4 max-w-7xl mx-auto">
       
         @foreach ($courses as $course)
             <div
@@ -64,11 +64,19 @@
                         <span
                             class="bg-[#1b4552]/10 text-[#1b4552] text-xs font-semibold px-2.5 py-0.5 rounded-full">{{$course['duration']}}</span>
                     </div>
-
-                    <!-- Button -->
+                    <div class="flex justify-between items-center">
+                        <p class="text-xs text-gray-600">{{ $course->created_at->diffForHumans() }}</p>
+                        <!-- Button -->
+                        <a href="{{ url('course-detail', $course['slug']) }}"
+                        class="inline-block float-end mb-4 border border-[#1b4552] bg-[#1b4552] text-white  py-2 px-4 text-sm rounded-full">
+                        Enroll now
+                    </a>
+                </div>
+                    {{-- <!-- Button -->
                     <a href="{{ url('course-detail', $course['slug']) }}"
-                        class="inline-block mt-4 text-[#1b4552] text-sm font-medium hover:underline">View
-                        Course →</a>
+                    class="inline-block float-end mb-4 border border-[#1b4552] bg-[#1b4552] text-white  py-2 px-4 text-sm rounded-full">
+                    Enroll now
+                </a> --}}
                 </div>
             </div>
         @endforeach
