@@ -47,7 +47,7 @@ class HomeController extends Controller
 
      public function courseDetail($id, Request $request)
      {
-          $data = Course::with('mollim')->where('slug', $id)->first();
+          $data = Course::with('mollim', 'attachments', 'lectures')->where('slug', $id)->first();
           return view('website.course-detail', compact('data'));
      }
 

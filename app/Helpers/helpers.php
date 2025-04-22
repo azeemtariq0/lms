@@ -13,6 +13,28 @@ if (!function_exists('formatDate')) {
         return \Carbon\Carbon::parse($date)->format($format);
     }
 }
+if (!function_exists('minutesToHumanReadable')) {
+    function minutesToHumanReadable($minutes)
+    {
+        $hours = floor($minutes / 60);
+        $remainingMinutes = $minutes % 60;
+
+        $timeString = '';
+
+        if ($hours > 0) {
+            $timeString .= $hours . ' hour' . ($hours > 1 ? 's' : '');
+        }
+
+        if ($remainingMinutes > 0) {
+            if ($timeString !== '') {
+                $timeString .= ' ';
+            }
+            $timeString .= $remainingMinutes . ' min' . ($remainingMinutes > 1 ? 's' : '');
+        }
+
+        return $timeString;
+    }
+}
 
 function htmlBtn($url,$id,$color='info',$icon='edit'){
 

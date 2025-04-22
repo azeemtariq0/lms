@@ -27,4 +27,12 @@ class Course extends Model
      {
           return $this->hasOne(User::class, 'id', 'mollim_id');
      }
+     public function attachments()
+     {
+          return $this->hasMany(CourseAttachments::class, 'course_id', 'id');
+     }
+     public function lectures()
+     {
+          return $this->hasMany(CourseLectures::class, 'course_id', 'id');
+     }
 }

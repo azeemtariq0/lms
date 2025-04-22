@@ -47,16 +47,9 @@
             <!-- Curriculum Section -->
             <div id="curriculum" class="tab-content hidden">
                 <div class="space-y-4" x-data="{ open: null }">
-                    @php
-                        $lectures = [
-                            ['title' => 'Masjid aur Fana-e-Masjid ke Ahkam', 'duration' => '16 minutes'],
-                            ['title' => 'Chanda Jama Karne ki Shari Ihtiyatain', 'duration' => '21.5 minutes'],
-                            ['title' => 'Mal Waqf ke Masail', 'duration' => '15 minutes'],
-                            ['title' => 'Baghair niyat ke haath uthana', 'duration' => '4 minutes'],
-                        ];
-                    @endphp
 
-                    @foreach ($lectures as $index => $lecture)
+
+                    @foreach ($data->lectures as $index => $lecture)
                         <div class="border border-gray-200 rounded-xl bg-white shadow hover:shadow-md transition overflow-hidden"
                             x-data="{ isOpen: false }">
 
@@ -73,7 +66,7 @@
                                 </div>
 
                                 <div class="flex items-center gap-2 text-sm text-gray-500">
-                                    <span>{{ $lecture['duration'] }}</span>
+                                    <span>{{ minutesToHumanReadable($lecture['duration']) }}</span>
                                     <svg :class="isOpen ? 'rotate-180' : ''" class="w-5 h-5 transition-transform"
                                         fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                         <path d="M19 9l-7 7-7-7" />
@@ -83,8 +76,7 @@
 
                             <!-- Hidden Content (Optional notes or video placeholder) -->
                             <div x-show="isOpen" x-collapse class="px-5 pb-4 text-sm text-gray-600 bg-gray-50">
-                                <p>This lecture covers essential rulings and insights. Notes or video preview can be added
-                                    here.</p>
+                                <p>{{ $lecture['description'] }}</p>
                             </div>
                         </div>
                     @endforeach
@@ -119,26 +111,6 @@
                     </div>
                     <p class="text-sm text-gray-500">{{ $data->mollim['mollim_details'] }}</p>
 
-                    {{-- <ul class="space-y-3 text-sm text-gray-700">
-                        <li class="flex items-start gap-2">
-                            <i class="fa-solid fa-cake-candles text-yellow-600 mt-1 w-5"></i>
-                            <span><strong>Born:</strong> 17th May 1965, Nawabshah, Sindh</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <i class="fa-solid fa-handshake-angle text-green-600 mt-1 w-5"></i>
-                            <span><strong>Joined Dawat-e-Islami:</strong> 1982</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <i class="fa-solid fa-map-location-dot text-blue-600 mt-1 w-5"></i>
-                            <span><strong>Service Areas:</strong> Punjab, Kashmir, KPK, and more</span>
-                        </li>
-                        <li class="flex items-start gap-2">
-                            <i class="fa-solid fa-users-gear text-indigo-600 mt-1 w-5"></i>
-                            <span><strong>Majlis:</strong> Markazi Majlis-e-Shura (Since 2000)</span>
-                        </li>
-                    </ul> --}}
-
-
                 </div>
             </div>
 
@@ -149,14 +121,8 @@
                 </h2>
 
                 <div class="grid gap-4">
-                    @php
-                        $attachments = [
-                            ['name' => 'Course Outline.pdf', 'url' => '#', 'type' => 'pdf'],
-                            ['name' => 'Weekly Planner.docx', 'url' => '#', 'type' => 'docx'],
-                            ['name' => 'Class Slides.pptx', 'url' => '#', 'type' => 'pptx'],
-                        ];
-                    @endphp
-                    @foreach ($attachments as $file)
+
+                    @foreach ($data->attachments as $file)
                         <div
                             class="group flex justify-between items-center p-4 rounded-xl border border-gray-200 hover:shadow-lg transition duration-300 bg-white relative overflow-hidden">
                             <div class="flex items-center gap-4">
@@ -192,7 +158,7 @@
 
                                 <!-- File Info -->
                                 <div>
-                                    <div class="text-gray-800 font-medium">{{ $file['name'] }}</div>
+                                    <div class="text-gray-800 font-medium">{{ $file['path'] }}</div>
                                     <div class="text-sm text-gray-500 flex gap-2 mt-1">
                                         <span
                                             class="bg-gray-100 px-2 py-0.5 rounded text-xs uppercase tracking-wide">{{ strtoupper($file['type']) }}</span>
@@ -202,14 +168,16 @@
                             </div>
 
                             <!-- Actions -->
-                            <div class="flex items-center gap-4">
-                                <a href="{{ $file['url'] }}" target="_blank"
+                            <div class="flex items-center gap-2">
+                                <a href="{{ asset('uploads/courses/attachments/'.$file['path']) }}" class="text-xs font-medium text-gray-700 bg-gray-100 px-4 py-1.5 rounded-full " target="_blank">Preview</a>
+                                <a href="{{ asset('uploads/courses/attachments/'.$file['path']) }}"  class="text-xs text-white bg-[#1b4552] px-4 py-1.5 rounded-full " download>Download</a>
+                                {{-- <a href="{{ $file['url'] }}" target="_blank"
                                     class="text-sm text-blue-500 hover:underline transition">Preview</a>
 
                                 <a href="{{ $file['url'] }}" download
                                     class="text-sm text-white bg-blue-600 px-4 py-1.5 rounded-lg hover:bg-blue-700 transition shadow">
                                     Download
-                                </a>
+                                </a> --}}
                             </div>
                         </div>
                     @endforeach
@@ -240,7 +208,7 @@
                         <path d="M12 8v4l3 3" />
                         <path d="M12 19a7 7 0 1 0-7-7" />
                     </svg>
-                    <span><span class="font-semibold text-gray-900">Duration:</span> {{$data['duration']}}</span>
+                    <span><span class="font-semibold text-gray-900">Duration:</span> {{ $data['duration'] }}</span>
                 </li>
 
                 <li class="flex items-center gap-3">
@@ -248,7 +216,8 @@
                         viewBox="0 0 24 24">
                         <path d="M4 6h16M4 10h16M4 14h10" />
                     </svg>
-                    <span><span class="font-semibold text-gray-900">Lectures:</span> {{$data['lectures'] ?? "N/A"}}</span>
+                    <span><span class="font-semibold text-gray-900">Lectures:</span>
+                        {{ count($data['lectures']) ?? 'N/A' }}</span>
                 </li>
 
                 <li class="flex items-center gap-3">
@@ -257,7 +226,7 @@
                         <path d="M12 9v2m0 4h.01" />
                         <circle cx="12" cy="12" r="10" />
                     </svg>
-                    <span><span class="font-semibold text-gray-900">Test:</span> {{$data['test'] ?? "N/A"}}</span>
+                    <span><span class="font-semibold text-gray-900">Test:</span> {{ $data['test'] ?? 'N/A' }}</span>
                 </li>
 
                 <li class="flex items-center gap-3">
@@ -267,7 +236,7 @@
                             d="M17 21v-2a4 4 0 0 0-3-3.87M9 10a4 4 0 1 0-3 3.87v2.13a4 4 0 0 0 4 4h6a4 4 0 0 0 4-4v-2.13A4 4 0 0 0 15 10" />
                         <path d="M15 10a4 4 0 1 0-6 0" />
                     </svg>
-                    <span><span class="font-semibold text-gray-900">Users:</span> {{$data['users'] ?? "N/A"}}</span>
+                    <span><span class="font-semibold text-gray-900">Users:</span> {{ $data['users'] ?? 'N/A' }}</span>
                 </li>
             </ul>
 
