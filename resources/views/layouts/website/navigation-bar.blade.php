@@ -26,7 +26,7 @@
 
 
                 <!-- Language Dropdown -->
-                <li >
+                <li class="relative mx-auto md:mx-1 w-fit">
                     <a href="javascript:void(0)"
                         class="border border-white/30 px-4 py-2 rounded-xl text-sm font-medium text-white/80 hover:bg-white/10 hover:text-white"
                         id="language-toggle">
@@ -35,7 +35,7 @@
 
                      <!-- Language Dropdown -->
                     <div id="language-dropdown"
-                        class="dropdown-menu absolute hidden z-10 mt-2 w-32 bg-white/95 backdrop-blur-md border border-gray-200/50 rounded-xl shadow-md transition-all duration-200 ease-in-out">
+                        class=" absolute hidden z-10 mt-2 w-32 right-0 bg-white/95 backdrop-blur-md border border-gray-200/50 rounded-xl shadow-md transition-all duration-200 ease-in-out">
                         <ul class="p-1">
                             <li>
                                 <a href="#"
