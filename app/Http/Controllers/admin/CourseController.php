@@ -6,18 +6,20 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\Category;
+use App\Models\CourseAttachments;
+use App\Models\CourseLectures;
 use App\Models\User;
-use DB;
 use DataTables, Form;
+use Illuminate\Support\Facades\DB;
 
 class CourseController extends Controller
 {
     public function index(Request $request)
     {
-         if ($request->ajax()) {
-            $data = Course::join('categories as c','c.id','=','category_id')
-                ->join('users as u','u.id','=','mollim_id')
-                ->select('courses.*','c.name as category_name','u.name as mollim');
+        if ($request->ajax()) {
+            $data = Course::join('categories as c', 'c.id', '=', 'category_id')
+                ->join('users as u', 'u.id', '=', 'mollim_id')
+                ->select('courses.*', 'c.name as category_name', 'u.name as mollim');
             return Datatables::of($data)
             ->addIndexColumn()
              ->editColumn('status', function ($row) {
@@ -26,8 +28,7 @@ class CourseController extends Controller
 
                     return '<button class="px-2 py-1 rounded-xl border-none outline-none text-xs cursor-pointer ' . $style . ' change-status" data-id="' . $row->id . '" data-status="' . $row->status . '"><i class="fa-solid fa-pencil"></i> ' . $statusLabel . '</button>';
                 })
-            ->addColumn('action', function($row){
-                
+                ->addColumn('action', function ($row) {
 
                  return '<div class="flex items-center justify-center gap-2">
                                 <div class="relative group">
@@ -52,7 +53,7 @@ class CourseController extends Controller
 
         $data['page_management'] = array(
             'page_title' => 'Courses',
-             'title'=>' Courses',
+            'title' => ' Courses',
             'slug' => 'Admin'
         );
         return view('admin.courses.index', compact('data'));
@@ -60,31 +61,60 @@ class CourseController extends Controller
     public function create()
     {
 
-        $categories = Category::where('status','=',1)->get();
+        $categories = Category::where('status', '=', 1)->get();
         $users = User::all();
         $data['page_management'] = array(
-                'page_title' => 'Add Course',
-                'title'=>'Add Course',
-                'slug'=>'Add',
-            );
-        return view('admin.courses.create',compact('data','categories','users'));
+            'page_title' => 'Add Course',
+            'title' => 'Add Course',
+            'slug' => 'Add',
+        );
+        return view('admin.courses.create', compact('data', 'categories', 'users'));
     }
 
 
 
 
-    public function store(Request $request )
+    // public function store(Request $request )
+    // {
+    //        $this->validate($request, [
+    //         // 'course_name' => 'required',
+    //     ]);
+
+    //     $input = $request->all();
+
+
+    //     if ($request->hasFile('file')) {
+    //         $image = $request->file('file');
+
+    //         $imageName = time() . '.' . $image->getClientOriginalExtension();
+    //         $image->move(public_path('uploads/courses'), $imageName);
+
+    //         $input['image'] = $imageName;
+    //         $input['path'] = 'uploads/courses/' . $imageName;
+    //     }
+
+    //     Course::create($input);
+
+    //     return redirect()->route('admin.courses.index')
+    //     ->with('success','Course created successfully');
+    // }
+
+
+    public function store(Request $request)
     {
-           $this->validate($request, [
-            // 'course_name' => 'required',
+        $this->validate($request, [
+            'course_name' => 'required',
         ]);
-        
-        $input = $request->all();
 
+        // DB::beginTransaction();
 
+        // try {
+        $input = $request->except(['lecture_title', 'lecture_description', 'lecture_duration', 'attachments']);
+
+        $input['slug'] = str_replace(' ', '-', strtolower($input['course_name']));
+        // Handle course main image
         if ($request->hasFile('file')) {
             $image = $request->file('file');
-
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('uploads/courses'), $imageName);
 
@@ -92,71 +122,161 @@ class CourseController extends Controller
             $input['path'] = 'uploads/courses/' . $imageName;
         }
 
-        Course::create($input);
-        
+        // Create Course
+        $course = Course::create($input);
+        // Handle Lectures
+        if ($request->filled('lecture_title')) {
+            foreach ($request->lecture_title as $index => $title) {
+                CourseLectures::create([
+                    'course_id'   => $course->id,
+                    'title'       => $title,
+                    'description' => $request->lecture_description[$index] ?? '',
+                    'duration'    => $request->lecture_duration[$index] ?? '',
+                ]);
+            }
+        }
+
+        // Handle Attachments
+        if ($request->hasFile('attachments')) {
+            foreach ($request->file('attachments') as $attachment) {
+                $attachmentName = time() . '_' . $attachment->getClientOriginalName();
+                $attachment->move(public_path('uploads/courses/attachments'), $attachmentName);
+
+                CourseAttachments::create([
+                    'course_id' => $course->id,
+                    'path'      => $attachmentName,
+                    'type'      => $attachment->getClientMimeType(),
+                    'filesize'  => '40',
+                ]);
+            }
+        }
+
+        DB::commit();
+
         return redirect()->route('admin.courses.index')
-        ->with('success','Course created successfully');
+            ->with('success', 'Course created successfully');
+
+        // } catch (\Exception $e) {
+        //     DB::rollback();
+        //     return redirect()->route('admin.courses.index')
+        //     ->with('success', 'Course created successfully');
+        // }
     }
-     public function show($id)
+
+
+    public function show($id)
     {
-        $course = Course::find($id);
+        $course = Course::with('lectures', 'attachments')->find($id);
         $data['page_management'] = array(
-                'page_title' => 'Show Courses',
-                'slug'=>'View',
-            );
+            'page_title' => 'Show Courses',
+            'slug' => 'View',
+        );
 
-        return view('admin.courses.create',compact('course' ,'data'));
+        return view('admin.courses.create', compact('course', 'data'));
     }
 
-     public function edit($id)
+    public function edit($id)
     {
-        $categories = Category::where('status','!=',0)->get();
+        $categories = Category::where('status', '!=', 0)->get();
         $course = Course::find($id);
-         $users = User::all();
-         $data['page_management'] = array(
+        $users = User::all();
+        $data['page_management'] = array(
             'page_title' => 'Courses',
             'slug' => 'Edit',
             'title' => 'Edit Course',
             'add' => 'Edit Course',
         );
-        
-        return view('admin.courses.create',compact('users','course','categories','data'));
+
+        return view('admin.courses.create', compact('users', 'course', 'categories', 'data'));
     }
 
 
-
-     public function update(Request $request, $id)
+    public function update(Request $request, $id)
     {
         $this->validate($request, [
             'course_name' => 'required',
         ]);
-        
-        $input = $request->all();
-        
-        $course = Course::find($id);
-        $input['course_name'] = trim($input['course_name']);
-        $input['course_name_ur'] = trim($input['course_name_ur']);
 
-        if ($request->hasFile('file')) {
-     
-            $image = $request->file('file');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
+        // Begin DB transaction to handle the update safely
+        // DB::beginTransaction();
 
+        // try {
+            // Get the course
+            $course = Course::findOrFail($id);
 
-            $image->move(public_path('uploads/courses'), $imageName);
-            if ($course->image && file_exists(public_path($course->image))) {
-                unlink(public_path($course->image));
+            // Gather input data, except unnecessary fields
+            $input = $request->except(['lecture_title', 'lecture_description', 'lecture_duration', 'attachments']);
+            $input['slug'] = str_replace(' ', '-', strtolower($input['course_name']));
+
+            // Trim course names
+            $input['course_name'] = trim($input['course_name']);
+            $input['course_name_ur'] = trim($input['course_name_ur']);
+
+            // Handle course main image
+            if ($request->hasFile('file')) {
+                $image = $request->file('file');
+                $imageName = time() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('uploads/courses'), $imageName);
+
+                // Delete old image if exists
+                if ($course->image && file_exists(public_path('uploads/courses/' . $course->image))) {
+                    unlink(public_path('uploads/courses/' . $course->image));
+                }
+
+                $input['image'] = $imageName;
+                $input['path'] = 'uploads/courses/' . $imageName;
             }
 
-            $input['image'] = $imageName;
-            $input['path'] = 'uploads/courses/' . $imageName;
-        }
-        $course->update($input);
-        
-        return redirect()->route('admin.courses.index')
-        ->with('success','Course updated successfully');
+            // Update the course
+            $course->update($input);
 
+            // Handle Lectures
+            if ($request->filled('lecture_title')) {
+                foreach ($request->lecture_title as $index => $title) {
+                    $lectureData = [
+                        'course_id'   => $course->id,
+                        'title'       => $title,
+                        'description' => $request->lecture_description[$index] ?? '',
+                        'duration'    => $request->lecture_duration[$index] ?? '',
+                    ];
+
+                    // Create or update the lecture for this course
+                    CourseLectures::updateOrCreate(
+                        ['course_id' => $course->id, 'title' => $title],
+                        $lectureData
+                    );
+                }
+            }
+
+            // Handle Attachments
+            if ($request->hasFile('attachments')) {
+                foreach ($request->file('attachments') as $attachment) {
+                    $attachmentName = time() . '_' . $attachment->getClientOriginalName();
+                    $attachment->move(public_path('uploads/courses/attachments'), $attachmentName);
+
+                    CourseAttachments::create([
+                        'course_id' => $course->id,
+                        'path'      => $attachmentName,
+                        'type'      => $attachment->getClientMimeType(),
+                        'filesize'  => "40",
+                    ]);
+                }
+            }
+
+            // Commit transaction
+            // DB::commit();
+
+            return redirect()->route('admin.courses.index')
+                ->with('success', 'Course updated successfully');
+        // } catch (\Exception $e) {
+        //     // Rollback transaction in case of error
+        //     DB::rollback();
+
+        //     return redirect()->route('admin.courses.index')
+        //         ->with('error', 'Course update failed. Please try again.');
+        // }
     }
+
 
     public function changeStatus(Request $request)
     {

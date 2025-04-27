@@ -26,7 +26,7 @@
         </style>
         <div class=" mt-2">
             <table id="dataTable"
-                class="shadow-sm bg-white rounded-lg overflow-hidden  w-full border-collapse bg-gray-50 !border-gray-300 text-sm">
+                class="shadow-sm bg-white rounded-lg overflow-hidden  w-full border-collapse  !border-gray-300 text-sm">
                 <thead>
                     <tr>
 

@@ -423,11 +423,12 @@ font-weight: 400 !important;
 
 /* Body Background with Gradient */
 .body {
-    background: linear-gradient(
+    background: #eee;
+    /* background: linear-gradient(
         to right,
         rgb(219, 234, 254),
         rgb(254, 202, 202)
-    ); /* bg-gradient-to-r from-blue-100 to-red-100 */
+    ); */
     display: flex; /* flex */
     flex-direction: column; /* flex-col */
     min-height: 100vh; /* min-h-screen */

@@ -6,11 +6,11 @@
 @php  echo exit;  @endphp --}}
 
 <nav
-    class="fixed top-0 left-0 right-0 bg-white/60 backdrop-blur-md border-b border-gray-300 h-16 flex items-center justify-between px-4 z-20">
-    <div class="flex nav items-center">
+    class="fixed top-0 left-0 right-0 bg-white backdrop-blur-md border-b border-gray-300 h-16 flex items-center justify-between px-4 z-20">
+    <div class="flex items-center">
         <button id="toggleSidebar" class="w-4 mr-4 cursor-pointer"><i
                 class="text-lg text-gray-600 fa-solid fa-bars"></i></button>
-        <h1 class="text-md font-medium text-black">LMS / Management System</h1>
+        <h1 class="text-md font-medium text-black flex items-center gap-3 "> <img class="rounded-md w-10 h-10" src="{{ asset('assets/images/navbar-logo.png') }}" alt=""> Learning Management System</h1>
     </div>
     <div class="flex items-center space-x-4">
         <button id="changePermission" class="btn-default">
