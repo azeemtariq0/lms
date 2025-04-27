@@ -92,6 +92,21 @@
                         <option></option>
                     </select>
                 </div>
+
+
+                <div>
+                    <label for="name" class="form-label">Slug</label>
+                    <input type="text" name="slug" id="slug" class="form-input" autocomplete="off" value="{{ @$course->slug }}" />
+                </div>
+                
+                
+
+            </div>
+
+
+
+            <div class="grid grid-cols-2 gap-6">
+            
                 
                 <div>
                     <label for="name" class="form-label required">Status</label>
@@ -149,6 +164,9 @@
                     required: true,
                 },
                 course_name_ur: {
+                    required: true,
+                },
+                slug: {
                     required: true,
                 },
                 description: {

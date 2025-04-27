@@ -432,3 +432,7 @@ font-weight: 400 !important;
     flex-direction: column; /* flex-col */
     min-height: 100vh; /* min-h-screen */
 }
+#dataTable_wrapper{
+    width:100%;
+    overflow: scroll;
+}

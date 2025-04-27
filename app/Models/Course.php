@@ -22,8 +22,7 @@ class Course extends Model
           'created_by',
           'updated_by',
      ];
-
-     public function mollim()
+    public function mollim()
      {
           return $this->hasOne(User::class, 'id', 'mollim_id');
      }

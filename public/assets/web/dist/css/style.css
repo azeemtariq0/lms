@@ -116,10 +116,10 @@ body {
 }
 
 .swiper-slide img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+    display: block;
+    width: 100%;
+    height: 530px !important;
+    /* object-fit: cover; */
 }
 
 .swiper-slide {
@@ -168,4 +168,58 @@ body {
   color: wheat;
   box-shadow: wheat 0px 0px 0px 2px, #1b45525a 0px 0px 0px 4px;
   background-position: left bottom;
+}
+
+
+/*new my css*/
+
+.blog-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 4px;
+}
+
+
+
+/*mobile media quries*/
+
+@media only screen and (max-width: 600px) {
+  .swiper-slide img {
+    height: 155px !important;
+}
+.swiper-slide {
+   
+    height: 155px !important;
+
+}
+.swiper {
+     height: 155px !important;
+}
+section.py-30 {
+    padding: 30px 0px 0px 0px;
+}
+.flex {
+        display: block;
+    }
+.blog-img {
+    width: 100%;
+    height: 133px;
+    border-radius: 4px;
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+
+#navbar .container {
+    text-align: start;
+}
+.w-fit {
+    width: auto;
+}
+#navbar .container {
+    display: block;
+}
+.nav-set {
+    display: flex;
+}
+
 }

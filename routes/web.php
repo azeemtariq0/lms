@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\LookupController;
 use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\BatchesController;
+use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\EnrollmentUserController;
 
 // Regular user routes
@@ -40,6 +41,7 @@ Route::middleware('auth')->group(function () {
     Route::get('contact-us', [HomeController::class, 'contactUs']);
     Route::post('contact-us', [HomeController::class, 'contactSave']);
     Route::get('courses', [HomeController::class, 'courses']);
+    Route::get('course-content', [HomeController::class, 'courseContent']);
     Route::get('course-detail/{id}', [HomeController::class, 'courseDetail']);
     Route::get('events', [HomeController::class, 'events']);
     Route::get('signup', [HomeController::class, 'signup']);
@@ -69,15 +71,20 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function() {
   Route::post('banners/change-status', [BannerController::class, 'changeStatus'])
         ->name('banners.changeStatus');
 
+Route::post('events/change-status', [EventController::class, 'changeStatus'])
+        ->name('events.changeStatus');
+
 
     // Resource
     Route::resource('users', UserController::class);
+    Route::resource('enrollment-users', EnrollmentUserController::class);
     Route::resource('permissions', PermissionController::class);
     Route::resource('notifications', NotificationController::class);
     Route::resource('banners', BannerController::class);
     Route::resource('categories', CategoryController::class);
     Route::resource('courses', CourseController::class);
     Route::resource('batches', BatchesController::class);
+    Route::resource('events', EventController::class);
 
 
     Route::post('change-permission', [LookupController::class, 'changePermission']);

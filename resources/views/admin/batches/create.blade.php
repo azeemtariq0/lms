@@ -13,7 +13,7 @@
             @endif
             @csrf
             
-            <div class="grid grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
                 <div>
                     <label for="name" class="form-label">Batch Title</label>
@@ -38,7 +38,7 @@
 
 
 
-            <div class="grid grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
                 <div>
                     <label for="name" class="form-label">Course Duration</label>
@@ -51,7 +51,7 @@
             </div>
 
 
-              <div class="grid grid-cols-2 gap-6">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
 
                 <div>
                     <label for="name" class="form-label">No of Questions</label>
@@ -66,7 +66,7 @@
 
 
 
-            <div class="grid grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
                     <label for="name" class="form-label">Time Limit</label>
                     <input type="text" name="time_limit" id="time_limit" placeholder="Time Limit"  class="form-input" value="{{ @$batches->time_limit }}">
@@ -79,7 +79,7 @@
 
 
 
-              <div class="grid grid-cols-2 gap-6">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
                     <label for="name" class="form-label">No of Medium Questions</label>
                     <input type="number" name="no_of_medium_question" id="no_of_medium_question" placeholder="Medium Question"  class="form-input" value="{{ @$batches->no_of_medium_question }}">
@@ -92,7 +92,7 @@
 
 
 
-              <div class="grid grid-cols-2 gap-6">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
                     <label for="name" class="form-label">Year</label>
                     <input type="text" name="year" id="year" placeholder="Year"  class="form-input" value="{{ @$batches->year }}">
@@ -105,7 +105,7 @@
 
 
 
-            <div class="grid grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div>
                     <label for="name" class="form-label">Start Date</label>
                     <input type="text" name="start_date" id="start_date" placeholder="Start Date"  class="form-input dtpDate" autocomplete="off" value="{{ stdDate(@$batches->start_date) }}">

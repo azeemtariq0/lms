@@ -48,13 +48,11 @@
         <div class="flex gap-10 mx-auto py-3 md:py-10">
             <div class="flex flex-col gap-4 text-center md:text-left ">
                 <a href="#" class="text-sm font-light text-center sm:text-left text-white/80 hover:text-white"><i
-                        class="fa-solid text-xs mr-1 text-white fa-location-dot"></i> Madina Town,
-                    Faisalabad,
-                    Punjab, Pakistan</a>
+                        class="fa-solid text-xs mr-1 text-white fa-location-dot"></i> Main University Rd، behind Askari Park, Eissa Nagri, Karachi, 74300 </a>
                 <a href="#" class="text-sm font-light text-white/80 hover:text-white"><i
-                        class="fa-solid text-xs mr-1 text-white fa-phone"></i> +923108882057</a>
+                        class="fa-solid text-xs mr-1 text-white fa-phone"></i> +923104442230 </a>
                 <a href="#" class="text-sm font-light text-white/80 hover:text-white"><i
-                        class="fa-solid text-xs mr-1 text-white fa-envelope"></i> lms@dawateislami.net</a>
+                        class="fa-solid text-xs mr-1 text-white fa-envelope"></i>  coursespak@dawateislami.net </a>
             </div>
 
         </div>

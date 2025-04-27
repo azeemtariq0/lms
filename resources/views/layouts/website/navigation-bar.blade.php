@@ -1,6 +1,6 @@
 <nav id="navbar" class="h-fit md:h-[110px] bg-[#1b4552] p-4 ">
-    <div class="container  mx-auto flex justify-between items-center md:gap-[1rem] ">
-        <div class="flex gap-3 items-center"><img class="h-10 rounded-xl"
+    <div class="container mx-auto flex justify-between items-center md:gap-[1rem] ">
+        <div class="flex nav-set gap-3 items-center"><img class="h-10 rounded-xl"
                 src="{{ asset('assets/images/navbar-logo.png') }}" />
             <h1 class="text-lg font-light text-white">LMS Dawat-e-Islami</h1>
         </div>
@@ -21,7 +21,7 @@
                         Us</a></li>
                 <li><a href="{{ url('/contact-us') }}" class="text-sm font-light text-white/80 hover:text-white">Contact
                         Us</a></li>
-                <li><a href="{{ url('/events') }}" class="text-sm font-light text-white/80 hover:text-white">Events</a>
+                <li><a href="javascript:void(0)" class="text-sm font-light text-white/80 hover:text-white">Events</a>
                 </li>
 
 
@@ -117,14 +117,14 @@
     const languageToggle2 = document.getElementById('login-id-toggle');
     const languageDropdown2 = document.getElementById('login-id-dropdown');
 
-    languageToggle2.addEventListener('click', () => {
-        languageDropdown2.classList.toggle('hidden');
-    });
+    // languageToggle2.addEventListener('click', () => {
+    //     languageDropdown2.classList.toggle('hidden');
+    // });
 
     // Close dropdown if clicked outside
-    window.addEventListener('click', (e) => {
-        if (!languageToggle2.contains(e.target) && !languageDropdown2.contains(e.target)) {
-            languageDropdown2.classList.add('hidden');
-        }
-    });
+    // window.addEventListener('click', (e) => {
+    //     if (!languageToggle2.contains(e.target) && !languageDropdown2.contains(e.target)) {
+    //         languageDropdown2.classList.add('hidden');
+    //     }
+    // });
 </script>

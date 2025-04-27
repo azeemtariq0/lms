@@ -7,7 +7,7 @@
 
 <nav
     class="fixed top-0 left-0 right-0 bg-white/60 backdrop-blur-md border-b border-gray-300 h-16 flex items-center justify-between px-4 z-20">
-    <div class="flex items-center">
+    <div class="flex nav items-center">
         <button id="toggleSidebar" class="w-4 mr-4 cursor-pointer"><i
                 class="text-lg text-gray-600 fa-solid fa-bars"></i></button>
         <h1 class="text-md font-medium text-black">LMS / Management System</h1>
@@ -98,7 +98,10 @@
   $('input[name="course_duration"]').daterangepicker({
     opens: 'left',
     autoApply:true,
-     locale: { cancelLabel: 'Clear' }  
+    locale: {
+        format: 'DD-MM-YYYY'
+    },
+     // locale: { cancelLabel: 'Clear' }  
   }, function(start, end, label) {
      var startDate = start.format('YYYY-MM-DD');
      var endDate = end.format('YYYY-MM-DD');
@@ -112,7 +115,10 @@
   $('.dtpDate').daterangepicker({
     opens: 'left',
     singleDatePicker: true,
-    autoApply:true
+    autoApply:true,
+    locale: {
+        format: 'DD-MM-YYYY'
+    },
     // autoUpdateInput: false
     // showDropdowns: true,
     // minYear: 1901,

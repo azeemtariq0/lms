@@ -112,6 +112,7 @@ class UserController extends Controller
 
         $input['password'] = Hash::make($input['password']);
         $input['permission_id'] = json_encode($input['permission_id']);
+        $input['is_mollim'] = $input['is_mollim'] ?? 0;
 
         User::create($input);
 
@@ -170,6 +171,11 @@ class UserController extends Controller
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->permission_id = json_encode($request->input('permission_id'));
+
+         $user->is_mollim = 0;
+        if($request->input('is_mollim')) { 
+            $user->is_mollim = 1;
+        }
 
         if ($request->filled('password')) {
             $user->password = Hash::make($request->input('password'));

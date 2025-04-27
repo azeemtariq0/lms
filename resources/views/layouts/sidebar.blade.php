@@ -16,18 +16,23 @@
             {
                 icon: 'fa-solid text-sm fa-circle-user',
                 title: 'Administration',
-                submenu: [{
-                        title: 'Users',
-                        link: "{{ route('admin.users.index') }}",
-                        key: 'users',
-                        permission: {{ auth()->user()->can('user.list') == 1 ? 1 : 0 }}
-                    },
+                submenu: [
                     {
                         title: 'Permissions',
                         link: "{{ route('admin.permissions.index') }}",
                         key: 'permissions',
                         permission: {{ auth()->user()->id == 1 ? 1 : 0 }}
-                    }
+                    },{
+                        title: 'Users',
+                        link: "{{ route('admin.users.index') }}",
+                        key: 'users',
+                        permission: {{ auth()->user()->can('user.list') == 1 ? 1 : 0 }}
+                    },{
+                        title: 'Enrollment Users',
+                        link: "{{ route('admin.enrollment-users.index') }}",
+                        key: 'enrollment-users',
+                        permission: {{ auth()->user()->can('enrollment-users.list') == 1 ? 1 : 0 }}
+                    },
                 ]
             },
             {
@@ -56,6 +61,12 @@
                         link: "{{ route('admin.batches.index') }}",
                         key: 'batches',
                         permission: {{ auth()->user()->can('batches.list') == 1 ? 1 : 0 }}
+                    },
+                     {
+                        title: 'Events',
+                        link: "{{ route('admin.events.index') }}",
+                        key: 'events',
+                        permission: {{ auth()->user()->can('events.list') == 1 ? 1 : 0 }}
                     }
                 ]
             },

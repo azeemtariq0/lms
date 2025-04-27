@@ -39,6 +39,7 @@ class EnrollmentUserController extends Controller
 
         $data['page_management'] = array(
             'page_title' => 'Enrollment Users',
+             'title'=>' Enrollment Users',
             'slug' => '',
             'url'=>$this->_url
         );
@@ -47,7 +48,7 @@ class EnrollmentUserController extends Controller
 
 
 
-      public function create()
+    public function create()
     {
         
         $roles = Permission::pluck('name','id')->all();
@@ -59,7 +60,6 @@ class EnrollmentUserController extends Controller
             );
         $user =[];
 
-        // dd($roles);
         return view('admin.'.$this->_url.'.create',compact('user','roles' ,'data'));
     }
     
@@ -70,7 +70,7 @@ class EnrollmentUserController extends Controller
         $user = User::find($id);
         $roles = Permission::pluck('name','id')->all();
         $data['page_management'] = array(
-                'page_title' => 'Show User',
+                'page_title' => 'Show User Enrollment',
                 'slug'=>'Show',
                 'url'=>$this->_url
             );
@@ -81,7 +81,7 @@ class EnrollmentUserController extends Controller
 
 
 
-      public function store(Request $request )
+    public function store(Request $request )
     {
            $this->validate($request, [
             'name' => 'required',
@@ -115,8 +115,8 @@ class EnrollmentUserController extends Controller
          $data['page_management'] = array(
             'page_title' => 'User',
             'slug' => 'Administration',
-            'title' => 'Edit User',
-            'add' => 'Edit Unit',
+            'title' => 'Edit Enrollment User',
+            'add' => 'Edit Enrollment Unit',
             'url'=>$this->_url
         );
         

@@ -16,14 +16,14 @@
                         <label for="name" class="block text-gray-700 font-semibold">Full Name</label>
                         <input type="text" id="name"
                             class="mt-2 p-3 w-full border border-gray-200 rounded-lg shadow-sm focus:ring-2 focus:ring-[#1B4552] focus:outline-none"
-                            placeholder="Your Name" required>
+                            placeholder="Your Name" autocomplete="off" required>
                     </div>
 
                     <div>
                         <label for="email" class="block text-gray-700 font-semibold">Email</label>
                         <input type="email" id="email"
                             class="mt-2 p-3 w-full border border-gray-200 rounded-lg shadow-sm focus:ring-2 focus:ring-[#1B4552] focus:outline-none"
-                            placeholder="you@example.com" required>
+                            placeholder="you@example.com" autocomplete="off" required>
                     </div>
                 </div>
 
@@ -31,14 +31,14 @@
                     <label for="subject" class="block text-gray-700 font-semibold">Subject</label>
                     <input type="text" id="subject"
                         class="mt-2 p-3 w-full border border-gray-200 rounded-lg shadow-sm focus:ring-2 focus:ring-[#1B4552] focus:outline-none"
-                        placeholder="Write your subject..." required>
+                        placeholder="Write your subject..." autocomplete="off" required>
                 </div>
 
                 <div>
                     <label for="message" class="block text-gray-700 font-semibold">Message</label>
                     <textarea id="message"
                         class="mt-2 p-3 w-full border border-gray-200 rounded-lg shadow-sm focus:ring-2 focus:ring-[#1B4552] focus:outline-none"
-                        rows="5" placeholder="Write your message here..." required></textarea>
+                        rows="5" placeholder="Write your message here..." autocomplete="off" required></textarea>
                 </div>
 
                 <div class="text-center">
@@ -58,10 +58,12 @@
             <div class="mt-12">
                 <h3 class="text-2xl font-semibold text-center text-gray-800 mb-6">Our Location</h3>
                 <div class="rounded-3xl overflow-hidden shadow-lg border border-gray-200">
-                    <iframe class="w-full h-[400px]"
+                    <!-- <iframe class="w-full h-[400px]"
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3621.9836233182564!2d67.03210827524122!3d24.79865817798743!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33e831ed7d6cb%3A0xe22dd9fdf4424c1d!2sDawat-e-Islami%20Head%20Office%20(Markaz%20Faizan-e-Madina)!5e0!3m2!1sen!2s!4v1713184301876!5m2!1sen!2s"
                         allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-                    </iframe>
+                    </iframe> -->
+
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7238.1883566311035!2d67.061032!3d24.894769!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33ee39c2f0f7b%3A0xcc7c991711c8336c!2sFaizan%20e%20Madina!5e0!3m2!1sen!2sus!4v1745689362523!5m2!1sen!2sus" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
 

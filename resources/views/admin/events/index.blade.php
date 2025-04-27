@@ -1,3 +1,6 @@
+
+
+
 @extends('layouts.app')
 
 @section('pagelevelstyle')
@@ -9,9 +12,9 @@
 
         <div class="flex items-center justify-end">
 
-            @can('category.add')
-                <a href="{{ route('admin.banners.create') }}" class="btn-primary !font-normal">
-                    <i class="fa-solid fa-plus"></i> Create Banner
+            @can('events.add')
+                <a href="{{ route('admin.events.create') }}" class="btn-primary !font-normal">
+                    <i class="fa-solid fa-plus"></i> Create Event
                 </a>
             @endcan
 
@@ -26,23 +29,24 @@
                 class="shadow-sm bg-white rounded-lg overflow-hidden  w-full border-collapse bg-gray-50 !border-gray-300 text-sm">
                 <thead>
                     <tr>
-                        
+
+                          <th>
+                            <div class="form-label p-2 !m-0">Batch Title</div>
+                            <div class="pl-2 pr-8">
+                                <input name="batch_title" id="batch_title"
+                                    class="form-input text-xs !font-normal filter-input"></input>
+
+                            </div>
+                        </th>
                         <th>
-                            <div class="form-label p-2 !m-0">Name</div>
+                            <div class="form-label p-2 !m-0">Course Name</div>
                             <div class="pl-2 pr-8">
-                                <input type="text" id="name"
-                                    class="form-input text-xs !font-normal filter-input">
-                            </div>
-                        </th>
+                                <input name="course_name" id="course_name"
+                                    class="form-input text-xs !font-normal filter-input"></input>
 
-                         <th>
-                            <div class="form-label p-2 !m-0">Description</div>
-                            <div class="pl-2 pr-8">
-                                <input type="text" id="description"
-                                    class="form-input text-xs !font-normal filter-input">
                             </div>
-                        </th>
-
+                        </th>                      
+                       
                         <th>
                             <div class="form-label p-2 !m-0">Status</div>
                             <div class="pl-2 pr-8">
@@ -67,13 +71,14 @@
         </div>
 
     </div>
-@endsection
+
+        @endsection
 
 @section('pagelevelscript')
     <script>
         $(document).ready(function() {
             const csrfToken = "{{ csrf_token() }}";
-            const changeStatusRoute = "{{ route('admin.banners.changeStatus') }}";
+            const changeStatusRoute = "{{ route('admin.events.changeStatus') }}";
 
 
             // Initialize DataTable
@@ -81,16 +86,15 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('admin.banners.index') }}"
+                    url: "{{ route('admin.events.index') }}"
                 },
-                columns: [
-                    {
-                        data: 'name',
-                        name: 'name'
+                columns: [{
+                        data: 'batch_title',
+                        name: 'batch_title'
                     },
-                    {
-                        data: 'description',
-                        name: 'Description'
+                   {
+                        data: 'course_name',
+                        name: 'c.course_name'
                     },
                     {
                         data: 'status',

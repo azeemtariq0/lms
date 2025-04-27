@@ -111,7 +111,7 @@
       <main class="relative flex flex-col pt-16 ml-[256px] transition-all ease-in-out duration-300 h-screen"
           id="mainContent">
 
-          <section class=" flex-1 bg-white/60 backdrop-blur-md border border-gray-300 rounded-lg m-3 mb-0 p-5 px-7">
+          <section class=" flex-1 bg-white backdrop-blur-md border border-gray-300 rounded-lg m-3 mb-0 p-5 px-7">
               {{-- <span class="loader"></span> --}}
               <div class="flex align-center justify-between ">
                   <h1 class="text-xl font-medium">

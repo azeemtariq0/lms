@@ -33,54 +33,19 @@
     </div>
 
     <!-- Course Cards Grid -->
-    <div id="courses" class="mb-10 grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 p-4 max-w-7xl mx-auto">
-      
-        @foreach ($courses as $course)
-            <div
-                class="course-card translate-y-[20px] opacity-0 h-fit group relative  border border-gray-200 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition duration-300">
-
-                <!-- Image with dark overlay -->
-                <div class="relative">
-                    <img src="{{ asset('/uploads/courses/'.$course['image']) }}" alt="{{ $course['course_name'] }}" class="w-full h-48 object-cover">
-                    <div class="absolute inset-0 group-hover:bg-black/10 transition duration-300"></div>
-
-                    <!-- Floating Avatar -->
-                    <div class="absolute -bottom-6 left-4 z-10">
-                        <img src="{{ asset('/uploads/users/'.$course->mollim['mollim_image']) }}" class="w-12 h-12 border-2 border-white rounded-full shadow-md"
-                            alt="Avatar">
-                    </div>
-                </div>
-
-                <!-- Card Content -->
-                <div class="pt-8 pb-4 px-4">
-                    <h3 class="text-xl font-bold text-gray-800 group-hover:text-indigo-600 transition">
-                        {{ $course['course_name'] }}</h3>
-                    <p class="text-sm text-gray-600 mt-1">{{ $course->mollim['name'] }}</p>
-
-                    <!-- Optional: Tag badges -->
-                    <div class="flex flex-wrap gap-2 mt-3">
-                        <span
-                            class="bg-yellow-100 text-yellow-700 text-xs font-semibold px-2.5 py-0.5 rounded-full">23 lectures</span>
-                        <span
-                            class="bg-[#1b4552]/10 text-[#1b4552] text-xs font-semibold px-2.5 py-0.5 rounded-full">{{$course['duration']}}</span>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <p class="text-xs text-gray-600">{{ $course->created_at->diffForHumans() }}</p>
-                        <!-- Button -->
-                        <a href="{{ url('course-detail', $course['slug']) }}"
-                        class="inline-block float-end mb-4 border border-[#1b4552] bg-[#1b4552] text-white  py-2 px-4 text-sm rounded-full">
-                        Enroll now
-                    </a>
-                </div>
-                    {{-- <!-- Button -->
-                    <a href="{{ url('course-detail', $course['slug']) }}"
-                    class="inline-block float-end mb-4 border border-[#1b4552] bg-[#1b4552] text-white  py-2 px-4 text-sm rounded-full">
-                    Enroll now
-                </a> --}}
-                </div>
-            </div>
-        @endforeach
+    <div id="results" class="mb-10 grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 p-4 max-w-7xl mx-auto">
+    
     </div>
+
+
+<!-- 
+    <div class="container">
+<h2>Example: Data Load While Page Scroll with jQuery PHP and MySQL</h2>
+<div id="results">
+
+</div>
+<div id="loader" style="text-align:center;"><img src="{{ url('assets/web/loader.gif') }}" /></div>
+</div> -->
 
     <script src="{{ asset('assets/admin/plugins/gsap-3.12.2/index.min.js') }}"></script>
     <script src="{{ asset('assets/admin/plugins/gsap-3.12.2/scrolltrigger.min.js') }}"></script>
@@ -109,6 +74,51 @@
                 duration: .3,
             });
 
+
+            // scroll
+
+         
         });
+
+
+
+   $(window).scroll(function(){ 
+                if ($(window).scrollTop() == $(document).height() - $(window).height()){
+                    if($(".page_number:last").val() <= $(".total_record").val()) {
+                    var pagenum = parseInt($(".page_number:last").val()) + 1;
+                    loadRecord('{{ url("course-content") }}?page='+pagenum);
+                    }
+                }
+            });
+
+
+
+function loadRecord(url) {
+
+    $.ajax({
+    url: url,
+    type: "GET",
+    data: {total_record:$("#total_record").val()},
+    dataType:'html',
+    beforeSend: function(){
+    $('#loader').show();
+    },
+    complete: function(){
+    $('#loader').hide();
+    },
+    success: function(data){
+
+
+        console.log(data);
+    $("#results").append(data);
+    console.log( $(".total_record").val());
+    // alert();
+    },
+    error: function(){}
+    });
+}
+ $('#loader').hide();
+
+ loadRecord('{{ url("course-content") }}?page=1');
     </script>
 @endsection

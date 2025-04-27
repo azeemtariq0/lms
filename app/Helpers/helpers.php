@@ -66,5 +66,5 @@ if (!function_exists('hasPermission')) {
 
 
 function stdDate($mySqlDate){
-  return !empty($mySqlDate) ? date('d/m/Y',strtotime($mySqlDate)) : "";
+  return !empty($mySqlDate) ? date('d-m-Y',strtotime($mySqlDate)) : "";
 }

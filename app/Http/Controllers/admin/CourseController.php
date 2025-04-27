@@ -21,7 +21,7 @@ class CourseController extends Controller
             return Datatables::of($data)
             ->addIndexColumn()
              ->editColumn('status', function ($row) {
-                    $statusLabel = $row->status == 1 ? 'Active' : 'Inactive';
+                     $statusLabel = $row->status == 1 ? 'Active' : 'Inactive';
                     $style = $row->status == 1 ? 'bg-green-500 text-white' : 'bg-rose-500 text-white';
 
                     return '<button class="px-2 py-1 rounded-xl border-none outline-none text-xs cursor-pointer ' . $style . ' change-status" data-id="' . $row->id . '" data-status="' . $row->status . '"><i class="fa-solid fa-pencil"></i> ' . $statusLabel . '</button>';
@@ -29,32 +29,22 @@ class CourseController extends Controller
             ->addColumn('action', function($row){
                 
 
-                $btn = "<div class='flex items-center justify-center gap-2'>";
-
-                    $btn .= "<div class='relative group'>
-                            <a href='" . route('admin.courses.edit', $row->id) . "' class='edit action-info'><i
-                                class='fa-solid text-gray-500 group-hover:text-blue-600 fa-pencil transition-all'></i></a>
-                            <span class='tooltip-top-center group-hover:!block'>Edit Row</span>
-                        </div>";
-
-                    $btn .= "<div class='relative group'>
-                            <a href='" . route('admin.courses.destroy', $row->id) . "' class='delete action-danger'><i
-                            class='fa-solid text-gray-500 group-hover:text-rose-600 fa-trash transition-all'></i></a>
-                            <span class='tooltip-top-center group-hover:!block'>Delete Row</span>
-                            </div>";
-                    $btn .= "</div>";
-
-
+                 return '<div class="flex items-center justify-center gap-2">
+                                <div class="relative group">
+                                    <a href="' . route('admin.courses.edit', $row->id) . '" class="edit action-info">
+                                        <i class="fa-solid text-gray-500 group-hover:text-blue-600 fa-pencil transition-all"></i>
+                                    </a>
+                                    <span class="tooltip-top-center group-hover:!block">Edit Row</span>
+                                </div>
+                                <div class="relative group">
+                                    <a href="' . route('admin.courses.destroy', $row->id) . '" class="delete action-danger">
+                                        <i class="fa-solid text-gray-500 group-hover:text-rose-600 fa-trash transition-all"></i>
+                                    </a>
+                                    <span class="tooltip-top-center group-hover:!block">Delete Row</span>
+                                </div>
+                            </div>';
 
                return $btn;
-           })
-             ->addColumn('status', function($row){
-                  $btn = '';
-        $statusLabel = $row->status == 1 ? 'Active' : 'Inactive';
-        $statusColor = $row->status == 1 ? 'success' : 'danger';
-        
-        $btn .= '<button class="btn btn-' . $statusColor . ' change-status" data-id="' . $row->id . '" data-status="' . $row->status . '"><i class="fa fa-pencil" ></i> ' . $statusLabel . '</button>';
-        return $btn;
            })
             ->rawColumns(['action','status'])
             ->make(true);
